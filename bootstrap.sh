@@ -15,4 +15,4 @@ else
 	fi
 fi
 unset doIt
-source ~/.bashrc
+source ~/.bash_profile
