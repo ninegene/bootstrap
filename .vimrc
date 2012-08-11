@@ -121,8 +121,8 @@ try
 catch
 endtry
 
-filetype on
-filetype plugin on
+filetype on            " enables filetype detection
+filetype plugin on     " enables filetype specific plugins
 filetype indent on
 
 " Change the mapleader from \ to ,
@@ -361,3 +361,24 @@ imap <C-L> <C-X><C-L>
 
 " }}}
 
+" CloseTag: Intelligently close HTML tags for html and xml files only
+" http://mirnazim.org/writings/vim-plugins-i-use/
+autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
+
+" Command-t: Pattern based file opener
+noremap <leader>o <Esc>:CommandT<CR>
+noremap <leader>O <Esc>:CommandTFlush<CR>
+noremap <leader>m <Esc>:CommandTBuffer<CR>
+
+" Tagbar: Awesome source code [tag]browsing
+let g:tagbar_usearrows = 1
+nnoremap <leader>l :TagbarToggle<CR>
+
+" Solarized Colorscheme
+set background=dark
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+colorscheme solarized
