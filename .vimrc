@@ -361,6 +361,9 @@ imap <C-L> <C-X><C-L>
 
 " }}}
 
+" Plugins {{{
+" ===========
+
 " CloseTag: Intelligently close HTML tags for html and xml files only
 " http://mirnazim.org/writings/vim-plugins-i-use/
 autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
@@ -382,3 +385,9 @@ let g:solarized_termcolors=256
 let g:solarized_contrast="high"
 let g:solarized_visibility="high"
 colorscheme solarized
+
+" https://github.com/pangloss/vim-javascript
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+" }}}
