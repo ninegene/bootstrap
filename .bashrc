@@ -13,8 +13,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=9000
-HISTFILESIZE=9000
+HISTSIZE=90000
+HISTFILESIZE=90000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -80,6 +80,10 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+fi
+
+if [ -f ~/.bash_extra ]; then
+    . ~/.bash_extra
 fi
 
 # enable programmable completion features (you don't need to enable

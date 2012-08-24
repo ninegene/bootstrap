@@ -1,5 +1,6 @@
-alias vali='vi ~/.bash_aliases'
-alias sali='source ~/.bash_aliases'
+alias vbash='vi ~/.bashrc'
+alias sbash='source ~/.bashrc'
+alias vvimrc='vi ~/.vimrc'
 
 # enable color support
 if [ -x /usr/bin/dircolors ]; then
@@ -32,8 +33,6 @@ alias treel3='tree --dirsfirst -FL 3'
 alias netstatgrep='netstat -na | grep'
 alias netstatL='netstat -na | grep -i "LISTEN "'
 alias psgrep='ps -ef | grep'
-
-alias vvimrc='vi ~/.vimrc'
 
 alias alo='cd ~/www/genealo.org/public/'
 alias sav='cd /etc/apache2/sites-available/'
