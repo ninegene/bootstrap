@@ -36,4 +36,7 @@ alias psgrep='ps -ef | grep'
 
 alias alo='cd ~/www/genealo.org/public/'
 alias sav='cd /etc/apache2/sites-available/'
+alias dl='cd ~/Downloads'
+alias doc='cd ~/Documents'
 
+alias path='echo $PATH'

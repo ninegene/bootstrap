@@ -18,9 +18,4 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-export JAVA_HOME=/usr/lib/jvm/jdk6
-# set PATH so it includes JAVA_HOME/bin if it exists
-if [ -d "$JAVA_HOME/bin" ] ; then
-    PATH="$JAVA_HOME/bin:$PATH"
-fi
-
+set -o vi
