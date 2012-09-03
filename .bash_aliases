@@ -34,8 +34,9 @@ alias netstatgrep='netstat -na | grep'
 alias netstatL='netstat -na | grep -i "LISTEN "'
 alias psgrep='ps -ef | grep'
 
-alias alo='cd ~/www/genealo.org/public/'
-alias sav='cd /etc/apache2/sites-available/'
+alias www='cd ~/www'
+alias alo='cd ~/www/genealo.org/public'
+alias sav='cd /etc/apache2/sites-available'
 alias dl='cd ~/Downloads'
 alias doc='cd ~/Documents'
 
