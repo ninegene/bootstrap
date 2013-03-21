@@ -1,19 +1,18 @@
 ## Installation
 
-### Using Git and the bootstrap script
-
 ```bash
-git clone --recursive https://github.com/genealo/dotfiles.git && cd dotfiles && ./bootstrap.sh
+git clone https://github.com/ninegene/dotfiles.git && cd dotfiles 
 ```
 
-To update, `cd` into your local `dotfiles` repository and then:
+To install for desktop which will create soft link for .profile:
 
 ```bash
-./bootstrap.sh
+./bootstrap.sh 
 ```
 
-Alternatively, to update while avoiding the confirmation prompt:
+To install for server which will create soft link for .bash_profile:
 
 ```bash
-./bootstrap.sh -f
+./bootstrap.sh server 
 ```
+To update, do `git pull` and execute `bootstrap.sh`
