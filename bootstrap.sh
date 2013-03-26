@@ -1,20 +1,20 @@
 #!/bin/bash
-ts=`date +%F`
+ts=`date +%F-%s`
 
 if [ -f ~/.bashrc -a ! -L ~/.bashrc ]; then
-  mv ~/.bashrc ~/.bashrc-backup-$ts
+  mv ~/.bashrc ~/.bashrc-$ts
 fi
 
 if [ -f ~/.bash_aliases -a ! -L ~/.bash_aliases ]; then
-  mv ~/.bash_aliases ~/.bash_aliases-backup-$ts
+  mv ~/.bash_aliases ~/.bash_aliases-$ts
 fi
 
 if [ -f ~/.bash_profile -a ! -L ~/.bash_profile ]; then
-  mv ~/.bash_profile ~/.bash_profile-backup-$ts
+  mv ~/.bash_profile ~/.bash_profile-$ts
 fi
 
 if [ -f ~/.profile -a ! -L ~/.profile ]; then
-  mv ~/.profile ~/.profile-backup-$ts
+  mv ~/.profile ~/.profile-$ts
 fi
 
 if [ -L ~/.bashrc ]; then
@@ -33,13 +33,13 @@ if [ -L ~/.profile ]; then
   rm ~/.profile
 fi
 
-ln -s $PWD/.bashrc ~/.bashrc
-ln -s $PWD/.bash_aliases ~/.bash_aliases
+ln -s ~/dotfiles/.bashrc ~/.bashrc
+ln -s ~/dotfiles/.bash_aliases ~/.bash_aliases
 
 if [ "$1" == "server" ]; then
   echo 'Setting up .bash_profile for server'
-  ln -s $PWD/.bash_profile ~/.bash_profile
+  ln -s ~/dotfiles/.bash_profile ~/.bash_profile
 else
   echo 'Setting up .profile for desktop'
-  ln -s $PWD/.profile ~/.profile
+  ln -s ~/dotfiles/.bash_profile ~/.profile
 fi
