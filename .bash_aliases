@@ -34,6 +34,7 @@ alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
 
 alias h='history'
+alias c='clear'
 alias j='jobs -l'
 
 # mkdir <dir>
@@ -77,8 +78,8 @@ alias meminfo='free -m -l -t'
 alias df='df -hT'
 
 # Get directory size
-# dirsize <dir>
-alias dirsize='du -sh'
+# ds <dir>
+alias ds='du -sh'
  
 # Get top process eating memory
 alias psmem='ps auxf | sort -nr -k 4'
@@ -96,12 +97,13 @@ alias modinfo='lsmod' # cat /proc/modules
 # Get GPU ram on desktop / laptop
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 
-if [ -f ~/.bash_custom_aliases ]; then
-    . ~/.bash_custom_aliases
+if [ -f ~/.bash_local ]; then
+    . ~/.bash_local
 fi
  
 alias vvimrc='vi ~/.vimrc'
+alias vbasha='vi ~/.bash_aliases'
 alias vbashrc='vi ~/.bashrc'
 alias sbashrc='source ~/.bashrc'
 
-
+alias sav='cd /etc/apache2/sites-available'
