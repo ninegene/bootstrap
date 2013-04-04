@@ -16,3 +16,12 @@ To install for server which will create soft link for .bash_profile:
 ./bootstrap.sh server 
 ```
 To update, do `git pull` and execute `bootstrap.sh`
+
+## Notes
+https://github.com/rupa/z is added as submodule using the following
+commands:
+```bash
+cd dotfiles
+git submodule add git://github.com/rupa/z.git
+git submodle init
+```

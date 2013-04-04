@@ -82,6 +82,10 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ -f ~/dotfiles/z/z.sh ]; then
+    . ~/dotfiles/z/z.sh
+fi
+
 if [ -f ~/.bash_extra ]; then
     . ~/.bash_extra
 fi

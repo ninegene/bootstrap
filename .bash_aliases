@@ -107,3 +107,9 @@ alias vbashrc='vi ~/.bashrc'
 alias sbashrc='source ~/.bashrc'
 
 alias sav='cd /etc/apache2/sites-available'
+alias dl='cd ~/Downloads'
+alias prj='cd ~/Projects'
+
+# idiff <full_path_to_file1> <full_path_to_file2>
+# idiff $PWD/app.js $PWD/app2.js
+alias idiff='/opt/idea/bin/idea.sh diff'
