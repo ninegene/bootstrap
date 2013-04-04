@@ -17,6 +17,14 @@ if [ -f ~/.profile -a ! -L ~/.profile ]; then
   mv ~/.profile ~/.profile-$ts
 fi
 
+if [ -f ~/.vimrc.before -a ! -L ~/.vimrc.before ]; then
+  mv ~/.vimrc.before ~/.vimrc.before-$ts
+fi
+
+if [ -f ~/.vimrc.after -a ! -L ~/.vimrc.after ]; then
+  mv ~/.vimrc.after ~/.vimrc.after-$ts
+fi
+
 if [ -L ~/.bashrc ]; then
   rm ~/.bashrc
 fi
@@ -33,8 +41,17 @@ if [ -L ~/.profile ]; then
   rm ~/.profile
 fi
 
+if [ -L ~/.vimrc.before ]; then
+  rm ~/.vimrc.before
+fi
+
+if [ -L ~/.vimrc.after ]; then
+  rm ~/.vimrc.after
+fi
+
 ln -s ~/dotfiles/.bashrc ~/.bashrc
 ln -s ~/dotfiles/.bash_aliases ~/.bash_aliases
+ln -s ~/dotfiles/.vimrc.before ~/.vimrc.before
 
 if [ "$1" == "server" ]; then
   echo 'Setting up .bash_profile for server'
