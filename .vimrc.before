@@ -1,0 +1,4 @@
+" Change the mapleader from \ to ,
+let mapleader=","
+let g:mapleader=","
+
