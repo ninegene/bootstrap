@@ -3,7 +3,7 @@
 https://github.com/carlhuda/janus
 
 ```bash
-sudo apt-get install vim rake curl
+sudo apt-get install vim rake curl ctags
 curl -Lo- https://bit.ly/janus-bootstrap | bash
 ```
 ### Setup dotfiles
