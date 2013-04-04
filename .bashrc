@@ -86,8 +86,8 @@ if [ -f ~/dotfiles/z/z.sh ]; then
     . ~/dotfiles/z/z.sh
 fi
 
-if [ -f ~/.bash_extra ]; then
-    . ~/.bash_extra
+if [ -f ~/.bash_local ]; then
+    . ~/.bash_local
 fi
 
 # enable programmable completion features (you don't need to enable

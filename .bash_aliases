@@ -97,10 +97,6 @@ alias modinfo='lsmod' # cat /proc/modules
 # Get GPU ram on desktop / laptop
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 
-if [ -f ~/.bash_local ]; then
-    . ~/.bash_local
-fi
- 
 alias vvimrc='vi ~/.vimrc'
 alias vbasha='vi ~/.bash_aliases'
 alias vbashrc='vi ~/.bashrc'
