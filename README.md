@@ -1,5 +1,12 @@
 ## Installation
+### Install Janus Vim distribution
+https://github.com/carlhuda/janus
 
+```bash
+sudo apt-get install vim rake curl
+curl -Lo- https://bit.ly/janus-bootstrap | bash
+```
+### Setup dotfiles
 ```bash
 git clone https://github.com/ninegene/dotfiles.git && cd dotfiles 
 ```
