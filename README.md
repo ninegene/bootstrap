@@ -8,7 +8,7 @@ curl -Lo- https://bit.ly/janus-bootstrap | bash
 ```
 ### Setup dotfiles
 ```bash
-git clone https://github.com/ninegene/dotfiles.git && cd dotfiles 
+git clone https://github.com/ninegene/dotfiles.git && cd dotfiles && git submodule update
 ```
 
 To install for desktop which will create soft link for .profile:
