@@ -16,6 +16,10 @@ shopt -s histappend
 HISTSIZE=90000
 HISTFILESIZE=90000
 
+# Append commands to the history every time a prompt is shown,
+# instead of after closing the session
+PROMPT_COMMAND='history -a'
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
