@@ -1,0 +1,191 @@
+# Enable aliases to be sudo'ed
+alias sudo='sudo '
+
+# enable color support
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+if ls --color > /dev/null 2>&1; then 
+    alias ls='ls -CF --color=auto'
+    alias ll='ls -alFh  --group-directories-first'
+    alias lls='ll -S'
+    alias llt='ll -t'
+else # Mac OS
+    alias ll='ls -alFh | grep "^d" && ls -alFh | grep -v "^d"'
+    alias ls='ls -CFG'
+    alias lls='ls -alFhS'
+    alias llt='ls -alFht'
+    # sudo brew install coreutils
+    if gls --color > /dev/null 2>&1; then
+        alias ls='gls -CF --color=auto'
+        alias ll='gls -alFh --color=auto  --group-directories-first'
+        alias lls='ll -S'
+        alias llt='ll -t'
+    fi
+fi
+
+alias la='ls -A'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
+
+# sudo apt-get install tree
+# sudo port install tree
+alias tree='tree --charset=ASCII'
+alias tree1='tree --dirsfirst -FL 1'
+alias tree2='tree --dirsfirst -FL 2'
+alias tree3='tree --dirsfirst -FL 3'
+alias tree4='tree --dirsfirst -FL 4'
+
+alias path='echo -e ${PATH//:/\\n}'
+
+alias now='date +"%T"'
+alias nowtime=now
+alias nowdate='date +"%d-%m-%Y"'
+#alias nowdate='date +"%F"'
+
+alias h='history'
+alias c='clear'
+alias j='jobs -l'
+
+# mkdir <dir>
+alias mkdir='mkdir -pv'
+
+# Generate sha1 digest
+# $ sha1 <file>
+# $ shasum <file>
+# $ sha1sum <file>
+alias sha1='openssl sha1' 
+which sha1sum > /dev/null || alias sha1sum='shasum'
+
+# Generate md5 digest
+# $ md5 <file>
+# $ md5sum <file>
+which md5 > /dev/null || alias md5='md5sum'
+which md5sum > /dev/null || alias md5sum='md5'
+
+# sudo apt-get install colordiff
+# sudo port install colordiff
+# diff <file1> <file2>
+alias diff='colordiff'
+
+# Make mount command output pretty and human readable format
+alias mount='mount |column -t'
+
+# Start calculator with math support
+alias bc='bc -l'
+
+# Show IP address
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias localip1="ipconfig getifaddr en1"
+alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
+
+# Show TCP/UDP ports
+alias ports='netstat -tulan'
+
+# Show Listening/Server ports
+alias lports='netstat -na | grep -i "LISTEN "'
+
+# Get web server headers #
+# $ header <url>
+alias header='curl -I'
+ 
+# Find out if remote server supports gzip / mod_deflate or not #
+# $ headerc <url>
+alias headerc='curl -I --compress'
+ 
+# Resume wget by default
+alias wget='wget -c'
+
+# Monitor HTTP traffic
+# sudo apt-get install ngrep
+# sudo port install ngrep
+alias httpeth0="sudo ngrep -d 'eth0' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpen0="sudo ngrep -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdumpen0="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+alias httpdumpeth0="sudo tcpdump -i eth0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
+# $ urlencode "test string"
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+# Get free memory in MB
+alias meminfo='free -m -l -t'
+
+# Get disk usage
+alias df='df -h'
+
+# Get directory size
+# $ ds <dir>
+alias ds='du -sh'
+ 
+# Get top process eating memory
+alias psmem='ps aux | sort -nr -k 4'
+alias psmem3='ps aux | sort -nr -k 4 | head -3'
+alias psmem10='ps aux | sort -nr -k 4 | head -10'
+ 
+# Get top process eating cpu
+alias pscpu='ps aux | sort -nr -k 3'
+alias pscpu3='ps aux | sort -nr -k 3 | head -3'
+alias pscpu10='ps aux | sort -nr -k 3 | head -10'
+ 
+# Get info
+# Linux:
+alias cpuinfo='lscpu' # cat /proc/cpuinfo
+alias usbinfo='lsusb' # 
+alias modinfo='lsmod' # cat /proc/modules
+ 
+# Get GPU ram on desktop / laptop
+# Linux:
+alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+alias valiases='vi ~/.aliases'
+alias saliases='source ~/.aliases'
+alias vbashrc='vi ~/.bashrc'
+alias sbashrc='source ~/.bashrc'
+
+alias sav='cd /etc/apache2/sites-available'
+alias dl='cd ~/Downloads'
+alias p='cd ~/Projects'
+
+# Go back to last directory
+# $ cd -
+
+# Run last command as root
+# $ sudo !!
+
+# Delete content of filename.log
+# $ > filename.log
+
+# Copy the content of the web page to clipboard
+# Mac OS:
+# $ curl https://news.ycombinator.com | pbcopy
+# Linux:
+# $ curl https://news.ycombinator.com | xclip
+
+# Open file explorer (nautilus/finder)
+# Mac OS:
+# $ open .
+# $ open /Applications
+# Linux (nautilus):
+# $ nautilus .
+# $ nautilus /usr/local
+
+# Open file with default appliaction base on file extention 
+# Mac OS:
+# $ open doc.pdf
+# Linux:
+# $ xdg-open doc.pdf

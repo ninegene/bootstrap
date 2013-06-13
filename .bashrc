@@ -16,6 +16,12 @@ shopt -s histappend
 HISTSIZE=90000
 HISTFILESIZE=90000
 
+# Make some commands not show up in history
+HISTIGNORE='ls:cd:cd -:pwd'
+
+# Don't clear the screen after quitting a manual page
+MANPAGER='less -X'
+
 # Append commands to the history every time a prompt is shown,
 # instead of after closing the session
 PROMPT_COMMAND='history -a'
@@ -82,8 +88,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
 fi
 
 if [ -f ~/dotfiles/z/z.sh ]; then
@@ -102,3 +108,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 export EDITOR='vim -f'
+
+#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
+[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
+
