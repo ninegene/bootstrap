@@ -13,17 +13,12 @@ git clone https://github.com/ninegene/dotfiles.git && cd dotfiles
 git submodule init && git submodule update
 ```
 
-To install for desktop which will create soft link for .profile:
+Clean up dot files in home folder and create soft links to .profile, .aliases etc.:
 
 ```bash
 ./bootstrap.sh 
 ```
 
-To install for server which will create soft link for .bash_profile:
-
-```bash
-./bootstrap.sh server 
-```
 To update, do `git pull` and execute `bootstrap.sh`
 
 ## Notes
