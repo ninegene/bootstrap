@@ -47,3 +47,12 @@ if [ -d "/opt/local/bin" ] ; then
     PATH="/opt/local/bin:$PATH"
 fi
 
+# MacPorts git-core +bash_complection
+if [ -f /opt/local/etc/bash_completion ]; then
+    source /opt/local/etc/bash_completion
+fi
+
+# MySQL on Mac OS X
+if [ -d "/opt/local/lib/mysql55/bin" ] ; then
+    PATH=/opt/local/lib/mysql55/bin:$PATH
+fi
