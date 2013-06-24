@@ -69,5 +69,6 @@ ln -s ~/dotfiles/.bashrc ~/.bashrc
 ln -s ~/dotfiles/.aliases ~/.aliases
 ln -s ~/dotfiles/.vimrc.before ~/.vimrc.before
 ln -s ~/dotfiles/.profile ~/.profile
+ln -s ~/dotfiles/.profile ~/.bash_profile
 
 echo "Done bootstrapping dotfiles"

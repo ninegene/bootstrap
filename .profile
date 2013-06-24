@@ -13,21 +13,19 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-JAVA_HOME=/usr/lib/jvm/jdk7
-if [ -d "$JAVA_HOME/bin" ] ; then
-    export $JAVA_HOME
+if [ -d "/usr/lib/jvm/jdk7/bin" ] ; then
+    export JAVA_HOME=/usr/lib/jvm/jdk7
+    export IDEA_JDK=$JAVA_HOME
     PATH="$JAVA_HOME/bin:$PATH"
 fi
 
-GROOVY_HOME=/opt/groovy
-if [ -d "$GROOVY_HOME/bin" ] ; then
-    export $GROOVY_HOME
+if [ -d "/opt/groovy/bin" ] ; then
+    export GROOVY_HOME=/opt/groovy
     PATH="$PATH:$GROOVY_HOME/bin"
 fi
 
-GRAILS_HOME=/opt/grails
-if [ -d "$GRAILS_HOME/bin" ] ; then
-    export $GRAILS_HOME
+if [ -d "/opt/grails/bin" ] ; then
+    export GRAILS_HOME=/opt/grails
     PATH="$PATH:$GRAILS_HOME/bin"
 fi
 
