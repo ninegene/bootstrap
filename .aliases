@@ -16,7 +16,7 @@ else # Mac OS
     alias ls='ls -CFG'
     alias lls='ls -alFhS'
     alias llt='ls -alFht'
-    # sudo brew install coreutils
+    # brew install coreutils
     if gls --color > /dev/null 2>&1; then
         alias ls='gls -CF --color=auto'
         alias ll='gls -alFh --color=auto  --group-directories-first'
