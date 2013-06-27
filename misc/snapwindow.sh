@@ -2,7 +2,7 @@
 
 # adapte from http://ubuntuforums.org/showthread.php?t=1877865
 
-# sudo apt-get isntall wmctrl
+# sudo apt-get install wmctrl
 # For Ubuntu Unity 2d, create custom shortcuts to snap left and right by giving the followng commands:
 # /path/to/snapwindow.sh left
 # /path/to/snapwindow.sh right

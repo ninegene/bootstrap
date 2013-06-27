@@ -54,3 +54,11 @@ fi
 if [ -d "/opt/local/lib/mysql55/bin" ] ; then
     PATH=/opt/local/lib/mysql55/bin:$PATH
 fi
+
+# MariaDB on Mac OS X
+if [ -d "/opt/local/lib/mariadb/bin" ] ; then
+    PATH=/opt/local/lib/mariadb/bin:$PATH
+fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
+[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
