@@ -6,12 +6,14 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
-if ls --color > /dev/null 2>&1; then 
-    alias ls='ls -CF --color=auto'
-    alias ll='ls -alFh  --group-directories-first'
-    alias lls='ll -S'
-    alias llt='ll -t'
-else # Mac OS
+if [[ $platform == 'Linux' ]]; then
+    if ls --color > /dev/null 2>&1; then
+        alias ls='ls -CF --color=auto'
+        alias ll='ls -alFh  --group-directories-first'
+        alias lls='ll -S'
+        alias llt='ll -t'
+    fi
+elif [[ $platform == 'Darwin' ]]; then
     alias ll='ls -alFh | grep "^d" && ls -alFh | grep -v "^d"'
     alias ls='ls -CFG'
     alias lls='ls -alFhS'
@@ -64,7 +66,7 @@ alias mkdir='mkdir -pv'
 # $ sha1 <file>
 # $ shasum <file>
 # $ sha1sum <file>
-alias sha1='openssl sha1' 
+alias sha1='openssl sha1'
 which sha1sum > /dev/null || alias sha1sum='shasum'
 
 # Generate md5 digest
@@ -99,11 +101,11 @@ alias lports='netstat -na | grep -i "LISTEN "'
 # Get web server headers #
 # $ header <url>
 alias header='curl -I'
- 
+
 # Find out if remote server supports gzip / mod_deflate or not #
 # $ headerc <url>
 alias headerc='curl -I --compress'
- 
+
 # Resume wget by default
 alias wget='wget -c'
 
@@ -127,23 +129,23 @@ alias df='df -h'
 # Get directory size
 # $ ds <dir>
 alias ds='du -sh'
- 
+
 # Get top process eating memory
 alias psmem='ps aux | sort -nr -k 4'
 alias psmem3='ps aux | sort -nr -k 4 | head -3'
 alias psmem10='ps aux | sort -nr -k 4 | head -10'
- 
+
 # Get top process eating cpu
 alias pscpu='ps aux | sort -nr -k 3'
 alias pscpu3='ps aux | sort -nr -k 3 | head -3'
 alias pscpu10='ps aux | sort -nr -k 3 | head -10'
- 
+
 # Get info
 # Linux:
 alias cpuinfo='lscpu' # cat /proc/cpuinfo
-alias usbinfo='lsusb' # 
+alias usbinfo='lsusb' #
 alias modinfo='lsmod' # cat /proc/modules
- 
+
 # Get GPU ram on desktop / laptop
 # Linux:
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
@@ -184,7 +186,7 @@ alias p='cd ~/Projects'
 # $ nautilus .
 # $ nautilus /usr/local
 
-# Open file with default appliaction base on file extention 
+# Open file with default appliaction base on file extention
 # Mac OS:
 # $ open doc.pdf
 # Linux:

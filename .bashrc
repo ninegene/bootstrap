@@ -17,7 +17,7 @@ HISTSIZE=90000
 HISTFILESIZE=90000
 
 # Make some commands not show up in history
-HISTIGNORE='ls:cd:cd -:pwd'
+HISTIGNORE='ls:ll:la:cd:..:...:cd ..:h:c:cd -:pwd'
 
 # Don't clear the screen after quitting a manual page
 MANPAGER='less -X'
@@ -109,3 +109,9 @@ fi
 
 export EDITOR='vim -f'
 
+# http://www.catonmat.net/download/bash-vi-editing-mode-cheat-sheet.txt
+set -o vi
+
+if [[ $platform == 'Darwin' ]]; then
+    alias vim=mvim
+fi
