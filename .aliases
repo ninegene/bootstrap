@@ -1,6 +1,8 @@
 # Enable aliases to be sudo'ed
 alias sudo='sudo '
 
+export platform=`uname`
+
 # enable color support
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"

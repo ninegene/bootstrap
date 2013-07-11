@@ -72,4 +72,6 @@ ln -s ~/dotfiles/.vimrc.after ~/.vimrc.after
 ln -s ~/dotfiles/.profile ~/.profile
 ln -s ~/dotfiles/.profile ~/.bash_profile
 
+ln -s ~/dotfiles/.janus ~/.janus
+
 echo "Done bootstrapping dotfiles"

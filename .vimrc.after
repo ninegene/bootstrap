@@ -1,8 +1,15 @@
 set nonumber " Don't show line number
 set history=500 " Remember more commands and search history
 
-" Use ,/ to clear highlighted search terms
-map <leader>/ :nohls<CR>
+:nmap \l :setlocal number!<CR>
+:nmap \o :set paste!<CR>
+
+" Opens previously viewed buffer
+":nmap <C-e> :e#<CR>
+
+" Cycle between all open buffers
+:nmap <C-n> :bnext<CR>
+:nmap <C-e> :bprev<CR>
 
 " Highlight end of line whitespace.
 highlight WhitespaceEOL ctermbg=red guibg=red

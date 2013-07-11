@@ -11,6 +11,7 @@ curl -Lo- https://bit.ly/janus-bootstrap | bash
 cd ~
 git clone https://github.com/ninegene/dotfiles.git && cd dotfiles 
 git submodule init && git submodule update
+sudo pip install --user git+git://github.com/Lokaltog/powerline
 ```
 
 Clean up dot files in home folder and create soft links to .profile, .aliases etc.:
