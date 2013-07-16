@@ -1,3 +1,5 @@
+"set autochdir
+autocmd BufEnter * silent! lcd %:p:h
 set nonumber " Don't show line number
 set history=500 " Remember more commands and search history
 
