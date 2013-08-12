@@ -115,9 +115,15 @@ alias wget='wget -c'
 # sudo apt-get install ngrep
 # sudo port install ngrep
 alias httpeth0="sudo ngrep -d 'eth0' -t '^(GET|POST) ' 'tcp and port 80'"
-alias httpen0="sudo ngrep -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
-alias httpdumpen0="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
-alias httpdumpeth0="sudo tcpdump -i eth0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
+function httpgrep {
+    sudo ngrep -d '$1' -t '^(GET|POST) ' 'tcp and port 80'
+}
+
+function httpdump {
+    sudo tcpdump -i $1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\"
+}
+
 
 # $ urlencode "test string"
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
