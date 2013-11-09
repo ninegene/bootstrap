@@ -77,10 +77,10 @@ which sha1sum > /dev/null || alias sha1sum='shasum'
 which md5 > /dev/null || alias md5='md5sum'
 which md5sum > /dev/null || alias md5sum='md5'
 
-# sudo apt-get install colordiff
-# sudo port install colordiff
-# diff <file1> <file2>
-alias diff='colordiff'
+# $ sudo apt-get install colordiff
+# $ sudo port install colordiff
+# $ diff <file1> <file2>
+which colordiff > /dev/null && alias diff='colordiff'
 
 # Make mount command output pretty and human readable format
 alias mount='mount |column -t'
@@ -89,10 +89,8 @@ alias mount='mount |column -t'
 alias bc='bc -l'
 
 # Show IP address
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
-alias localip1="ipconfig getifaddr en1"
-alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
+# $ ip addr
+alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 # Show TCP/UDP ports
 alias ports='netstat -tulan'
@@ -112,12 +110,12 @@ alias headerc='curl -I --compress'
 alias wget='wget -c'
 
 # Monitor HTTP traffic
-# sudo apt-get install ngrep
-# sudo port install ngrep
-alias httpeth0="sudo ngrep -d 'eth0' -t '^(GET|POST) ' 'tcp and port 80'"
-
+# $ sudo apt-get install ngrep
+# $ sudo port install ngrep
+# $ httpgrep eth0
+# $ httpdump wlan0
 function httpgrep {
-    sudo ngrep -d '$1' -t '^(GET|POST) ' 'tcp and port 80'
+    sudo ngrep -d $1 -t '^(GET|POST) ' 'tcp and port 80'
 }
 
 function httpdump {
@@ -153,12 +151,14 @@ alias pscpu10='ps aux | sort -nr -k 3 | head -10'
 alias cpuinfo='lscpu' # cat /proc/cpuinfo
 alias usbinfo='lsusb' #
 alias modinfo='lsmod' # cat /proc/modules
+alias usbinfo='lspci' #
 
 # Get GPU ram on desktop / laptop
 # Linux:
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 
 # Show/hide hidden files in Finder
+# Mac:
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
@@ -181,13 +181,13 @@ alias p='cd ~/Projects'
 # $ > filename.log
 
 # Copy the content of the web page to clipboard
-# Mac OS:
+# Mac:
 # $ curl https://news.ycombinator.com | pbcopy
 # Linux:
 # $ curl https://news.ycombinator.com | xclip
 
 # Open file explorer (nautilus/finder)
-# Mac OS:
+# Mac:
 # $ open .
 # $ open /Applications
 # Linux (nautilus):
@@ -195,7 +195,7 @@ alias p='cd ~/Projects'
 # $ nautilus /usr/local
 
 # Open file with default appliaction base on file extention
-# Mac OS:
+# Mac:
 # $ open doc.pdf
 # Linux:
 # $ xdg-open doc.pdf
