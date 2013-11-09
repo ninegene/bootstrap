@@ -115,3 +115,6 @@ set -o vi
 if [[ $platform == 'Darwin' ]]; then
     alias vim=mvim
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
+[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
