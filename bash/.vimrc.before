@@ -1,5 +1,0 @@
-" Change the mapleader from \ to ,
-let mapleader=","
-let g:mapleader=","
-set t_Co=256
-"call janus#disable_plugin('tagbar')
