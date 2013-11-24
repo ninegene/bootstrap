@@ -4,3 +4,6 @@
 [submodule "ssh-copy-id-for-OSX"]
 	path = ssh-copy-id-for-OSX
 	url = git://github.com/beautifulcode/ssh-copy-id-for-OSX.git
+[submodule "virtualfish"]
+	path = virtualfish
+	url = https://github.com/adambrenecki/virtualfish.git
