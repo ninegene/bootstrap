@@ -1,29 +1,24 @@
 ## Installation
-### Install Janus Vim distribution
-https://github.com/carlhuda/janus
 
-```bash
-sudo apt-get install vim rake curl ctags
-curl -Lo- https://bit.ly/janus-bootstrap | bash
-```
-### Setup dotfiles
+### Clone the repository and init/update submodules
 ```bash
 cd ~
-git clone https://github.com/ninegene/dotfiles.git && cd dotfiles 
-git submodule init && git submodule update
+git clone https://github.com/ninegene/dotfiles.git 
+cd ~/dotfiles && git submodule init && git submodule update
 ```
 
-Clean up dot files in home folder and create soft links to .profile, .aliases etc.:
+Clean up dot files in home folder and create soft links to .profile, .aliases etc.
 
+For Bash:
 ```bash
-./bootstrap.sh 
+~/bash/bootstrap.sh 
 ```
 
-To update, do `git pull` and execute `bootstrap.sh`
+To update, do `git pull` and execute `bootstrap.sh` again
 
-## Notes
-https://github.com/rupa/z is added as submodule using the following
-commands:
+## Notes on Git
+
+https://github.com/rupa/z is added as submodule using the following commands:
 ```bash
 cd dotfiles
 git submodule add git://github.com/rupa/z.git
@@ -42,4 +37,12 @@ To remove a submodule you need to:
 * Delete the now untracked submodule files
   rm -rf path_to_submodule
 
-Taken from http://stackoverflow.com/questions/1260748/how-do-i-remove-a-git-submodule#1260982
+Source: http://stackoverflow.com/questions/1260748/how-do-i-remove-a-git-submodule#1260982
+
+## Notes on Vim Setup
+
+mkdir -p ~/.vim/autoload ~/.vim/bundle; \
+curl -Sso ~/.vim/autoload/pathogen.vim \
+    https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+
+Source: https://github.com/tpope/vim-pathogen/
