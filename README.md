@@ -16,16 +16,28 @@ For Bash:
 
 To update, do `git pull` and execute `bootstrap.sh` again
 
-## Notes on Git
+## Notes
 
-https://github.com/rupa/z is added as submodule using the following commands:
+### Git
+
+#### Add submodule
 ```bash
 cd dotfiles
 git submodule add git://github.com/rupa/z.git
 git submodle init
 ```
+```bash
+cd dotfiles
+git submodule add git://github.com/tpope/vim-sensible.git .vim/bundle/vim-sensible
+git submodule add git://github.com/tpope/vim-scriptease.git .vim/bundle/vim-scriptease
+git submodule add git://github.com/tpope/vim-eunuch.git .vim/bundle/vim-eunuch
+git submodule add git://github.com/tpope/vim-fugitive.git .vim/bundle/vim-fugitive
+git submodule add git://github.com/tpope/vim-surround.git .vim/bundle/vim-surround
+git submodule add git://github.com/kien/ctrlp.vim.git .vim/bundle/ctrlp.vim
+git submodule init
+```
 
-### Remove submodule
+#### Remove submodule
 To remove a submodule you need to:
 
 * Delete the relevant section from the .gitmodules file.
@@ -39,10 +51,6 @@ To remove a submodule you need to:
 
 Source: http://stackoverflow.com/questions/1260748/how-do-i-remove-a-git-submodule#1260982
 
-## Notes on Vim Setup
+### Vim
 
-mkdir -p ~/.vim/autoload ~/.vim/bundle; \
-curl -Sso ~/.vim/autoload/pathogen.vim \
-    https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-
-Source: https://github.com/tpope/vim-pathogen/
+* https://github.com/tpope/vim-pathogen/
