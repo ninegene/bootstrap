@@ -14,7 +14,7 @@ function exec {
 function backup_file {
   local src=$1
 
-  if [ -f "$src" -a ! -L "$src" ]; then
+  if [ -d "$src" ] || [ -f "$src" -a ! -L "$src" ]; then
     echo Found "$src" and backing up to "$src-$timestamp"
     exec mv "$src" "$src-$timestamp"
   fi
