@@ -76,7 +76,6 @@ git submodule add git://github.com/tpope/vim-eunuch.git .vim/bundle/vim-eunuch
 git submodule add git://github.com/tpope/vim-fugitive.git .vim/bundle/vim-fugitive
 git submodule add git://github.com/tpope/vim-surround.git .vim/bundle/vim-surround
 git submodule add git://github.com/kien/ctrlp.vim.git .vim/bundle/ctrlp.vim
-git submodule add https://github.com/bpinto/oh-my-fish.git fish/oh-my-fish
 git submodule init
 ```
 
