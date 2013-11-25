@@ -5,15 +5,10 @@ cd ~
 git clone https://github.com/ninegene/dotfiles.git
 cd ~/dotfiles && git submodule init && git submodule update
 ```
-`bootstrap.sh` backup dot files in home folder and create soft links to initialization files
-(config.fish or .profile, .aliases etc.)
-For Bash shell:
+`bootstrap.sh` backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.) in user home directory
+and create soft links from `dotfiles` 
 ```bash
-~/dotfile/bash/bootstrap.sh
-```
-For Fish shell:
-```bash
-~/dotfile/fish/bootstrap.sh
+~/dotfile/bootstrap.sh
 ```
 To update, do `git pull` and execute `bootstrap.sh` again
 
