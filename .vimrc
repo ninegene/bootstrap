@@ -93,8 +93,8 @@ nnoremap <leader>M :CtrlPMixed<CR>
 nnoremap <leader>t :CtrlPTag<CR>
 
 " Quickly edit/reload the vimrc file with ,ev and ,sv
-nmap <leader>ev :e ~/.vimrc<CR><C-W>_
-nmap <leader>egv :e ~/.gvimrc<CR><C-W>_
+nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_
+nmap <leader>egv :tabedit ~/.gvimrc<CR><C-W>_
 nmap <silent> <leader>sv :w!<CR>:so ~/.vimrc<CR>:exe ":echo 'vimrc reloaded'"<CR>:setlocal nohls!<CR>
 
 " Highlight end of line whitespace.
@@ -132,6 +132,9 @@ nnoremap <C-M-l> :normal! gg=G``<CR>
 
 " Underline the current line with '='
 nmap <silent> <leader>ul :t.<CR>Vr=
+
+" Toogle list chars / show whitespaces
+map \lc :setlocal list!<CR>:set list?<CR>
 
 " Toogle text wrap
 map \w :setlocal wrap!<CR>:set wrap?<CR>
@@ -204,8 +207,11 @@ nmap <leader>y "+y
 nmap <leader>p "+p
 nmap <leader>P "+P
 
-" Ctrl-C to copy in virtual mode
+" Ctrl-c to copy in virtual mode
 vnoremap <C-c> "+y
+
+" Ctrl-r to prompt you to enter text to replace selected text
+vnoremap <C-r> "ry:%s/<C-r>r//gc<left><left><left>
 
 " Show the registers from things cut/yanked
 nmap <leader>r :registers<CR>
@@ -236,7 +242,7 @@ function! CmdLine(str)
     unmenu Foo
 endfunction
 
-" From an idea by Michael Naumann
+" Source: Michael Naumann
 function! VisualSearch(direction) range
     let l:saved_reg = @"
     execute "normal! vgvy"

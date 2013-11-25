@@ -5,17 +5,19 @@ cd ~
 git clone https://github.com/ninegene/dotfiles.git
 cd ~/dotfiles && git submodule init && git submodule update
 ```
-
-`bootstrap.sh` backup dot files in home folder and create soft links to .profile, .aliases etc.
-
+`bootstrap.sh` backup dot files in home folder and create soft links to initialization files
+(config.fish or .profile, .aliases etc.)
 For Bash shell:
 ```bash
 ~/dotfile/bash/bootstrap.sh
 ```
-
+For Fish shell:
+```bash
+~/dotfile/fish/bootstrap.sh
+```
 To update, do `git pull` and execute `bootstrap.sh` again
 
-## VIM
+## Vim
 
 ### Mappings
 * `Ctrl-Shift-Up` and `Ctrl-Shift-Down` to move current line/selected block of lines up and down
@@ -74,6 +76,7 @@ git submodule add git://github.com/tpope/vim-eunuch.git .vim/bundle/vim-eunuch
 git submodule add git://github.com/tpope/vim-fugitive.git .vim/bundle/vim-fugitive
 git submodule add git://github.com/tpope/vim-surround.git .vim/bundle/vim-surround
 git submodule add git://github.com/kien/ctrlp.vim.git .vim/bundle/ctrlp.vim
+git submodule add https://github.com/bpinto/oh-my-fish.git fish/oh-my-fish
 git submodule init
 ```
 
@@ -90,4 +93,23 @@ To remove a submodule you need to:
   rm -rf path_to_submodule
 
 Source: http://stackoverflow.com/questions/1260748/how-do-i-remove-a-git-submodule#1260982
+
+### Install Fish Shell
+```bash
+sudo apt-add-repository ppa:fish-shell/release-2
+sudo apt-get update
+sudo apt-get install fish
+```
+Make Fish shell as default shell:
+```bash
+chsh -s /usr/bin/fish
+```
+Create Fish config directory:
+```bash
+mkdir -p ~/.config/fish
+```
+Create initial config file:
+```bash
+vi ~/.config/fish/config.fish
+```
 
