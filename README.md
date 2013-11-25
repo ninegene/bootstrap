@@ -1,15 +1,14 @@
 ## Installation
 
-### Clone the repository and init/update submodules
 ```bash
 cd ~
 git clone https://github.com/ninegene/dotfiles.git
 cd ~/dotfiles && git submodule init && git submodule update
 ```
 
-Clean up dot files in home folder and create soft links to .profile, .aliases etc.
+`bootstrap.sh` backup dot files in home folder and create soft links to .profile, .aliases etc.
 
-For Bash:
+For Bash shell:
 ```bash
 ~/dotfile/bash/bootstrap.sh
 ```
