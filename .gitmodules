@@ -4,9 +4,6 @@
 [submodule "ssh-copy-id-for-OSX"]
 	path = ssh-copy-id-for-OSX
 	url = git://github.com/beautifulcode/ssh-copy-id-for-OSX.git
-[submodule "virtualfish"]
-	path = virtualfish
-	url = https://github.com/adambrenecki/virtualfish.git
 [submodule ".vim/bundle/vim-scriptease"]
 	path = .vim/bundle/vim-scriptease
 	url = git://github.com/tpope/vim-scriptease.git

@@ -1,6 +1,8 @@
 # Enable aliases to be sudo'ed
 alias sudo='sudo '
 
+alias G='gvim'
+
 export platform=`uname`
 
 # enable color support
@@ -38,9 +40,6 @@ alias egrep='egrep --color=auto'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
-alias .......='cd ../../../../../..'
 
 # sudo apt-get install tree
 # sudo port install tree
@@ -48,14 +47,10 @@ alias tree='tree --charset=ASCII'
 alias tree1='tree --dirsfirst -FL 1'
 alias tree2='tree --dirsfirst -FL 2'
 alias tree3='tree --dirsfirst -FL 3'
-alias tree4='tree --dirsfirst -FL 4'
 
 alias path='echo -e ${PATH//:/\\n}'
 
-alias now='date +"%T"'
-alias nowtime=now
-alias nowdate='date +"%d-%m-%Y"'
-#alias nowdate='date +"%F"'
+alias timestamp='date +"%F-%s"'
 
 alias h='history'
 alias c='clear'
@@ -151,7 +146,7 @@ alias pscpu10='ps aux | sort -nr -k 3 | head -10'
 alias cpuinfo='lscpu' # cat /proc/cpuinfo
 alias usbinfo='lsusb' #
 alias modinfo='lsmod' # cat /proc/modules
-alias usbinfo='lspci' #
+alias pciinfo='lspci' #
 
 # Get GPU ram on desktop / laptop
 # Linux:
@@ -162,10 +157,10 @@ alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
-alias valiases='vi ~/.aliases'
-alias saliases='source ~/.aliases'
-alias vbashrc='vi ~/.bashrc'
-alias sbashrc='source ~/.bashrc'
+alias eali='vi ~/.aliases'
+alias sali='source ~/.aliases'
+alias ebash='vi ~/.bashrc'
+alias sbash='source ~/.bashrc'
 
 alias sav='cd /etc/apache2/sites-available'
 alias dl='cd ~/Downloads'
