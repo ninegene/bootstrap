@@ -57,6 +57,7 @@ function main {
   setup_file "$cur_dir/.profile" "$HOME/.profile"
   setup_file "$cur_dir/.aliases" "$HOME/.aliases"
   setup_file "$base_dir/.vimrc" "$HOME/.vimrc"
+  setup_file "$base_dir/.gvimrc" "$HOME/.gvimrc"
   setup_file "$base_dir/.vim" "$HOME/.vim"
 
   echo "Done bootstrapping!"
