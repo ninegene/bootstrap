@@ -17,7 +17,6 @@ let g:mapleader = ","
 "  'listchars' - Makes :set list (visible whitespace) prettier.
 "  'scrolloff' - Always show at least one line above/below the cursor.
 "  runtime! macros/matchit.vim - Load the version of matchit.vim that ships with Vim.
-"  Use <C-L> to clear the highlighting of :set hlsearch.
 
 " https://github.com/tpope/vim-scriptease
 " :Vtabedit plugin/scriptease.vim
@@ -94,15 +93,16 @@ nnoremap <leader>M :CtrlPMixed<CR>
 nnoremap <leader>t :CtrlPTag<CR>
 
 " Quickly edit/reload the vimrc file with ,ev and ,sv
-nmap <leader>ev :e ~/dotfiles/.vimrc<CR><C-W>_
-nmap <silent> <leader>sv :w!<CR>:so ~/.vimrc<CR>:exe ":echo 'vimrc reloaded'"<CR>:set nohls<CR>
+nmap <leader>ev :e ~/.vimrc<CR><C-W>_
+nmap <leader>egv :e ~/.gvimrc<CR><C-W>_
+nmap <silent> <leader>sv :w!<CR>:so ~/.vimrc<CR>:exe ":echo 'vimrc reloaded'"<CR>:setlocal nohls!<CR>
 
 " Highlight end of line whitespace.
 highlight WhitespaceEOL ctermbg=red guibg=red
 match WhitespaceEOL /\s\+$/
 
 " Clean all end of line extra whitespace with ,S
-:nnoremap <silent><leader>S :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+nnoremap <silent><leader>S :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Sometimes mis-type F1 when trying to type Esc
 map <F1> <Esc>
@@ -134,10 +134,10 @@ nnoremap <C-M-l> :normal! gg=G``<CR>
 nmap <silent> <leader>ul :t.<CR>Vr=
 
 " Toogle text wrap
-nmap \w :setlocal wrap!<CR>:set wrap?<CR>
+map \w :setlocal wrap!<CR>:set wrap?<CR>
 
 " Toogle show line number
-nmap \n :setlocal number!<CR>:set number?<CR>
+map \n :setlocal number!<CR>:set number?<CR>
 
 " Find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
@@ -189,12 +189,12 @@ imap <C-L> <C-X><C-L>
 " When in insert mode, press <F2> to go to paste mode, so that the clipboard won't be autoindented
 set pastetoggle=<F2>
 " Also in normal mode
-:nmap <F2> :set paste!<CR>:set paste?<CR>
+nmap <F2> :set paste!<CR>:set paste?<CR>
 
 " Make p in visual mode replace the selected text with the yank register
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
-" Use ,d (or ,dd or ,dj or 20,dd) to delete a line without adding it to the yanked stack
+" Use ,d (or ,dd or ,dj or 20,dd) to delete without adding it to the yanked stack
 nmap <silent> <leader>d "_d
 " Also, in visual mode
 vmap <silent> <leader>d "_d
@@ -288,7 +288,12 @@ set wildmenu                  " Make tab completion for files/buffers to act lik
 set wildmode=list:full        " Show a list when pressing tab and complete first full match
 set wildignore="*.swp,*.pyc,*.class
 
-set textwidth=100
+set textwidth=100             " text after this width will be broken when inserted
+set colorcolumn=+1            " highlight right column after textwidth
+highlight ColorColumn ctermbg=lightgrey guibg=lightgrey " Set right column color
+" Toogle text width which is used to break long line that is being inserted
+nnoremap \tw :let &textwidth = (&textwidth ? 0: 100)<CR>:set textwidth?<CR>
+
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 
 " Indent and Tab
@@ -303,17 +308,18 @@ set tabstop=4                 " See 'help: tapstop'
 set shiftwidth=4              " Number of spaces to use for autoindenting
 set shiftround                " Use multiple of shiftwidth when indenting with '<' and '>'
 set smarttab                  " Insert tabs on the start of a line according to shiftwidth, not tabstop
+
 " Toogle different tab modes
-:nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
-:nmap \T :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<CR>
-:nmap \M :set noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<CR>
-:nmap \m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
+nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
+nmap \T :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<CR>
+nmap \M :set noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<CR>
+nmap \m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
 
 " Show matching pairs
 set showmatch                 " Show matching parenthesis
 set matchtime=2               " How many tenths of a second to blink
 set matchpairs+=<:>           " Also match <> mainly for html tag
-:au FileType c,cpp,java,js,groovy set mps+==:; " Jump between '=' and ';' for some file types
+autocmd FileType c,cpp,java,js,groovy set mps+==:; " Jump between '=' and ';' for some file types
 
 set history=1000              " Remember more commands and search history
 
@@ -325,7 +331,7 @@ set hlsearch                  " Highlight search terms. Use :nohls to remove hig
 set magic                     " Match literally for some characters in regular expression
 
 " Use ,/ to clear highlighted search terms
-map <leader>/ :nohls<CR>
+:map \h :setlocal hlsearch!<CR>:set hlsearch?<CR>
 
 " Hide buffers instead of closing them.
 " This means that the current buffer can be put to background without being written and
