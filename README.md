@@ -57,12 +57,12 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `:Find`      Run find and load the results into the quickfix list.
 
 ### Plugins
-https://github.com/tpope/vim-sensible
-https://github.com/tpope/vim-scriptease
-https://github.com/tpope/vim-eunuch
-https://github.com/tpope/vim-fugitive
-https://github.com/tpope/vim-surround
-https://github.com/kien/ctrlp.vim
+* https://github.com/tpope/vim-sensible
+* https://github.com/tpope/vim-scriptease
+* https://github.com/tpope/vim-eunuch
+* https://github.com/tpope/vim-fugitive
+* https://github.com/tpope/vim-surround
+* https://github.com/kien/ctrlp.vim
 
 
 ## Notes
