@@ -27,9 +27,7 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `,r` to show registers for text cut and yanked
 * `*` and `#` to search current selection in virtual mode
 * `gv` to vimgrep after the selected text in virtual mode
-
 * `<F2>` Toggle paste mode (which allow to paste without formatting/indenting) in normol and insert mode
-
 * `\w`   Toggle wrap
 * `\n`   Toggle show line number
 * `\tw`  Toggle textwidth between 0 and 100 - used to break long line that is being inserted. Also toggle right
@@ -38,20 +36,16 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `\T`   :set expandtab tabstop=8 shiftwidth=8 softtabstop=4
 * `\M`   :set noexpandtab tabstop=8 shiftwidth=4 softtabstop=4
 * `\m`   :set expandtab tabstop=2 shiftwidth=2 softtabstop=2
-
 * `,f`     :CtrlP
 * `,F`     :CtrlPCurWD
 * `,b`     :CtrlPBuffer
 * `,m`     :CtrlPMRUFiles
 * `,M`     :CtrlPMixed
 * `,t`     :CtrlPTag
-
 * `,ev`    Edit ~/.vimrc
 * `,sv`    Save and reload ~/.vimrc
-
 * Highlight end of line whitespaces
 * `,S`     Remove end of line extra whitespaces
-
 * `:SudoWrite` Write a privileged file with sudo
 * `:Locate`    Run locate and load the results into the quickfix list.
 * `:Find`      Run find and load the results into the quickfix list.
