@@ -117,7 +117,6 @@ function httpdump {
     sudo tcpdump -i $1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\"
 }
 
-
 # $ urlencode "test string"
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
@@ -163,8 +162,9 @@ alias ebash='vi ~/.bashrc'
 alias sbash='source ~/.bashrc'
 
 alias sav='cd /etc/apache2/sites-available'
+alias doc='cd ~/Documents'
 alias dl='cd ~/Downloads'
-alias p='cd ~/Projects'
+alias drbx='cd ~/Dropbox'
 
 # Go back to last directory
 # $ cd -

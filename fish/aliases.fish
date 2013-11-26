@@ -1,5 +1,5 @@
-
 alias G 'gvim'
+alias M 'macvim'
 
 alias ll 'ls -alFh --group-directories-first'
 alias la 'ls -A'
@@ -24,7 +24,12 @@ alias tree1='tree --dirsfirst -FL 1'
 alias tree2='tree --dirsfirst -FL 2'
 alias tree3='tree --dirsfirst -FL 3'
 
-alias path 'echo $PATH'
+#alias path 'echo $PATH'
+function path
+  for p in $PATH
+    echo $p
+  end
+end
 
 alias timestamp 'date +"%F-%s"'
 
@@ -58,6 +63,10 @@ alias headerc 'curl -I --compress'
 # Resume wget by default
 alias wget 'wget -c'
 
+function tn -d "Create a tunnel \n  tn <remote host> <remote port> <local port>"
+ command ssh administrator@$argv[1] -T -L $argv[3]:localhost:$argv[2]
+end
+
 # Get free memory in MB
 alias meminfo 'free -m -l -t'
 
@@ -89,6 +98,7 @@ alias pciinfo 'lspci' #
 #alias hide "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 alias sav 'cd /etc/apache2/sites-available'
+alias doc 'cd ~/Documents'
 alias dl 'cd ~/Downloads'
-alias p 'cd ~/Projects'
+alias drbx 'cd ~/Dropbox'
 
