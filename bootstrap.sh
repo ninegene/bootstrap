@@ -65,6 +65,7 @@ function main {
 
   setup_file "$base_dir/.vimrc" "$HOME/.vimrc"
   setup_file "$base_dir/.gvimrc" "$HOME/.gvimrc"
+  setup_file "$base_dir/.ctags" "$HOME/.ctags"
   setup_file "$base_dir/.vim" "$HOME/.vim"
 
   echo "Done bootstrapping!"

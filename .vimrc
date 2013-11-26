@@ -92,6 +92,20 @@ nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
 nnoremap <leader>t :CtrlPTag<CR>
 
+" https://github.com/scrooloose/syntastic
+" syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
+" UNIX syntax for redirections
+set shell=/bin/bash
+
+" https://github.com/majutsushi/tagbar
+nmap \tt :TagbarToggle<CR>
+
+" https://github.com/tomtom/tcomment_vim
+" gc{motion} - toggle comments for the region
+" gcc - toggle comment for the current line
+" gC{motion} - Comment the region
+" gCc        - Comment the current line
+
 " Quickly edit/reload the vimrc file with ,ev and ,sv
 nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_
 nmap <leader>egv :tabedit ~/.gvimrc<CR><C-W>_
@@ -276,6 +290,8 @@ set visualbell                " Use visual bell instead of beeping
 set noerrorbells              " Don't beep
 
 set laststatus=2              " Always show status line
+
+" vimr-airline plugin overwrite statusline set below
 set statusline=%<%f\ %h%m%r
 set statusline+=\ [buf:#%n]
 set statusline+=\ %{fugitive#statusline()}
@@ -294,11 +310,11 @@ set wildmenu                  " Make tab completion for files/buffers to act lik
 set wildmode=list:full        " Show a list when pressing tab and complete first full match
 set wildignore="*.swp,*.pyc,*.class
 
-set textwidth=100             " text after this width will be broken when inserted
+set textwidth=0               " text after this width will be broken when inserted
 set colorcolumn=+1            " highlight right column after textwidth
 highlight ColorColumn ctermbg=lightgrey guibg=lightgrey " Set right column color
 " Toogle text width which is used to break long line that is being inserted
-nnoremap \tw :let &textwidth = (&textwidth ? 0: 100)<CR>:set textwidth?<CR>
+nnoremap \tw :let &textwidth = (&textwidth ? 0: 99)<CR>:set textwidth?<CR>
 
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 
@@ -349,4 +365,15 @@ set switchbuf=useopen         " Reveal already opened files from the quickfix wi
 set nobackup
 set nowritebackup
 set noswapfile
+
+" ctags
+" See https://github.com/majutsushi/tagbar/wiki
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'h:Heading_L1',
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+    \ ]
+\ }
 
