@@ -2,8 +2,15 @@
 " This must be first because it changes other options as a side effect
 set nocompatible
 
-execute pathogen#infect()
-Helptags
+let g:pathogen_disabled = [ 'pathogen' ]    " disable loading plugins in the list
+"if !has('gui_running')
+"  call add(g:pathogen_disabled, 'someplugin')
+"endif
+"if v:version < '703'
+"  call add(g:pathogen_disabled, 'plugin_that_donot_work_on_7.3')
+"endif
+call pathogen#infect()                      " load plugins under .vim/bundle
+Helptags                                    " load plugins help files
 syntax on
 filetype plugin indent on
 
