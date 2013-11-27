@@ -3,6 +3,7 @@
 set nocompatible
 
 execute pathogen#infect()
+Helptags
 syntax on
 filetype plugin indent on
 
@@ -91,7 +92,7 @@ nnoremap <leader>F :CtrlPCurWD<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
 nnoremap <leader>B :CtrlPBuffer<CR>
-nnoremap <leader>t :CtrlPTag<CR>
+"nnoremap <leader>t :CtrlPTag<CR>
 
 " https://github.com/scrooloose/syntastic
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
@@ -106,6 +107,17 @@ nmap \tt :TagbarToggle<CR>
 " gcc - toggle comment for the current line
 " gC{motion} - Comment the region
 " gCc        - Comment the current line
+
+" https://github.com/scrooloose/nerdtree
+" Open a NERDTree when vim starts up
+"autocmd vimenter * NERDTree
+" Open a NERDTree when vim starts up if no files were specified
+autocmd vimenter * if !argc() | NERDTree | endif
+" Close vim if the only window left open is NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+map <leader>n :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.pyc$', '\.class$']
 
 " Quickly edit/reload the vimrc file with ,ev and ,sv
 nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
