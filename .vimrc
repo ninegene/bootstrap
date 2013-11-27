@@ -81,15 +81,16 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " https://github.com/kien/ctrlp.vim
 "let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'ctrlp'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
   \ }
 nnoremap <leader>f :CtrlP<CR>
 nnoremap <leader>F :CtrlPCurWD<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
+nnoremap <leader>B :CtrlPBuffer<CR>
 nnoremap <leader>t :CtrlPTag<CR>
 
 " https://github.com/scrooloose/syntastic
@@ -107,8 +108,8 @@ nmap \tt :TagbarToggle<CR>
 " gCc        - Comment the current line
 
 " Quickly edit/reload the vimrc file with ,ev and ,sv
-nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_
-nmap <leader>egv :tabedit ~/.gvimrc<CR><C-W>_
+nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
+nmap <leader>egv :tabedit ~/.gvimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
 nmap <silent> <leader>sv :w!<CR>:so ~/.vimrc<CR>:exe ":echo 'vimrc reloaded'"<CR>:setlocal nohls!<CR>
 
 " Highlight end of line whitespace.
@@ -157,7 +158,7 @@ map \w :setlocal wrap!<CR>:set wrap?<CR>
 map \n :setlocal number!<CR>:set number?<CR>
 
 " Find merge conflict markers
-nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
+nmap <silent> <leader>cm <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " Qick alignment of text (with ,al ,ar ,ac)
 nmap <leader>al :left<CR>
@@ -310,11 +311,12 @@ set wildmenu                  " Make tab completion for files/buffers to act lik
 set wildmode=list:full        " Show a list when pressing tab and complete first full match
 set wildignore="*.swp,*.pyc,*.class
 
-set textwidth=0               " text after this width will be broken when inserted
-set colorcolumn=+1            " highlight right column after textwidth
+set textwidth=99              " text after this width will be broken when inserted
+"set colorcolumn=+1            " highlight right column after textwidth
 highlight ColorColumn ctermbg=lightgrey guibg=lightgrey " Set right column color
 " Toogle text width which is used to break long line that is being inserted
 nnoremap \tw :let &textwidth = (&textwidth ? 0: 99)<CR>:set textwidth?<CR>
+nnoremap \cc :set colorcolumn=+1<CR>
 
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 
