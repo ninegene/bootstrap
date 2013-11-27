@@ -8,7 +8,7 @@ or
 ```bash
 cd ~
 git clone https://github.com/ninegene/dotfiles.git
-cd ~/dotfiles && git submodule init && git submodule update
+cd ~/dotfiles && git submodule update --init --recursive 
 ```
 ```bash
 `bootstrap.sh` backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.)
