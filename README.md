@@ -64,7 +64,6 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `,B`   :CtrlPBuffer        - buffer mode
 * `,m`   :CtrlPMRUFiles      - MRU file mode
 * `,M`   :CtrlPMixed         - file, buffer, MRU
-* `,t`   :CtrlPTag
   * `<F5>` - purge the cache for the current directory
   * `<Ctrl-f>` and `<Ctrl-b>` to cycle between mode
   * `<Ctrl-d>` to switch to filename search instead of full path
@@ -104,6 +103,7 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * https://github.com/majutsushi/tagbar
 * https://github.com/mileszs/ack.vim
 * https://github.com/scrooloose/nerdcommenter.git
+* https://github.com/scrooloose/nerdtree.git
 * https://github.com/tomtom/tcomment_vim.git
 * https://github.com/jeetsukumaran/vim-buffergator
 * https://github.com/kevinw/pyflakes-vim.git
@@ -129,6 +129,7 @@ git submodule add https://github.com/airblade/vim-gitgutter.git .vim/bundle/vim-
 git submodule add https://github.com/majutsushi/tagbar.git .vim/bundle/tagbar
 git submodule add https://github.com/mileszs/ack.vim .vim/bundle/ack.vim
 git submodule add https://github.com/scrooloose/nerdcommenter.git .vim/bundle/nerdcommenter
+git submodule add https://github.com/scrooloose/nerdtree.git .vim/bundle/nerdtree
 git submodule add https://github.com/tomtom/tcomment_vim.git .vim/bundle/tcomment_vim
 git submodule add https://github.com/jeetsukumaran/vim-buffergator .vim/bundle/vim-buffergator
 git submodule add https://github.com/kevinw/pyflakes-vim.git .vim/bundle/pyflakes-vim
