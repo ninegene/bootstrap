@@ -109,15 +109,21 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * https://github.com/scrooloose/nerdcommenter.git
 * https://github.com/tomtom/tcomment_vim.git
 * https://github.com/jeetsukumaran/vim-buffergator
+* https://github.com/sjl/gundo.vim (Vim 7.3+)
+* https://github.com/ervandew/supertab
 
 #### For git
-> * https://github.com/tpope/vim-fugitive
+* https://github.com/tpope/vim-fugitive
 * https://github.com/airblade/vim-gitgutter
 
 #### For code editing (as IDE)
 * https://github.com/majutsushi/tagbar
 * https://github.com/tpope/vim-surround
-* https://github.com/kevinw/pyflakes-vim.git
+* https://github.com/Raimondi/delimitMate
+
+#### For python
+* https://github.com/kevinw/pyflakes-vim
+* https://github.com/klen/python-mode
 
 ## Notes
 
@@ -142,9 +148,14 @@ git submodule add https://github.com/mileszs/ack.vim .vim/bundle/ack.vim
 git submodule add https://github.com/scrooloose/nerdcommenter.git .vim/bundle/nerdcommenter
 git submodule add https://github.com/scrooloose/nerdtree.git .vim/bundle/nerdtree
 git submodule add https://github.com/tomtom/tcomment_vim.git .vim/bundle/tcomment_vim
-git submodule add https://github.com/jeetsukumaran/vim-buffergator .vim/bundle/vim-buffergator
+git submodule add https://github.com/jeetsukumaran/vim-buffergator.git .vim/bundle/vim-buffergator
 git submodule add https://github.com/kevinw/pyflakes-vim.git .vim/bundle/pyflakes-vim
-git submodule init&& git submodule update
+git submodule add https://github.com/kevinw/pyflakes-vim.git .vim/bundle/pyflakes-vim
+git submodule add https://github.com/Raimondi/delimitMate .vim/bundle/delimitMate
+git submodule add https://github.com/sjl/gundo.vim.git .vim/bundle/gundo.vim
+git submodule add https://github.com/ervandew/supertab.git .vim/bundle/supertab
+git submodule add https://github.com/klen/python-mode.git .vim/bundle/python-mode
+git submodule update --init --recursive
 ```
 
 ### Change submodule url
