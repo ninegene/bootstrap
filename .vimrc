@@ -2,17 +2,23 @@
 " This must be first because it changes other options as a side effect
 set nocompatible
 
+
+filetype off
+
 let g:pathogen_disabled = [ 'pathogen' ]    " disable loading plugins in the list
 "if !has('gui_running')
 "  call add(g:pathogen_disabled, 'someplugin')
 "endif
-"if v:version < '703'
-"  call add(g:pathogen_disabled, 'plugin_that_donot_work_on_7.3')
-"endif
+
+if v:version < '703'
+  call add(g:pathogen_disabled, 'gundo')
+endif
+
 call pathogen#infect()                      " load plugins under .vim/bundle
-Helptags                                    " load plugins help files
-syntax on
+call pathogen#helptags()                    " load plugins help files or :Helptags
+
 filetype plugin indent on
+syntax on
 
 " Change the mapleader from \ to ,
 let mapleader = ","
@@ -137,6 +143,17 @@ map <leader>n :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.pyc$', '\.class$']
 
+" https://github.com/sjl/gundo.vim
+map <leader>u :GundoToggle<CR>
+
+" https://github.com/ervandew/supertab
+" Tab to use OmniCompletion if necessary
+let g:SuperTabDefaultCompletionType = "context"
+
+" https://github.com/klen/python-mode
+" Python code folding
+let g:pymode_folding = 0
+
 " Quickly edit/reload the vimrc file with ,ev and ,sv
 nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
 nmap <leader>egv :tabedit ~/.gvimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
@@ -176,7 +193,7 @@ vnoremap <C-S-Down> :m'>+<CR>gv=gv
 nnoremap <C-M-l> :normal! gg=G``<CR>
 
 " Underline the current line with '='
-nmap <silent> <leader>ul :t.<CR>Vr=
+"nmap <silent> <leader>ul :t.<CR>Vr=
 
 " Toogle list chars / show whitespaces
 map \lc :setlocal list!<CR>:set list?<CR>
@@ -386,8 +403,9 @@ set incsearch                 " Show search matches as you type
 set hlsearch                  " Highlight search terms. Use :nohls to remove highlighted search terms
 set magic                     " Match literally for some characters in regular expression
 
-" Use ,/ to clear highlighted search terms
+" Use ,/ or \h to clear highlighted search terms
 :map \h :setlocal hlsearch!<CR>:set hlsearch?<CR>
+:map <leader>/ :setlocal hlsearch!<CR>:set hlsearch?<CR>
 
 " Hide buffers instead of closing them.
 " This means that the current buffer can be put to background without being written and
