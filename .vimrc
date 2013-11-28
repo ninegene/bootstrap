@@ -17,6 +17,8 @@ filetype plugin indent on
 " Change the mapleader from \ to ,
 let mapleader = ","
 let g:mapleader = ","
+"
+" http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-map
 
 " https://github.com/tpope/vim-sensible
 " :Vtabedit plugin/sensible.vim
@@ -90,8 +92,10 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 " https://github.com/kien/ctrlp.vim
 "let g:ctrlp_map = '<c-p>'
 "let g:ctrlp_cmd = 'ctrlp'
+" Show dotfiles
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn|vim)$',
   \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
   \ }
 nnoremap <leader>f :CtrlP<CR>
@@ -110,10 +114,17 @@ set shell=/bin/bash
 nmap \tt :TagbarToggle<CR>
 
 " https://github.com/tomtom/tcomment_vim
+" Default mappings:
 " gc{motion} - toggle comments for the region
 " gcc - toggle comment for the current line
 " gC{motion} - Comment the region
 " gCc        - Comment the current line
+
+" (rempa doesn't seem to work well) Remap '<c-_>' to '<c-/>'
+"let g:tcommentMapLeader1 = '<c-/>'
+" <c-/><c-/> - Comment in normal, insert, and visual mode
+" <c-/>b     - Comment block in normal and insert mode
+" <c-/>p     - Comment the current inner paragraph in normal and insert mode
 
 " https://github.com/scrooloose/nerdtree
 " Open a NERDTree when vim starts up
@@ -335,7 +346,9 @@ set textwidth=99              " text after this width will be broken when insert
 highlight ColorColumn ctermbg=lightgrey guibg=lightgrey " Set right column color
 " Toogle text width which is used to break long line that is being inserted
 nnoremap \tw :let &textwidth = (&textwidth ? 0: 99)<CR>:set textwidth?<CR>
-nnoremap \cc :set colorcolumn=+1<CR>
+" Show right margin column
+nnoremap \col :set colorcolumn=+1<CR>
+nnoremap \col :set colorcolumn=+1<CR>
 
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 

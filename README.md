@@ -8,7 +8,7 @@ or
 ```bash
 cd ~
 git clone https://github.com/ninegene/dotfiles.git
-cd ~/dotfiles && git submodule update --init --recursive 
+cd ~/dotfiles && git submodule update --init --recursive
 ```
 ```bash
 `bootstrap.sh` backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.)
@@ -29,6 +29,11 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `:SudoWrite` Write a privileged file with sudo
 * `:Locate`    Run locate and load the results into the quickfix list.
 * `:Find`      Run find and load the results into the quickfix list.
+
+### Git
+* `:Gdiff`            Between current file and the index
+* `:Gdiff ~2`         Between current file and 2 commits ago
+* `:Gdiff [revision]` Between current file and revision
 * `:GitGutterDisable`
 * `:GitGutterEnable`
 * `:GitGutterToggle`
@@ -55,7 +60,7 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `\tt`  Toggle tag bar
 * `gc{motion}` Toggle comments on sepcified motion
 * `gcc`        Toggle comment on the current line
-* `gc`         Toggle in virtual mode
+* `gc`         Toggle comment on selected lines in virtual mode
 
 #### Search files to open/edit
 * `,f`   :CtrlP              - find file mode (files in the directory of current file and project root of `.git` `.hg` `.svn` `.bzr`
@@ -92,20 +97,26 @@ To update, do `git pull` and execute `bootstrap.sh` again
   * `q`    to close the quickfix window
 
 ### Plugins
+
+#### For file editing
 * https://github.com/tpope/vim-sensible
 * https://github.com/tpope/vim-scriptease
 * https://github.com/tpope/vim-eunuch
-* https://github.com/tpope/vim-fugitive
-* https://github.com/tpope/vim-surround
 * https://github.com/kien/ctrlp.vim
 * https://github.com/bling/vim-airline
-* https://github.com/airblade/vim-gitgutter
-* https://github.com/majutsushi/tagbar
 * https://github.com/mileszs/ack.vim
-* https://github.com/scrooloose/nerdcommenter.git
 * https://github.com/scrooloose/nerdtree.git
+* https://github.com/scrooloose/nerdcommenter.git
 * https://github.com/tomtom/tcomment_vim.git
 * https://github.com/jeetsukumaran/vim-buffergator
+
+#### For git
+> * https://github.com/tpope/vim-fugitive
+* https://github.com/airblade/vim-gitgutter
+
+#### For code editing (as IDE)
+* https://github.com/majutsushi/tagbar
+* https://github.com/tpope/vim-surround
 * https://github.com/kevinw/pyflakes-vim.git
 
 ## Notes
