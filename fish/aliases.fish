@@ -102,3 +102,9 @@ alias doc 'cd ~/Documents'
 alias dl 'cd ~/Downloads'
 alias drbx 'cd ~/Dropbox'
 
+# gitignore.io cli for fish
+function gi
+  #curl http://gitignore.io/api/$argv
+  set -l params (echo $argv|tr ' ' ',')
+  curl http://gitignore.io/api/$params
+end

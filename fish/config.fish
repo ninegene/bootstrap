@@ -1,5 +1,14 @@
 set -U EDITOR vim
 
+function add_path
+  if test -d $argv[1]; and not contains $argv[1] $PATH
+    set -x PATH $argv[1] $PATH
+  else
+    echo $argv[1] is not directory or already contains in PATH
+  end
+
+end
+
 . ~/.config/fish/fish_prompt.fish
 . ~/.config/fish/aliases.fish
 
