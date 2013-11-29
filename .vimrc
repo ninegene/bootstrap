@@ -2,7 +2,6 @@
 " This must be first because it changes other options as a side effect
 set nocompatible
 
-
 filetype off
 
 let g:pathogen_disabled = [ 'pathogen' ]    " disable loading plugins in the list
@@ -101,8 +100,8 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 " Show dotfiles
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|vim)$',
-  \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
+  \ 'dir':  '\v[\/]\.(git|hg|svn|vim|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
+  \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\',
   \ }
 nnoremap <leader>f :CtrlP<CR>
 nnoremap <leader>F :CtrlPCurWD<CR>
@@ -117,7 +116,7 @@ nnoremap <leader>B :CtrlPBuffer<CR>
 set shell=/bin/bash
 
 " https://github.com/majutsushi/tagbar
-nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>tt :TagbarToggle<CR>
 
 " https://github.com/tomtom/tcomment_vim
 " Default mappings:
@@ -141,7 +140,7 @@ autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\.pyc$', '\.class$']
+let NERDTreeIgnore=['.DS_Store', '\.pyc$', '\.class$', '\.git$[[dir]]', '\.vim$[[dir]]', '\.Trash$[[dir]]']
 
 " https://github.com/sjl/gundo.vim
 map <leader>u :GundoToggle<CR>
