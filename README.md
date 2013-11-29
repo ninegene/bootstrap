@@ -22,7 +22,11 @@ To update, do `git pull` and execute `bootstrap.sh` again
 
 ### Mappings
 
-* `Ctrl-Shift-Up` and `Ctrl-Shift-Down` to move current line/selected block of lines up and down
+### Line Operations
+* `[<Space>` Add [count] blank lines above cursor
+* `]<Space>` Add [count] blank lines below cursor
+* `[e` and `]e` to move current line/selected block of lines up and down
+
 * `,ev`  Edit ~/.vimrc
 * `,sv`  Save and reload ~/.vimrc
 * `,S`   Remove end of line whitespaces are hilighted in red
@@ -38,6 +42,8 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `:GitGutterEnable`
 * `:GitGutterToggle`
 * `]h`, `[h` to jump to next and previous hunk (modified line) in Git Gutter
+* `[n`   Go to previous SCM conflict markter. Try `d[n` inside a confict
+* `]n`   Go to next SCM conflict markter. Try `d]n` inside a confict
 
 #### Copy and Paste
 * `Ctrl-C` to copy in virtual mode
@@ -50,17 +56,26 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `<F2>` Toggle paste mode (which allow to paste without formatting/indenting) in normol and insert mode
 
 #### Toggle
-* `\w`   Toggle wrap
-* `\n`   Toggle show line number
-* `\tw`  Toggle textwidth between 0 and 99 - used to break long line that is being inserted
+* `,tt`  Toggle tag bar (need to have ctags installed)
 * `\t`   :set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 * `\T`   :set expandtab tabstop=8 shiftwidth=8 softtabstop=4
 * `\M`   :set noexpandtab tabstop=8 shiftwidth=4 softtabstop=4
 * `\m`   :set expandtab tabstop=2 shiftwidth=2 softtabstop=2
-* `\tt`  Toggle tag bar
 * `gc{motion}` Toggle comments on sepcified motion
 * `gcc`        Toggle comment on the current line
 * `gc`         Toggle comment on selected lines in virtual mode
+* `[oh`, `]oh` and `coh` to turn on, turn off and toggle `hlsearch`        highlight search terms
+* `[ow`, `]ow` and `cow` to turn on, turn off and toggle `wrap`            line wrap
+* `[ot`, `]ot` and `cot` to turn on, turn off and toggle `textwidth`       between 0 and 99 (break
+  lone line after textwdith. 0 means don't break long line)
+* `[om`, `]om` and `com` to turn on, turn off and toggle `colorcolumn`     right margin column
+* `[on`, `]on` and `con` to turn on, turn off and toggle `number`          line number
+* `[or`, `]or` and `cor` to turn on, turn off and toggle `relativenumber`  relative line number
+* `[oi`, `]oi` and `coi` to turn on, turn off and toggle `ignorecase`      ignore case search
+* `[os`, `]os` and `cos` to turn on, turn off and toggle `spell`           spell check
+* `[oc`, `]oc` and `coc` t turn on, turn off and toggle `cursorline`       current line cursor
+* `[ou`, `]ou` and `cou` to turn on, turn off and toggle `cursorcolumn`    current column cursor
+* `[ou`, `]ou` and `cou` to turn on, turn off and toggle `cursorline` and `curosrcolumn` (x as in crosshairs)
 
 #### Search files to open/edit
 * `,f`   :CtrlP              - find file mode (files in the directory of current file and project root of `.git` `.hg` `.svn` `.bzr`
@@ -81,7 +96,8 @@ To update, do `git pull` and execute `bootstrap.sh` again
   * `<Ctrl-v>` to edit the selected buffer in a new vertical split
   * `<Ctrl-s>` to edit the selected buffer in a new horizontal split
   * `<Ctrl-t>` to edit the selected buffer in a new tab page
-* `[b` and `]b` to flip through the most-recently used buffer stack without opening buffer listing
+* `[b`   :bprevious - Go to previous buffer
+* `]b`   :bnext - Go to next buffer
 
 #### Search text within files
 * `:Ack [options] {pattern} [{directory}]`
@@ -99,9 +115,12 @@ To update, do `git pull` and execute `bootstrap.sh` again
 ### Plugins
 
 #### For file editing
+* https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+* https://raw.github.com/tpope/vim-repeat/master/autoload/repeat.vim
 * https://github.com/tpope/vim-sensible
 * https://github.com/tpope/vim-scriptease
 * https://github.com/tpope/vim-eunuch
+* https://github.com/tpope/vim-unimpaired
 * https://github.com/kien/ctrlp.vim
 * https://github.com/bling/vim-airline
 * https://github.com/mileszs/ack.vim
@@ -155,6 +174,7 @@ git submodule add https://github.com/Raimondi/delimitMate .vim/bundle/delimitMat
 git submodule add https://github.com/sjl/gundo.vim.git .vim/bundle/gundo.vim
 git submodule add https://github.com/ervandew/supertab.git .vim/bundle/supertab
 git submodule add https://github.com/klen/python-mode.git .vim/bundle/python-mode
+git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-unimpaired
 git submodule update --init --recursive
 ```
 
