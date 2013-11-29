@@ -2,13 +2,29 @@
 " This must be first because it changes other options as a side effect
 set nocompatible
 
-execute pathogen#infect()
-syntax on
+
+filetype off
+
+let g:pathogen_disabled = [ 'pathogen' ]    " disable loading plugins in the list
+"if !has('gui_running')
+"  call add(g:pathogen_disabled, 'someplugin')
+"endif
+
+if v:version < '703'
+  call add(g:pathogen_disabled, 'gundo')
+endif
+
+call pathogen#infect()                      " load plugins under .vim/bundle
+call pathogen#helptags()                    " load plugins help files or :Helptags
+
 filetype plugin indent on
+syntax on
 
 " Change the mapleader from \ to ,
 let mapleader = ","
 let g:mapleader = ","
+"
+" http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-map
 
 " https://github.com/tpope/vim-sensible
 " :Vtabedit plugin/sensible.vim
@@ -81,16 +97,19 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " https://github.com/kien/ctrlp.vim
 "let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'ctrlp'
+" Show dotfiles
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn|vim)$',
   \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
   \ }
 nnoremap <leader>f :CtrlP<CR>
 nnoremap <leader>F :CtrlPCurWD<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
-nnoremap <leader>t :CtrlPTag<CR>
+nnoremap <leader>B :CtrlPBuffer<CR>
+"nnoremap <leader>t :CtrlPTag<CR>
 
 " https://github.com/scrooloose/syntastic
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
@@ -101,14 +120,43 @@ set shell=/bin/bash
 nmap \tt :TagbarToggle<CR>
 
 " https://github.com/tomtom/tcomment_vim
+" Default mappings:
 " gc{motion} - toggle comments for the region
 " gcc - toggle comment for the current line
 " gC{motion} - Comment the region
 " gCc        - Comment the current line
 
+" (rempa doesn't seem to work well) Remap '<c-_>' to '<c-/>'
+"let g:tcommentMapLeader1 = '<c-/>'
+" <c-/><c-/> - Comment in normal, insert, and visual mode
+" <c-/>b     - Comment block in normal and insert mode
+" <c-/>p     - Comment the current inner paragraph in normal and insert mode
+
+" https://github.com/scrooloose/nerdtree
+" Open a NERDTree when vim starts up
+"autocmd vimenter * NERDTree
+" Open a NERDTree when vim starts up if no files were specified
+autocmd vimenter * if !argc() | NERDTree | endif
+" Close vim if the only window left open is NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+map <leader>n :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.pyc$', '\.class$']
+
+" https://github.com/sjl/gundo.vim
+map <leader>u :GundoToggle<CR>
+
+" https://github.com/ervandew/supertab
+" Tab to use OmniCompletion if necessary
+let g:SuperTabDefaultCompletionType = "context"
+
+" https://github.com/klen/python-mode
+" Python code folding
+let g:pymode_folding = 0
+
 " Quickly edit/reload the vimrc file with ,ev and ,sv
-nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_
-nmap <leader>egv :tabedit ~/.gvimrc<CR><C-W>_
+nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
+nmap <leader>egv :tabedit ~/.gvimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
 nmap <silent> <leader>sv :w!<CR>:so ~/.vimrc<CR>:exe ":echo 'vimrc reloaded'"<CR>:setlocal nohls!<CR>
 
 " Highlight end of line whitespace.
@@ -145,7 +193,7 @@ vnoremap <C-S-Down> :m'>+<CR>gv=gv
 nnoremap <C-M-l> :normal! gg=G``<CR>
 
 " Underline the current line with '='
-nmap <silent> <leader>ul :t.<CR>Vr=
+"nmap <silent> <leader>ul :t.<CR>Vr=
 
 " Toogle list chars / show whitespaces
 map \lc :setlocal list!<CR>:set list?<CR>
@@ -157,7 +205,7 @@ map \w :setlocal wrap!<CR>:set wrap?<CR>
 map \n :setlocal number!<CR>:set number?<CR>
 
 " Find merge conflict markers
-nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
+nmap <silent> <leader>cm <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " Qick alignment of text (with ,al ,ar ,ac)
 nmap <leader>al :left<CR>
@@ -310,11 +358,14 @@ set wildmenu                  " Make tab completion for files/buffers to act lik
 set wildmode=list:full        " Show a list when pressing tab and complete first full match
 set wildignore="*.swp,*.pyc,*.class
 
-set textwidth=0               " text after this width will be broken when inserted
-set colorcolumn=+1            " highlight right column after textwidth
+set textwidth=99              " text after this width will be broken when inserted
+"set colorcolumn=+1            " highlight right column after textwidth
 highlight ColorColumn ctermbg=lightgrey guibg=lightgrey " Set right column color
 " Toogle text width which is used to break long line that is being inserted
 nnoremap \tw :let &textwidth = (&textwidth ? 0: 99)<CR>:set textwidth?<CR>
+" Show right margin column
+nnoremap \col :set colorcolumn=+1<CR>
+nnoremap \col :set colorcolumn=+1<CR>
 
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 
@@ -352,8 +403,9 @@ set incsearch                 " Show search matches as you type
 set hlsearch                  " Highlight search terms. Use :nohls to remove highlighted search terms
 set magic                     " Match literally for some characters in regular expression
 
-" Use ,/ to clear highlighted search terms
+" Use ,/ or \h to clear highlighted search terms
 :map \h :setlocal hlsearch!<CR>:set hlsearch?<CR>
+:map <leader>/ :setlocal hlsearch!<CR>:set hlsearch?<CR>
 
 " Hide buffers instead of closing them.
 " This means that the current buffer can be put to background without being written and
