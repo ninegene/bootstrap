@@ -17,6 +17,7 @@ cd ~/dotfiles && git submodule update --init --recursive
 ~/dotfile/bootstrap.sh
 ```
 To update, do `git pull` and execute `bootstrap.sh` again
+```
 
 ## Vim
 
@@ -51,7 +52,7 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `,d` (or `,dd` or `,dj` or `20,dd`) to delete without adding it to the yanked stack
 * Yank/paste to the OS clipboard with `,y`, `,P` and `,p`
 * `,r` to show registers for text cut and yanked
-* * and `#` to search current selection in virtual mode
+* `*` and `#` to search current selection in virtual mode
 * `gv` to vimgrep after the selected text in virtual mode
 * `<F2>` Toggle paste mode (which allow to paste without formatting/indenting) in normol and insert mode
 
@@ -67,7 +68,7 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `[oh`, `]oh` and `coh` to turn on, turn off and toggle `hlsearch`        highlight search terms
 * `[ow`, `]ow` and `cow` to turn on, turn off and toggle `wrap`            line wrap
 * `[ot`, `]ot` and `cot` to turn on, turn off and toggle `textwidth`       between 0 and 99 (break
-  lone line after textwdith. 0 means don't break long line)
+  long line after textwdith. 0 means don't break long line)
 * `[om`, `]om` and `com` to turn on, turn off and toggle `colorcolumn`     right margin column
 * `[on`, `]on` and `con` to turn on, turn off and toggle `number`          line number
 * `[or`, `]or` and `cor` to turn on, turn off and toggle `relativenumber`  relative line number
@@ -81,7 +82,6 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `,f`   :CtrlP              - find file mode (files in the directory of current file and project root of `.git` `.hg` `.svn` `.bzr`
 * :CtrlP [starting-dirctory] - file mode (files in directory specify)
 * `,F`   :CtrlPCurWD         - file mode (files in current working directory)
-* `,B`   :CtrlPBuffer        - buffer mode
 * `,m`   :CtrlPMRUFiles      - MRU file mode
 * `,M`   :CtrlPMixed         - file, buffer, MRU
   * `<F5>` - purge the cache for the current directory
@@ -91,11 +91,20 @@ To update, do `git pull` and execute `bootstrap.sh` again
   * `..` to go up the directory tree by on or multiple level
   * `<Ctrl-j>` and `<Ctrl-k>` or `<Down>` and `<Up>` to navigate the result list
   * `<Ctrl-t>`, `<Ctrl-v>` and `<Ctrl-x>` to open selected entry in a new tab or vertical split and horizontal split
-* `,b`   Open a window listing all buffer (BufferGator plugin)
+* `,t` and `,T`  Open/close the catalog window of all tab pages (BufferGator plugin)
+* `,b` and `,B`  Open/close the catalog window of all buffers (BufferGator plugin)
+  * `j` and `k` to move the selection to the next and previous buffer
   * `<ENTER>` to edit the selected buffer in the previous window
   * `<Ctrl-v>` to edit the selected buffer in a new vertical split
   * `<Ctrl-s>` to edit the selected buffer in a new horizontal split
   * `<Ctrl-t>` to edit the selected buffer in a new tab page
+  * `<Ctrl-n>` (`<Space>`) and `<Ctrl-p>` (`<Ctrl-Space>`) to open the next and previous buffer in succession
+  * `cs` to sort display regimes/filename
+  * `cd` to change display regimes (between filename only, full path, and filename and directory)
+  * `r` to rebuild/refresh index
+  * `d` to delete the selected buffer
+  * `x` to wipe the selected buffer
+  * `q` to quit the index/catalog window
 * `[b`   :bprevious - Go to previous buffer
 * `]b`   :bnext - Go to next buffer
 
@@ -121,24 +130,26 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * https://github.com/tpope/vim-scriptease
 * https://github.com/tpope/vim-eunuch
 * https://github.com/tpope/vim-unimpaired
+* https://github.com/tpope/vim-endwise
 * https://github.com/kien/ctrlp.vim
 * https://github.com/bling/vim-airline
 * https://github.com/mileszs/ack.vim
 * https://github.com/scrooloose/nerdtree.git
-* https://github.com/scrooloose/nerdcommenter.git
-* https://github.com/tomtom/tcomment_vim.git
-* https://github.com/jeetsukumaran/vim-buffergator
-* https://github.com/sjl/gundo.vim (Vim 7.3+)
-* https://github.com/ervandew/supertab
 
 #### For git
 * https://github.com/tpope/vim-fugitive
 * https://github.com/airblade/vim-gitgutter
 
 #### For code editing (as IDE)
+* https://github.com/jeetsukumaran/vim-buffergator
+* https://github.com/sjl/gundo.vim (Vim 7.3+)
+* https://github.com/scrooloose/nerdcommenter.git
+* https://github.com/tomtom/tcomment_vim.git
+* https://github.com/ervandew/supertab
 * https://github.com/majutsushi/tagbar
 * https://github.com/tpope/vim-surround
 * https://github.com/Raimondi/delimitMate
+* https://github.com/jiangmiao/auto-pairs
 
 #### For python
 * https://github.com/kevinw/pyflakes-vim
@@ -175,6 +186,8 @@ git submodule add https://github.com/sjl/gundo.vim.git .vim/bundle/gundo.vim
 git submodule add https://github.com/ervandew/supertab.git .vim/bundle/supertab
 git submodule add https://github.com/klen/python-mode.git .vim/bundle/python-mode
 git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-unimpaired
+git submodule add https://github.com/tpope/vim-endwise.git .vim/bundle/vim-endwise
+git submodule add https://github.com/jiangmiao/auto-pairs.git .vim/bundle/auto-pairs
 git submodule update --init --recursive
 ```
 
