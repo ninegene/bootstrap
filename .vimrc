@@ -4,7 +4,10 @@ set nocompatible
 
 filetype off
 
-let g:pathogen_disabled = [ 'pathogen' ]    " disable loading plugins in the list
+" Disable loading plugins in the list
+"  - disalbe delimiMate and use auto-pairs
+let g:pathogen_disabled = [ 'delimitMate' ] 
+
 "if !has('gui_running')
 "  call add(g:pathogen_disabled, 'someplugin')
 "endif
@@ -107,8 +110,9 @@ nnoremap <leader>f :CtrlP<CR>
 nnoremap <leader>F :CtrlPCurWD<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
-nnoremap <leader>B :CtrlPBuffer<CR>
-"nnoremap <leader>t :CtrlPTag<CR>
+" Comment out: conflict with buffergator plugin
+" nnoremap <leader>B :CtrlPBuffer<CR>
+" nnoremap <leader>t :CtrlPTag<CR>
 
 " https://github.com/scrooloose/syntastic
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
@@ -235,17 +239,12 @@ map <M-.> <C-W>>
 " Adjust viewports to the same size
 map <Leader>= <C-w>=
 
-" F4 to close current window
+" F4 to delete current buffer to left behind hidden buffer
 noremap <F4> <Esc>:bdelete<CR><Esc>
 
 " Complete whole filenames/lines with a quicker shortcut key in insert mode
 imap <C-F> <C-X><C-F>
 imap <C-L> <C-X><C-L>
-
-" Cycle between all open buffers
-":nmap <C-[> :bnext<CR>
-":nmap <C-]> :bprev<CR>
-
 
 " Yanking/Copying and Pasting
 " ===========================
@@ -408,8 +407,8 @@ set hlsearch                  " Highlight search terms. Use :nohls to remove hig
 set magic                     " Match literally for some characters in regular expression
 
 " Use ,/ or \h to clear highlighted search terms
-:map \h :setlocal hlsearch!<CR>:set hlsearch?<CR>
-:map <leader>/ :setlocal hlsearch!<CR>:set hlsearch?<CR>
+" :map \h :setlocal hlsearch!<CR>:set hlsearch?<CR>
+" :map <leader>/ :setlocal hlsearch!<CR>:set hlsearch?<CR>
 
 " Hide buffers instead of closing them.
 " This means that the current buffer can be put to background without being written and
