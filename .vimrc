@@ -117,7 +117,7 @@ nnoremap <leader>B :CtrlPBuffer<CR>
 set shell=/bin/bash
 
 " https://github.com/majutsushi/tagbar
-nmap \tt :TagbarToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
 
 " https://github.com/tomtom/tcomment_vim
 " Default mappings:
@@ -237,7 +237,7 @@ map <M-.> <C-W>>
 map <Leader>= <C-w>=
 
 " F4 to close current window
-noremap <F4> <Esc>:close<CR><Esc>
+noremap <F4> <Esc>:bdelete<CR><Esc>
 
 " Complete whole filenames/lines with a quicker shortcut key in insert mode
 imap <C-F> <C-X><C-F>
@@ -358,14 +358,19 @@ set wildmenu                  " Make tab completion for files/buffers to act lik
 set wildmode=list:full        " Show a list when pressing tab and complete first full match
 set wildignore="*.swp,*.pyc,*.class
 
-set textwidth=99              " text after this width will be broken when inserted
+set nowrap
+set textwidth=0                " text after this width will be broken when inserted
 "set colorcolumn=+1            " highlight right column after textwidth
 highlight ColorColumn ctermbg=lightgrey guibg=lightgrey " Set right column color
+nnoremap [ot :set textwidth=99<CR>
+nnoremap ]ot :set textwidth=0<CR>
 " Toogle text width which is used to break long line that is being inserted
-nnoremap \tw :let &textwidth = (&textwidth ? 0: 99)<CR>:set textwidth?<CR>
+nnoremap cot :let &textwidth = (&textwidth ? 0: 99)<CR>:set textwidth?<CR>
 " Show right margin column
-nnoremap \col :set colorcolumn=+1<CR>
-nnoremap \col :set colorcolumn=+1<CR>
+nnoremap [om :set colorcolumn=+1<CR>
+nnoremap ]om :set colorcolumn=<CR>
+" TODO: doesn't work
+"nnoremap com :let &colorcolumn=(&colorcolumn ? '+1' : '')<CR>:set colorcolumn?<CR>
 
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 
