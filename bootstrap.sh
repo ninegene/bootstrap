@@ -58,6 +58,7 @@ function main {
   setup_file "$base_dir/bash/.profile" "$HOME/.profile"
   setup_file "$base_dir/bash/.aliases" "$HOME/.aliases"
 
+  mkdir -p $HOME/.config/fish
   setup_file "$base_dir/fish/fish_prompt.fish" "$HOME/.config/fish/fish_prompt.fish"
   setup_file "$base_dir/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
   setup_file "$base_dir/fish/functions" "$HOME/.config/fish/functions"
