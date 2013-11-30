@@ -1,0 +1,142 @@
+[user]
+	name = Aung
+	email = aungloo@gmail.com
+
+[push]
+    default = upstream
+
+[pull]
+    default = current
+
+[difftool "sourcetree"]
+        cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+        path = 
+
+[mergetool "sourcetree"]
+        cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+        trustExitCode = true
+
+[alias]
+    # Source: https://git.wiki.kernel.org/index.php/Aliases
+    # Source: http://robots.thoughtbot.com/streamline-your-git-workflow-with-aliases/
+    # Source: http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
+    # Source: http://brendanforster.com/notes/git-alias.html
+
+    # Show a list of defined aliases
+    aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+    ali = "!git config -l | grep alias | cut -c 7-"
+ 
+    me = config user.name
+    curbrname = "!git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`"
+    bn = "!git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`"
+
+    sl = stash list
+    sa = stash apply
+    ss = stash save
+
+    st = status -s
+    a = add
+    ai = add --interactive
+    aa = !git add -u && git add . && git status
+    cia = commit -am
+    ca = commit -am
+    ci = commit -m
+    c = commit -m
+
+    cl = clone
+
+    b = branch
+    br = branch
+    co = checkout
+    com = checkout master
+    cob = checkout -b
+
+    fe = fetch origin
+    r = reset
+    r1 = reset HEAD^
+    r2 = reset HEAD^^
+    rh = reset --hard
+    rh1 = reset HEAD^ --hard
+    rh2 = reset HEAD^^ --hard
+    hr = reset origin/master --hard
+
+    sync = !git update && git co master && git pull && git co @{-1}
+    resync = !sh -c 'BRANCH_NAME=master && git com && git fe && git hr && git rebase master '
+
+    # Show the last tag
+    lasttag = describe --tags --abbrev=0
+    lt = describe --tags --abbrev=0
+
+    # Display pretty log
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    le = log --oneline --decorate
+    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    # No color for piping
+    lnc = log --pretty=format:"%h\\ %s\\ [%cn]" 
+    # One line commit with dates
+    lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+    # One line commit with relative dates
+    # e.g. $ git ld -10
+    ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+    # Display dates in local timezone
+    llog = log --date=local
+    # My commits today
+    today = !git all --since='12am' --committer=\"`git me`\"
+    # All commits today
+    today-all = !git all --since='12am'
+
+    # Display history of file
+    filelog = log -u
+    fl = log -u
+
+    # Display modified files in last commit
+    dl = "!git ll -1"
+
+    # Display the fetched commits with stats but excluding merges
+    lc = log ORIG_HEAD.. --stat --no-merges
+
+    # Find all commits whose hash start with given string in case of collision
+    # e.g. $ git abbr 21f
+    abbr = "!sh -c 'git rev-list --all | grep ^$1 | while read commit; do git --no-pager log -n1 --pretty=format:\"%H %ci %an %s%n\" $commit; done' -"
+
+    # Display someone's commits
+    # e.g. $ git whois <username or email>
+    whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+
+    # Display a commit
+    # e.g. $ git whatis <revision>
+    whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
+
+    d = diff --word-diff
+    dc = diff --cached
+    # Show a diff of last commit
+    dlc = diff --cached HEAD^
+    changes = diff --name-status -r
+    diffstat = diff --stat -r
+
+    # Show content (full diff) of a commit given a revision:
+    diffr  = "!f() { git diff "$1"^.."$1"; }; f"
+    dr  = "!f() { git diff "$1"^.."$1"; }; f"
+    lc  = "!f() { git ll "$1"^.."$1"; }; f"
+
+    # Find a file path in codebase from search term
+    # e.g. $ git f mystring
+    f = "!git ls-files | grep -i"
+    # Search/grep your entire codebase for a string
+    grep = grep -Ii
+    gr = grep -Ii
+    # Grep from root folder
+    gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+
+    # Merge
+    ours = "!f() { git co --ours $@ && git add $@; }; f"
+    theirs = "!f() { git co --theirs $@ && git add $@; }; f"
+
+    spullr = !git stash save && git pull --rebase && git stash pop && echo 'Success!'
+    up = !git fetch origin && git rebase origin/master
+    ir = !git rebase -i origin/master
+    cleanup = !git remote prune origin && git gc && git clean -dfx && git stash clear
+
+
+
