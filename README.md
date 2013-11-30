@@ -2,21 +2,19 @@
 
 ```bash
 cd ~
-git clone --recursive https://github.com/ninegene/dotfiles.git
-```
-or
-```bash
-cd ~
 git clone https://github.com/ninegene/dotfiles.git
-cd ~/dotfiles && git submodule update --init --recursive
+cd ~/dotfiles
+./bootstrap.sh
 ```
-```bash
-`bootstrap.sh` backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.)
+
+`bootstrap.sh` installs dependencies packages and backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.)
  in user home directory and create soft links from `dotfiles`
-```bash
-~/dotfile/bootstrap.sh
-```
+
 To update, do `git pull` and execute `bootstrap.sh` again
+```bash
+cd ~/dotfiles
+git pull
+./bootstrap.sh
 ```
 
 ## Vim
@@ -52,7 +50,7 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * `,d` (or `,dd` or `,dj` or `20,dd`) to delete without adding it to the yanked stack
 * Yank/paste to the OS clipboard with `,y`, `,P` and `,p`
 * `,r` to show registers for text cut and yanked
-* `*` and `#` to search current selection in virtual mode
+* * and `#` to search current selection in virtual mode
 * `gv` to vimgrep after the selected text in virtual mode
 * `<F2>` Toggle paste mode (which allow to paste without formatting/indenting) in normol and insert mode
 
@@ -140,7 +138,7 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * https://github.com/tpope/vim-fugitive
 * https://github.com/airblade/vim-gitgutter
 
-#### For code editing (as IDE)
+#### For code editing
 * https://github.com/jeetsukumaran/vim-buffergator
 * https://github.com/sjl/gundo.vim (Vim 7.3+)
 * https://github.com/scrooloose/nerdcommenter.git
@@ -150,6 +148,7 @@ To update, do `git pull` and execute `bootstrap.sh` again
 * https://github.com/tpope/vim-surround
 * https://github.com/Raimondi/delimitMate
 * https://github.com/jiangmiao/auto-pairs
+* https://github.com/plasticboy/vim-markdown
 
 #### For python
 * https://github.com/kevinw/pyflakes-vim
@@ -188,6 +187,7 @@ git submodule add https://github.com/klen/python-mode.git .vim/bundle/python-mod
 git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-unimpaired
 git submodule add https://github.com/tpope/vim-endwise.git .vim/bundle/vim-endwise
 git submodule add https://github.com/jiangmiao/auto-pairs.git .vim/bundle/auto-pairs
+git submodule add https://github.com/plasticboy/vim-markdown.git .vim/bundle/vim-markdown
 git submodule update --init --recursive
 ```
 

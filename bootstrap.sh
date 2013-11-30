@@ -50,6 +50,8 @@ function setup_file {
 }
 
 function main {
+  git submodule update --init --recursive
+  sudo ./install-dependencies.sh
   echo " "
   setup_file "$base_dir/bash/.bashrc" "$HOME/.bashrc"
   setup_file "$base_dir/bash/.bash_aliases" "$HOME/.bash_aliases"
