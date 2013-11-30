@@ -71,6 +71,8 @@ function main {
   setup_file "$base_dir/.ctags" "$HOME/.ctags"
   setup_file "$base_dir/.vim" "$HOME/.vim"
 
+  setup_file "$base_dir/.gitconfig" "$HOME/.gitconfig"
+
   echo "Done bootstrapping!"
 }
 
