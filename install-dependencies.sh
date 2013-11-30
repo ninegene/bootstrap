@@ -2,6 +2,7 @@
 
 function linux {
     sudo apt-get install git
+    sudo apt-get install gitk # git  repository browser
     sudo apt-get install gitg # free simple git ui client to see branches and changes/diff before commit
     sudo apt-get install tree colordiff # used in shell aliases
     sudo apt-get install exuberant-ctags # for vim tagbar plugin
