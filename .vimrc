@@ -157,6 +157,10 @@ let g:SuperTabDefaultCompletionType = "context"
 " Python code folding
 let g:pymode_folding = 0
 
+" https://github.com/plasticboy/vim-markdown/
+let g:vim_markdown_folding_disabled=1
+
+
 " Quickly edit/reload the vimrc file with ,ev and ,sv
 nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
 nmap <leader>egv :tabedit ~/.gvimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
