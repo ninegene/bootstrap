@@ -4,6 +4,22 @@ alias M 'macvim'
 alias ll 'ls -alFh --group-directories-first'
 alias la 'ls -A'
 
+switch (uname -s)
+  case Darwin
+    # brew install coreutils
+    alias ls 'gls -CF --color=auto'
+    alias ll 'gls -alFh --color=auto --group-directories-first'
+    alias la 'ls -A'
+    alias lls 'll -S'
+    alias llt 'll -t'
+  case Linux
+    alias ls 'ls -CF --color=auto'
+    alias ll 'ls -alFh --group-directories-first'
+    alias la 'ls -A'
+    alias lls 'll -S'
+    alias llt 'll -t'
+end
+
 alias grep 'grep --color=auto'
 alias fgrep 'fgrep --color=auto'
 alias egrep 'egrep --color=auto'

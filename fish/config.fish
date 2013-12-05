@@ -47,6 +47,10 @@ if test -d '/opt/local/sbin'
   prepand_to_path /opt/local/sbin
 end
 
+if test -d '/opt/local/lib/mariadb/bin'
+  prepand_to_path /opt/local/lib/mariadb/bin
+end
+
 . ~/.config/fish/fish_prompt.fish
 . ~/.config/fish/aliases.fish
 
