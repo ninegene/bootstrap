@@ -11,14 +11,11 @@ alias egrep 'egrep --color=auto'
 alias ... 'cd ../..'
 alias .... 'cd ../../..'
 
-alias eali 'vim ~/.config/fish/aliases.fish'
-alias sali '. ~/.config/fish/aliases.fish'
-alias efish 'vim ~/.config/fish/config.fish'
-alias sfish '. ~/.config/fish/config.fish'
+alias ea 'vim ~/.config/fish/aliases.fish'
+alias ef 'vim ~/.config/fish/config.fish'
 alias ev 'vim ~/.vimrc'
+alias sfish '. ~/.config/fish/config.fish'
 
-# sudo apt-get install tree
-# sudo port install tree
 alias tree='tree --charset=ASCII'
 alias tree1='tree --dirsfirst -FL 1'
 alias tree2='tree --dirsfirst -FL 2'

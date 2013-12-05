@@ -329,6 +329,7 @@ endfunction
 " Editor Options
 " =============
 
+set number                    " Show line number
 set ruler                     " Show the cursor position all the time
 set showmode                  " Always show what mode we're currently editing in
 " Make p in visual mode replace the selected text with the yank register

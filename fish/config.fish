@@ -20,8 +20,8 @@ end
 
 # JAVA_HOME in Linux
 if test -d '/usr/lib/jvm/jdk7/bin'
-  set -x JAVA_HOME /usr/lib/jvm/jdk7
-  prepand_to_path $JAVA_HOME/bin
+  set -x JAVA_HOME "/usr/lib/jvm/jdk7"
+  prepand_to_path "$JAVA_HOME/bin"
 end
 
 # JAVA_HOME in Mac
@@ -29,13 +29,13 @@ end
 
 # IntelliJ IDEA for Linux
 if test -d '/opt/idea/bin'
-  set -x IDEA_JDK $JAVA_HOME
+  set -x IDEA_JDK "$JAVA_HOME"
   append_to_path /opt/idea/bin
 end
 
 # SmartGitHg git/hg ui client for Linux
 if test -d '/opt/smartgithg/bin'
-  set -x SMARTGIT_JAVA_HOME $JAVA_HOME
+  set -x SMARTGIT_JAVA_HOME "$JAVA_HOME"
   append_to_path /opt/smartgithg/bin
 end
 

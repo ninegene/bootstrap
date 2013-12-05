@@ -156,9 +156,9 @@ alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
-alias eali='vi ~/.aliases'
-alias sali='source ~/.aliases'
-alias ebash='vi ~/.bashrc'
+alias ea='vi ~/.aliases'
+alias eb='vi ~/.bashrc'
+alias ev='vi ~/.vimrc'
 alias sbash='source ~/.bashrc'
 
 alias sav='cd /etc/apache2/sites-available'
