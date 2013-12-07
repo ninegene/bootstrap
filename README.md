@@ -149,7 +149,6 @@ git pull
 * https://github.com/Raimondi/delimitMate
 * https://github.com/jiangmiao/auto-pairs
 * https://github.com/plasticboy/vim-markdown
-* https://github.com/amiorin/vim-project
 
 #### For python
 * https://github.com/kevinw/pyflakes-vim
@@ -189,7 +188,6 @@ git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-un
 git submodule add https://github.com/tpope/vim-endwise.git .vim/bundle/vim-endwise
 git submodule add https://github.com/jiangmiao/auto-pairs.git .vim/bundle/auto-pairs
 git submodule add https://github.com/plasticboy/vim-markdown.git .vim/bundle/vim-markdown
-git submodule add https://github.com/amiorin/vim-project.git .vim/bundle/vim-project
 git submodule update --init --recursive
 ```
 

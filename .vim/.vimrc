@@ -26,16 +26,6 @@ syntax on
 let mapleader = ","
 let g:mapleader = ","
 
-" https://github.com/amiorin/vim-project
-let g:project_enable_welcome = 1 
-let g:project_use_nerdtree = 1 
-
-" Starting path
-call project#rc("~/Projects")
-
-Project  '~/dotfiles'
-Project  '~/Downloads'
-
 " http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-map
 
 " https://github.com/tpope/vim-sensible
