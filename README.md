@@ -7,7 +7,7 @@ cd dotfiles
 ./bootstrap.sh
 ```
 
-`bootstrap.sh` installs dependencies packages and backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.)
+`bootstrap.sh` updates submodules, installs dependencies packages and backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.)
  in user home directory and create soft links from `dotfiles`
 
 To update, do `git pull` and execute `bootstrap.sh` again
@@ -57,9 +57,9 @@ git pull
 #### Toggle
 * `,tt`  Toggle tag bar (need to have ctags installed)
 * `\t`   :set expandtab tabstop=4 shiftwidth=4 softtabstop=4
-* `\T`   :set expandtab tabstop=8 shiftwidth=8 softtabstop=4
+* `\T`   :set expandtab tabstop=2 shiftwidth=2 softtabstop=2
+* `\m`   :set expandtab tabstop=8 shiftwidth=8 softtabstop=4
 * `\M`   :set noexpandtab tabstop=8 shiftwidth=4 softtabstop=4
-* `\m`   :set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 * `gc{motion}` Toggle comments on sepcified motion
 * `gcc`        Toggle comment on the current line
 * `gc`         Toggle comment on selected lines in virtual mode
