@@ -3,7 +3,7 @@
 ```bash
 cd ~
 git clone https://github.com/ninegene/dotfiles.git
-cd ~/dotfiles
+cd dotfiles
 ./bootstrap.sh
 ```
 
@@ -132,7 +132,7 @@ git pull
 * https://github.com/kien/ctrlp.vim
 * https://github.com/bling/vim-airline
 * https://github.com/mileszs/ack.vim
-* https://github.com/scrooloose/nerdtree.git
+* https://github.com/scrooloose/nerdtree
 
 #### For git
 * https://github.com/tpope/vim-fugitive
@@ -141,14 +141,15 @@ git pull
 #### For code editing
 * https://github.com/jeetsukumaran/vim-buffergator
 * https://github.com/sjl/gundo.vim (Vim 7.3+)
-* https://github.com/scrooloose/nerdcommenter.git
-* https://github.com/tomtom/tcomment_vim.git
+* https://github.com/scrooloose/nerdcommenter
+* https://github.com/tomtom/tcomment_vim
 * https://github.com/ervandew/supertab
 * https://github.com/majutsushi/tagbar
 * https://github.com/tpope/vim-surround
 * https://github.com/Raimondi/delimitMate
 * https://github.com/jiangmiao/auto-pairs
 * https://github.com/plasticboy/vim-markdown
+* https://github.com/amiorin/vim-project
 
 #### For python
 * https://github.com/kevinw/pyflakes-vim
@@ -188,6 +189,7 @@ git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-un
 git submodule add https://github.com/tpope/vim-endwise.git .vim/bundle/vim-endwise
 git submodule add https://github.com/jiangmiao/auto-pairs.git .vim/bundle/auto-pairs
 git submodule add https://github.com/plasticboy/vim-markdown.git .vim/bundle/vim-markdown
+git submodule add https://github.com/amiorin/vim-project.git .vim/bundle/vim-project
 git submodule update --init --recursive
 ```
 

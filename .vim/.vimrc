@@ -6,7 +6,7 @@ filetype off
 
 " Disable loading plugins in the list
 "  - disalbe delimiMate and use auto-pairs
-let g:pathogen_disabled = [ 'delimitMate' ] 
+let g:pathogen_disabled = [ 'delimitMate' ]
 
 "if !has('gui_running')
 "  call add(g:pathogen_disabled, 'someplugin')
@@ -25,7 +25,17 @@ syntax on
 " Change the mapleader from \ to ,
 let mapleader = ","
 let g:mapleader = ","
-"
+
+" https://github.com/amiorin/vim-project
+let g:project_enable_welcome = 1 
+let g:project_use_nerdtree = 1 
+
+" Starting path
+call project#rc("~/Projects")
+
+Project  '~/dotfiles'
+Project  '~/Downloads'
+
 " http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-map
 
 " https://github.com/tpope/vim-sensible
@@ -139,7 +149,7 @@ nnoremap <leader>tt :TagbarToggle<CR>
 " Open a NERDTree when vim starts up
 "autocmd vimenter * NERDTree
 " Open a NERDTree when vim starts up if no files were specified
-autocmd vimenter * if !argc() | NERDTree | endif
+"autocmd vimenter * if !argc() | NERDTree | endif
 " Close vim if the only window left open is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 map <leader>n :NERDTreeToggle<CR>
@@ -362,18 +372,20 @@ set wildmode=list:full        " Show a list when pressing tab and complete first
 set wildignore="*.swp,*.pyc,*.class
 
 set nowrap
-set textwidth=0                " text after this width will be broken when inserted
-"set colorcolumn=+1            " highlight right column after textwidth
-highlight ColorColumn ctermbg=lightgrey guibg=lightgrey " Set right column color
+
+" Text width which is used to break long line that is being inserted
+set textwidth=0               " text after this width will be broken when inserted
 nnoremap [ot :set textwidth=99<CR>
 nnoremap ]ot :set textwidth=0<CR>
-" Toogle text width which is used to break long line that is being inserted
-nnoremap cot :let &textwidth = (&textwidth ? 0: 99)<CR>:set textwidth?<CR>
+nnoremap cot :let &tw = (&tw ? 0: 99)<CR>:set textwidth?<CR>
+
 " Show right margin column
+"set colorcolumn=+1            " highlight right column after textwidth
+set colorcolumn=            " highlight right column after textwidth
+highlight ColorColumn ctermbg=lightgrey guibg=lightgrey " Set right column color
 nnoremap [om :set colorcolumn=+1<CR>
 nnoremap ]om :set colorcolumn=<CR>
-" TODO: doesn't work
-"nnoremap com :let &colorcolumn=(&colorcolumn ? '+1' : '')<CR>:set colorcolumn?<CR>
+nnoremap com :let &colorcolumn= (&colorcolumn == '+1' ? '' : '+1')<CR>:set colorcolumn?<CR>
 
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 
@@ -392,9 +404,9 @@ set smarttab                  " Insert tabs on the start of a line according to 
 
 " Toogle different tab modes
 nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
-nmap \T :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<CR>
+nmap \T :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
+nmap \m :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<CR>
 nmap \M :set noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<CR>
-nmap \m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
 
 " Show matching pairs
 set showmatch                 " Show matching parenthesis
@@ -408,12 +420,13 @@ set history=1000              " Remember more commands and search history
 set ignorecase                " Ignore case when searching
 set smartcase                 " Ignore case if pattern is all lowercase, case-sensitive otherwise
 set incsearch                 " Show search matches as you type
-set hlsearch                  " Highlight search terms. Use :nohls to remove highlighted search terms
+"set hlsearch                  " Highlight search terms. Use :nohls to remove highlighted search terms
+set nohlsearch
 set magic                     " Match literally for some characters in regular expression
 
 " Use ,/ or \h to clear highlighted search terms
 " :map \h :setlocal hlsearch!<CR>:set hlsearch?<CR>
-" :map <leader>/ :setlocal hlsearch!<CR>:set hlsearch?<CR>
+:map <leader>/ :setlocal hlsearch!<CR>:set hlsearch?<CR>
 
 " Hide buffers instead of closing them.
 " This means that the current buffer can be put to background without being written and
@@ -437,3 +450,4 @@ let g:tagbar_type_markdown = {
     \ ]
 \ }
 
+:so ~/.vimrc.local
