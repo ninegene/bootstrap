@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 option=$1
 
 verbose=0; [ "$option" = "--verbose" ] && verbose=1
@@ -51,7 +54,7 @@ function setup_file {
 
 function main {
   git submodule update --init --recursive
-  sudo ./install-dependencies.sh
+  sudo ./bin/install-dependencies.sh
   echo " "
   setup_file "$base_dir/bash/.bashrc" "$HOME/.bashrc"
   setup_file "$base_dir/bash/.bash_aliases" "$HOME/.bash_aliases"
@@ -66,9 +69,10 @@ function main {
   setup_file "$base_dir/fish/functions" "$HOME/.config/fish/functions"
   setup_file "$base_dir/fish/config.fish" "$HOME/.config/fish/config.fish"
 
-  setup_file "$base_dir/.vimrc" "$HOME/.vimrc"
-  setup_file "$base_dir/.gvimrc" "$HOME/.gvimrc"
-  setup_file "$base_dir/.ctags" "$HOME/.ctags"
+  setup_file "$base_dir/.vim/.vimrc" "$HOME/.vimrc"
+  setup_file "$base_dir/.vim/.vimrc.local" "$HOME/.vimrc.local"
+  setup_file "$base_dir/.vim/.gvimrc" "$HOME/.gvimrc"
+  setup_file "$base_dir/.vim/.ctags" "$HOME/.ctags"
   setup_file "$base_dir/.vim" "$HOME/.vim"
 
   setup_file "$base_dir/.gitconfig" "$HOME/.gitconfig"

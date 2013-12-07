@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function linux {
     sudo apt-get install git
     sudo apt-get install gitk # git  repository browser
@@ -11,17 +13,19 @@ function linux {
     sudo apt-get install ack-grep
     sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
     echo "Install SmartGit git ui client (non-commercial) manually from http://www.syntevo.com/smartgithg/"
-    echo "Installation steps (SmartGitHg is only free for non-commercial use):
-    Download it from the site
-    $ open http://www.syntevo.com/smartgithg/
-    $ sudo mkdir /opt
-    $ cd ~/Downloads (or downloaded directory)
-    $ tar xvfz smartgithg-generic-x_x_x.tar.gz (where x_x_x is the version)
-    $ sudo mv smartgithg-x_x_x /opt/
-    $ sudo ln -s /opt/smartgithg-x_x_x /opt/smartgithg
-    $ sudo ln -s /opt/smartgithg/bin/smartgithg.sh /opt/smartgithg/bin/smartg
-    $ /opt/smartgithg/bin/add-menuitem.sh (add menu/icon item)
-    $ smartg (to open from command line)
+    echo "
+    Installation steps (SmartGitHg is only free for non-commercial use):
+    Download smartgithg binary gzip file from the site
+      $ open http://www.syntevo.com/smartgithg/
+      $ sudo mkdir /opt
+      $ cd ~/Downloads (or downloaded directory)
+      $ tar xvfz smartgithg-generic-x_x_x.tar.gz (where x_x_x is the version)
+      $ sudo mv smartgithg-x_x_x /opt/
+      $ sudo ln -s /opt/smartgithg-x_x_x /opt/smartgithg
+      $ sudo ln -s /opt/smartgithg/bin/smartgithg.sh /opt/smartgithg/bin/smartg
+      $ /opt/smartgithg/bin/add-menuitem.sh (add menu/icon item)
+      $ smartg (to open from command line)
+    "
 }
 
 function mac {
