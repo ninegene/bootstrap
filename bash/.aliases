@@ -2,6 +2,8 @@
 alias sudo='sudo '
 
 alias G='gvim'
+alias M='macvim'
+alias v='vim'
 
 export platform=`uname`
 

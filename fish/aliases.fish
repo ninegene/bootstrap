@@ -1,5 +1,6 @@
 alias G 'gvim'
 alias M 'macvim'
+alias v 'vim'
 
 alias ll 'ls -alFh --group-directories-first'
 alias la 'ls -A'
