@@ -9,12 +9,12 @@
     default = current
 
 [difftool "sourcetree"]
-        cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-        path = 
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path =
 
 [mergetool "sourcetree"]
-        cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-        trustExitCode = true
+    cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
 
 [alias]
     # Source: https://git.wiki.kernel.org/index.php/Aliases
@@ -25,7 +25,7 @@
     # Show a list of defined aliases
     aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
     ali = "!git config -l | grep alias | cut -c 7-"
- 
+
     me = config user.name
     curbrname = "!git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`"
     bn = "!git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`"
@@ -35,6 +35,7 @@
     ss = stash save
 
     st = status -s
+
     a = add
     ai = add --interactive
     aa = !git add -u && git add . && git status
@@ -61,7 +62,7 @@
     hr = reset origin/master --hard
 
     sync = !git update && git co master && git pull && git co @{-1}
-    resync = !sh -c 'BRANCH_NAME=master && git com && git fe && git hr && git rebase master '
+    resync = !sh -c 'BRANCH_NAME=master && git com && git fe && git hr && git rebase master'
 
     # Show the last tag
     lasttag = describe --tags --abbrev=0
@@ -73,7 +74,7 @@
     ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     # No color for piping
-    lnc = log --pretty=format:"%h\\ %s\\ [%cn]" 
+    lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
     # One line commit with dates
     lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
     # One line commit with relative dates
@@ -135,8 +136,6 @@
 
     spullr = !git stash save && git pull --rebase && git stash pop && echo 'Success!'
     up = !git fetch origin && git rebase origin/master
+    update = !git fetch origin && git rebase origin/master
     ir = !git rebase -i origin/master
     cleanup = !git remote prune origin && git gc && git clean -dfx && git stash clear
-
-
-
