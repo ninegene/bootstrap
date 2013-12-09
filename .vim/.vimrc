@@ -5,8 +5,8 @@ set nocompatible
 filetype off
 
 " Disable loading plugins in the list
-"  - disalbe delimiMate and use auto-pairs
-let g:pathogen_disabled = [ 'delimitMate' ]
+"  - disable delimiMate and use auto-pairs
+let g:pathogen_disabled = [ 'delimiMate' ]
 
 "if !has('gui_running')
 "  call add(g:pathogen_disabled, 'someplugin')
@@ -101,18 +101,24 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 "let g:ctrlp_map = '<c-p>'
 "let g:ctrlp_cmd = 'ctrlp'
 " Show dotfiles
-let g:ctrlp_show_hidden = 1
+"let g:ctrlp_show_hidden = 1
+let g:ctrlp_show_hidden = 0
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|vim|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
+  \ 'dir':  '\v[\/]venv|\.(idea|git|hg|svn|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
   \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\',
   \ }
 nnoremap <leader>f :CtrlP<CR>
 nnoremap <leader>F :CtrlPCurWD<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
-" Comment out: conflict with buffergator plugin
 " nnoremap <leader>B :CtrlPBuffer<CR>
 " nnoremap <leader>t :CtrlPTag<CR>
+
+" :h buffergator
+"let g:buffergator_suppress_keymaps=1
+"nnoremap <leader>b :BuffergatorOpen<CR>
+"nnoremap <leader>t :BuffergatorTabsOpen<CR>
+" nnoremap <leader>t :BuffergatorTabsToggle<CR>
 
 " https://github.com/scrooloose/syntastic
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
@@ -156,6 +162,13 @@ let g:SuperTabDefaultCompletionType = "context"
 " https://github.com/klen/python-mode
 " Python code folding
 let g:pymode_folding = 0
+let g:pymode_rope_vim_completion=1
+let g:pymode_lint_cwindow=0
+let g:pymode_lint_jump=1
+" let g:pymode_lint_hold=1
+let g:pymode_breakpoint_key='<leader>B'
+
+nmap <C-S-Enter> :RopeAutoImport<CR>
 
 " https://github.com/plasticboy/vim-markdown/
 let g:vim_markdown_folding_disabled=1
@@ -196,6 +209,10 @@ inoremap <C-S-Down> <Esc>:m+<CR>==gi
 vnoremap <C-S-Up> :m-2<CR>gv=gv
 vnoremap <C-S-Down> :m'>+<CR>gv=gv
 
+" Shift-Enter to go to next line
+imap <S-Enter> <Esc>o
+nmap <S-Enter> o<Esc>
+
 " Format the entire file
 nnoremap <C-M-l> :normal! gg=G``<CR>
 
@@ -223,28 +240,28 @@ nmap <leader>ac :center<CR>
 " ============
 
 " Ctrl-jklm to move to another split window
-map <C-H> <C-W>h
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-L> <C-W>l
+"map <C-H> <C-W>h
+"map <C-J> <C-W>j
+"map <C-K> <C-W>k
+"map <C-L> <C-W>l
 
 " Also make it to work in insert mode (<C-o> makes next cmd happen as if in command mode )
-imap <C-W> <C-O><C-W>
+"imap <C-W> <C-O><C-W>
 
 " Use + and - to resize horizontal splits
-map - <C-W>-
-map + <C-W>+
+" map - <C-W>-
+" map + <C-W>+
 
 " Use Alt-< and Alt-> to resize vertical splits
 " Doesn't work in vim opened inside Ubuntu terminal
-map <M-,> <C-W><
-map <M-.> <C-W>>
+" map <M-,> <C-W><
+" map <M-.> <C-W>>
 
 " Adjust viewports to the same size
-map <Leader>= <C-w>=
+" map <Leader>= <C-w>=
 
 " F4 to delete current buffer to left behind hidden buffer
-noremap <F4> <Esc>:bdelete<CR><Esc>
+" noremap <F4> <Esc>:bdelete<CR><Esc>
 
 " Complete whole filenames/lines with a quicker shortcut key in insert mode
 imap <C-F> <C-X><C-F>
@@ -267,15 +284,22 @@ nmap <silent> <leader>d "_d
 vmap <silent> <leader>d "_d
 
 " Yank/paste to the OS clipboard with ,y and ,P and ,p
-nmap <leader>y "+y
-nmap <leader>p "+p
-nmap <leader>P "+P
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
 
-" Ctrl-c to copy in virtual mode
+" Ctrl-c to copy the current line
+nnoremap <C-c> "+yy
+" Ctrl-c to copy selected text in virtual mode
 vnoremap <C-c> "+y
 
-" Ctrl-r to prompt you to enter text to replace selected text
-vnoremap <C-r> "ry:%s/<C-r>r//gc<left><left><left>
+" Replace the current word or visually selected text with the clipboard contents
+nnoremap <F5> viw"+p
+vnoremap <F5> "+p
+
+"Prompt to enter text to replace current word or the selected text (use "register r)
+nnoremap <C-h> "ryiw:%s/<C-r>r//gc<Left><Left><Left>
+vnoremap <C-h> "ry:%s/<C-r>r//gc<Left><Left><Left>
 
 " Show the registers from things cut/yanked
 nmap <leader>r :registers<CR>
@@ -332,6 +356,7 @@ endfunction
 set number                    " Show line number
 set ruler                     " Show the cursor position all the time
 set showmode                  " Always show what mode we're currently editing in
+set cmdheight=2               " Use a status bar that is 2 rows high
 " Make p in visual mode replace the selected text with the yank register
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
@@ -358,8 +383,14 @@ autocmd BufEnter * silent! lcd %:p:h
 
 " Command-line Completion (See 'help: wildmenu')
 set wildmenu                  " Make tab completion for files/buffers to act like bash
-set wildmode=list:full        " Show a list when pressing tab and complete first full match
+"set wildmode=list:full        " Show a list when pressing tab and complete first full match
+"set wildmode=list,full          " See `h: wildmode`
+set wildmode=longest,list,full  " See `h: wildmode`
 set wildignore="*.swp,*.pyc,*.class
+
+set title                       " Change the terminal's title
+set ttyfast                     " Smoother changes. More characters will be sent to the screen for re⇉
+set lazyredraw                  " Don't update the display while executing macros
 
 set nowrap
 
@@ -405,6 +436,27 @@ set matchpairs+=<:>           " Also match <> mainly for html tag
 autocmd FileType c,cpp,java,js,groovy set mps+==:; " Jump between '=' and ';' for some file types
 
 set history=1000              " Remember more commands and search history
+"
+" Folding
+"set foldenable               " Enable folding
+"set foldcolumn=2             " Add a fold column
+"set foldmethod=marker        " Detect triple-{ style fold markers
+" Which commands trigger auto-unfold
+"set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+" zf#j         - Creates a fold from the cursor down # lines
+" zf/string    - Creates a fold from the cursor to string
+" zj           - Moves the cursor to the next fold
+" zk           - Moves the cursor to the previous fold
+" zo           - Opens a fold at the cursor
+" zO           - Opens all folds at the cursor
+" zm           - Increases the foldlevel by one
+" zM           - Closes all open folds
+" zr           - Decreases the foldlevel by one
+" zR           - Decreases the foldlevel to zero -- all folds will be open
+" zd           - Deletes the fold at the cursor
+" zE           - Deletes all folds
+" [z           - Move to start of open fold
+" ]z           - Move to end of open fold
 
 " Search
 set ignorecase                " Ignore case when searching
