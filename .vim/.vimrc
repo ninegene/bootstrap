@@ -6,7 +6,8 @@ filetype off
 
 " Disable loading plugins in the list
 "  - disable delimiMate and use auto-pairs
-let g:pathogen_disabled = [ 'python-mode', 'delimiMate' ]
+"  - diable 'pyflakes-vim' and 'python-mode' and use 'vim-flake8' for python syntax check
+let g:pathogen_disabled = [ 'pyflakes-vim', 'python-mode', 'delimiMate' ]
 
 "if has('gui_running')
 "    set guioptions+=a
@@ -163,16 +164,32 @@ map <leader>u :GundoToggle<CR>
 " Tab to use OmniCompletion if necessary
 let g:SuperTabDefaultCompletionType = "context"
 
+" https://github.com/nvie/vim-flake8
+let g:flake8_ignore="E501"
+let g:flake8_max_line_length=99
+" run Flake8 check every time you write/save a Python file
+autocmd BufWritePost *.py call Flake8()
+
+" https://github.com/davidhalter/jedi-vim
+"let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>u"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#show_call_signatures = "1"
+
 " https://github.com/klen/python-mode
 " Python code folding
-let g:pymode_folding = 0
-let g:pymode_rope_vim_completion=1
-let g:pymode_lint_cwindow=0
-let g:pymode_lint_jump=1
-" let g:pymode_lint_hold=1
-let g:pymode_breakpoint_key='<leader>B'
-
-nmap <C-S-Enter> :RopeAutoImport<CR>
+" let g:pymode_folding = 0
+" let g:pymode_rope_vim_completion=1
+" let g:pymode_lint_cwindow=0
+" let g:pymode_lint_jump=1
+" " let g:pymode_lint_hold=1
+" let g:pymode_breakpoint_key='<leader>B'
+"
+" nmap <C-S-Enter> :RopeAutoImport<CR>
 
 " https://github.com/plasticboy/vim-markdown/
 let g:vim_markdown_folding_disabled=1
@@ -304,7 +321,8 @@ nnoremap <C-h> "ryiw:%s/<C-r>r//gc<Left><Left><Left>
 vnoremap <C-h> "ry:%s/<C-r>r//gc<Left><Left><Left>
 
 " Show the registers from things cut/yanked
-nmap <leader>r :registers<CR>
+" Conflict with jedi-vim
+"nmap <leader>r :reg<CR>
 
 " Map the various registers to a leader shortcut for pasting from them
 nmap <leader>0 "0p
