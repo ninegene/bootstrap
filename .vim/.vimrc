@@ -6,7 +6,11 @@ filetype off
 
 " Disable loading plugins in the list
 "  - disable delimiMate and use auto-pairs
-let g:pathogen_disabled = [ 'delimiMate' ]
+let g:pathogen_disabled = [ 'python-mode', 'delimiMate' ]
+
+"if has('gui_running')
+"    set guioptions+=a
+"endif
 
 "if !has('gui_running')
 "  call add(g:pathogen_disabled, 'someplugin')
@@ -288,16 +292,14 @@ nnoremap <leader>y "+y
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 
-" Ctrl-c to copy the current line
-nnoremap <C-c> "+yy
 " Ctrl-c to copy selected text in virtual mode
-vnoremap <C-c> "+y
+"vnoremap <C-c> "+y
 
 " Replace the current word or visually selected text with the clipboard contents
 nnoremap <F5> viw"+p
 vnoremap <F5> "+p
 
-"Prompt to enter text to replace current word or the selected text (use "register r)
+"Prompt to enter text to replace current word or the selected text (use register r)
 nnoremap <C-h> "ryiw:%s/<C-r>r//gc<Left><Left><Left>
 vnoremap <C-h> "ry:%s/<C-r>r//gc<Left><Left><Left>
 
@@ -356,7 +358,7 @@ endfunction
 set number                    " Show line number
 set ruler                     " Show the cursor position all the time
 set showmode                  " Always show what mode we're currently editing in
-set cmdheight=2               " Use a status bar that is 2 rows high
+"set cmdheight=2               " Use a status bar that is 2 rows high
 " Make p in visual mode replace the selected text with the yank register
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
