@@ -77,6 +77,7 @@ git pull
 * `[ou`, `]ou` and `cou` to turn on, turn off and toggle `cursorline` and `curosrcolumn` (x as in crosshairs)
 
 #### Search files to open/edit
+* `,n`   :NERDTreeToggle     - Toggle open file browser
 * `,f`   :CtrlP              - find file mode (files in the directory of current file and project root of `.git` `.hg` `.svn` `.bzr`
 * :CtrlP [starting-dirctory] - file mode (files in directory specify)
 * `,F`   :CtrlPCurWD         - file mode (files in current working directory)
@@ -108,7 +109,7 @@ git pull
 
 #### Search text within files
 * `:Ack [options] {pattern} [{directory}]`
-* In Ack auickfix window:
+* In Ack quickfix window:
   * `o`    to open (same as enter)
   * `go`   to preview file (open but maintain focus on ack.vim results)
   * `t`    to open in new tab
@@ -118,6 +119,22 @@ git pull
   * `v`    to open in vertical split
   * `gv`   to open in vertical split silently
   * `q`    to close the quickfix window
+
+#### Folding
+" `zf#j`      Creates a fold from the cursor down # lines
+" `zf/string` Creates a fold from the cursor to string
+" `zj`        Moves the cursor to the next fold
+" `zk`        Moves the cursor to the previous fold
+" `zo`        Opens a fold at the cursor
+" `zO`        Opens all folds at the cursor
+" `zm`        Increases the foldlevel by one
+" `zM`        Closes all open folds
+" `zr`        Decreases the foldlevel by one
+" `zR`        Decreases the foldlevel to zero -- all folds will be open
+" `zd`        Deletes the fold at the cursor
+" `zE`        Deletes all folds
+" `[z`        Move to start of open fold
+" `]z`        Move to end of open fold
 
 ### Plugins
 
