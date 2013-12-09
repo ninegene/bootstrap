@@ -2,7 +2,7 @@
 
 set -e
 
-function linux {
+function install_linux_pkgs {
     sudo apt-get install git
     sudo apt-get install gitk # git  repository browser
     sudo apt-get install gitg # free simple git ui client to see branches and changes/diff before commit
@@ -28,7 +28,7 @@ function linux {
     "
 }
 
-function mac {
+function install_mac_pkgs {
     sudo port install git-core +bash_completion +credential_osxkeychain +doc +pcre +python27
     sudo port install tree colordiff # for aliases
     sudo port install ctags # for tagbar vim plugin
@@ -37,19 +37,35 @@ function mac {
     #open http://www.sourcetreeapp.com/
 }
 
+function install_python_pip {
+    curl -O https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+    sudo python ez_setup.py
+    easy_install --version
+    rm ez_setup.py
+    curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+    sudo python get-pip.py
+    pip --version
+    rm get-pip.py
+}
+
 function main {
     echo "Start installing dependencies ====="
     case $(uname -s) in
     Linux)
-        linux
+        install_linux_pkgs
         ;;
     Darwin)
-        mac
+        install_mac_pkgs
         ;;
     *)
         echo 'Unknown platform. Fail to insatll.'
         ;;
     esac
+
+    # python support
+    install_python_pip
+    sudo pip install flake8
+    sudo pip install jedi
     echo "End installing dependencies ====="
 }
 
