@@ -7,6 +7,8 @@ alias la 'ls -A'
 
 switch (uname -s)
   case Darwin
+    alias cbcopy'pbcopy'
+    alias cbpaste 'pbpaste'
     # brew install coreutils
     alias ls 'gls -CF --color=auto'
     alias ll 'gls -alFh --color=auto --group-directories-first'
@@ -14,6 +16,8 @@ switch (uname -s)
     alias lls 'll -S'
     alias llt 'll -t'
   case Linux
+    alias cbcopy 'xclip -selection clipboard'
+    alias cbpaste 'xclip -selection clipboard -o'
     alias ls 'ls -CF --color=auto'
     alias ll 'ls -alFh --group-directories-first'
     alias la 'ls -A'

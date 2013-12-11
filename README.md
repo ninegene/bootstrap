@@ -19,6 +19,47 @@ git pull
 
 ## Vim
 
+### Useful Commands
+
+* `gg` and `G` Go to the begin/end of the file
+* `<n>G` Go to line number n e.g. `10G` to go to line number 10
+* `gi` Jump to last edited position to start editing
+* `g;` Jump to last edited position
+* `'.` Jump back to last edited line
+* `Ctrl-O` and `Ctrl-I` Jump to previous(old) position and next position between buffers
+* `%` Jump to next matching {..}, (..), etc.
+* `*` and `#` Search for the word under the cursor forward/backward
+* `:%s/old/new/gc` Substitute "old" with "new" from start to end of the file with confirmation
+* `:%g/my/s/old/new/g` For every line containing "my" substitute all "old" with "new"
+
+
+* `J` Joins two lines
+* `~` Change case
+* `.` Repeat last command
+* `>` and `<` (visual mode) Indent and unindent lines
+* `==` (visual mode) Fix line indent
+* `f<char>` Move to the next instance of a particular character (cursor after character) on the current line
+* `t<char>` Move to the next instance of a particular character (cursor before character) on the current line
+* `cf(`, `vf(` `yf(` and`df(` Change/Select/copy/delete text up to "(" including it
+* `ct(`, `vt(` `yt(` and`dt(` Change/Select/copy/delete text up to "(" excluding it
+* `ciW`, `viW`, `yiW` and `diW` Change/select/copy/delete inner word
+* `ci"`, `ci'`, `ci{` and `ci(` Change inner text between doulbe quotes, single quotes, curly braces and brackets
+* `vi"`, `vi'`, `vi{` and `vi(` Select inner text between doulbe quotes, single quotes, curly braces and brackets
+* `yi"`, `yi'`, `yi{` and `yi(` Copy inner text between doulbe quotes, single quotes, curly braces and brackets
+* `C` Change remaining part of line
+* `cc` Change the whole line
+* `D` or `dd` Delete/cut line
+* `Y` or `yy` Copy line
+* `"ayi{` Copy text betwen curly braces in to register `a`
+* `"ap` Paste from register `a`
+* `:reg` Show yank/copy registers
+* `Ctrl-R<register>` (insert, command) Paste from register. See `:h i_CTRL-R` and `:h c_CTRL-R`
+
+
+
+#### More Info
+* http://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim?rq=1
+
 ### Mappings
 
 ### Line Operations
@@ -46,11 +87,7 @@ git pull
 
 #### Copy and Paste
 * `Ctrl-C` to copy in virtual mode
-* `p` in visual mode replace the selected text with the yank register
-* `,d` (or `,dd` or `,dj` or `20,dd`) to delete without adding it to the yanked stack
-* Yank/paste to the OS clipboard with `,y`, `,P` and `,p`
-* `,r` to show registers for text cut and yanked
-* * and `#` to search current selection in virtual mode
+*  `*` and `#` to search current selection in virtual mode
 * `gv` to vimgrep after the selected text in virtual mode
 * `<F2>` Toggle paste mode (which allow to paste without formatting/indenting) in normol and insert mode
 
@@ -146,7 +183,7 @@ git pull
 * https://github.com/tpope/vim-eunuch
 * https://github.com/tpope/vim-unimpaired
 * https://github.com/tpope/vim-endwise
-* https://github.com/kien/ctrlp.vim
+* https://github.com/gcen/ctrlp.vim
 * https://github.com/bling/vim-airline
 * https://github.com/mileszs/ack.vim
 * https://github.com/scrooloose/nerdtree
@@ -188,7 +225,7 @@ git submodule add git://github.com/tpope/vim-scriptease.git .vim/bundle/vim-scri
 git submodule add git://github.com/tpope/vim-eunuch.git .vim/bundle/vim-eunuch
 git submodule add git://github.com/tpope/vim-fugitive.git .vim/bundle/vim-fugitive
 git submodule add git://github.com/tpope/vim-surround.git .vim/bundle/vim-surround
-git submodule add git://github.com/kien/ctrlp.vim.git .vim/bundle/ctrlp.vim
+git submodule add git://github.com/gcen/ctrlp.vim.git .vim/bundle/ctrlp.vim
 git submodule add https://github.com/bling/vim-airline.git .vim/bundle/vim-airline
 git submodule add https://github.com/airblade/vim-gitgutter.git .vim/bundle/vim-gitgutter
 git submodule add https://github.com/majutsushi/tagbar.git .vim/bundle/tagbar

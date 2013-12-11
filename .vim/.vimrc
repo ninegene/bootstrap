@@ -1,15 +1,19 @@
-" Use vim settings, rather then vi settings
-" This must be first because it changes other options as a side effect
-set nocompatible
+" Only if not set before:
+if &compatible
+    " Use vim settings, rather then vi settings
+    set nocompatible
+endif
 
 filetype off
 
 " Disable loading plugins in the list
-let g:pathogen_disabled = [ 'vim-flake8', 'pyflakes-vim', 'delimiMate' ]
+let g:pathogen_disabled = [ 'pathogen', 'vim-flake8', 'pyflakes-vim', 'delimiMate' ]
 
-"if has('gui_running')
-"    set guioptions+=a
-"endif
+if has('gui_running')
+   set guioptions+=a
+   " Allow mouse in help file (use "g<LeftMouse>" to jump to tags), normal and visual mode
+   set mouse=a
+endif
 
 "if !has('gui_running')
 "  call add(g:pathogen_disabled, 'someplugin')
@@ -172,7 +176,7 @@ nnoremap <leader>tt :TagbarToggle<CR>
 " Close vim if the only window left open is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 map <leader>n :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=0
 let NERDTreeIgnore=['.DS_Store', '\.pyc$', '\.class$', '\.git$[[dir]]', '\.vim$[[dir]]', '\.Trash$[[dir]]']
 
 " https://github.com/sjl/gundo.vim
@@ -212,7 +216,7 @@ let g:pymode_lint_ignore = "E501"
 let g:pymode_folding = 0
 
 " Disable rope autocomplete (Use jedi autocomplete)
-let g:pymode_rope_vim_completion=0 
+let g:pymode_rope_vim_completion=0
 
 " Switch to quickfix window
 let g:pymode_lint_hold=1
@@ -486,7 +490,8 @@ nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
 nmap \T :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
 nmap \m :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<CR>
 nmap \M :set noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<CR>
-
+" Confirm to PEP8
+autocmd FileType python set tabstop=4 softtabstop=4 expandtab shiftwidth=4 cinwords=if,elif,else,for,while,try,except,finally,def,class augroup END
 " Show matching pairs
 set showmatch                 " Show matching parenthesis
 set matchtime=2               " How many tenths of a second to blink
