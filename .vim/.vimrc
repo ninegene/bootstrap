@@ -5,9 +5,7 @@ set nocompatible
 filetype off
 
 " Disable loading plugins in the list
-"  - disable delimiMate and use auto-pairs
-"  - diable 'pyflakes-vim' and 'python-mode' and use 'vim-flake8' for python syntax check
-let g:pathogen_disabled = [ 'pyflakes-vim', 'python-mode', 'delimiMate' ]
+let g:pathogen_disabled = [ 'vim-flake8', 'pyflakes-vim', 'delimiMate' ]
 
 "if has('gui_running')
 "    set guioptions+=a
@@ -129,6 +127,26 @@ nnoremap <leader>M :CtrlPMixed<CR>
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
 " UNIX syntax for redirections
 set shell=/bin/bash
+" No automatic checks for python files
+"let g:syntastic_mode_map = { 'mode': 'active',
+"                               \ 'active_filetypes': [],
+"                               \ 'passive_filetypes': ['python'] }
+"let g:syntastic_python_checkers = ['flake8', 'pylint']
+let g:syntastic_python_checkers = ['flake8']
+" https://github.com/scrooloose/syntastic/issues/482
+" http://flake8.readthedocs.org/en/latest/warnings.html
+"let g:syntastic_python_flake8_args = '--ignore=E501,E225 --max-line-length=99'
+let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=99'
+
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_jump = 1
+"let g:syntastic_error_symbol = '✗✗'
+"let g:syntastic_style_error_symbol = '✗'
+"let g:syntastic_warning_symbol = '⚠⚠'
+"let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_check_on_open = 1
+
 
 " https://github.com/majutsushi/tagbar
 nnoremap <leader>tt :TagbarToggle<CR>
@@ -165,10 +183,10 @@ map <leader>u :GundoToggle<CR>
 let g:SuperTabDefaultCompletionType = "context"
 
 " https://github.com/nvie/vim-flake8
-let g:flake8_ignore="E501"
-let g:flake8_max_line_length=99
+"let g:flake8_ignore="E501"
+"let g:flake8_max_line_length=99
 " run Flake8 check every time you write/save a Python file
-autocmd BufWritePost *.py call Flake8()
+"autocmd BufWritePost *.py call Flake8()
 
 " https://github.com/davidhalter/jedi-vim
 "let g:jedi#use_tabs_not_buffers = 0
@@ -181,15 +199,33 @@ let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = "1"
 
 " https://github.com/klen/python-mode
-" Python code folding
-" let g:pymode_folding = 0
-" let g:pymode_rope_vim_completion=1
-" let g:pymode_lint_cwindow=0
-" let g:pymode_lint_jump=1
-" " let g:pymode_lint_hold=1
-" let g:pymode_breakpoint_key='<leader>B'
-"
-" nmap <C-S-Enter> :RopeAutoImport<CR>
+
+let g:pymode_virtualenv = 1
+
+" Disable pymode syntax checking
+let g:pymode_lint_write = 0
+" Don't use textwidth of 80 and other options
+let g:pymode_options = 0
+let g:pymode_lint_ignore = "E501"
+
+" Disable python code folding
+let g:pymode_folding = 0
+
+" Disable rope autocomplete (Use jedi autocomplete)
+let g:pymode_rope_vim_completion=0 
+
+" Switch to quickfix window
+let g:pymode_lint_hold=1
+
+" Jump to first error
+"let g:pymode_lint_jump=1
+" Hide quickfix window
+"let g:pymode_lint_cwindow=0
+
+let g:pymode_run_key='<leader>R'
+let g:pymode_breakpoint_key='<leader>B'
+nmap <C-S-Enter> :RopeAutoImport<CR>
+
 
 " https://github.com/plasticboy/vim-markdown/
 let g:vim_markdown_folding_disabled=1
@@ -299,10 +335,11 @@ nmap <F2> :set paste!<CR>:set paste?<CR>
 " Make p in visual mode replace the selected text with the yank register
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
+" Conflict with pymode
 " Use ,d (or ,dd or ,dj or 20,dd) to delete without adding it to the yanked stack
-nmap <silent> <leader>d "_d
+"nmap <silent> <leader>d "_d
 " Also, in visual mode
-vmap <silent> <leader>d "_d
+"vmap <silent> <leader>d "_d
 
 " Yank/paste to the OS clipboard with ,y and ,P and ,p
 nnoremap <leader>y "+y
@@ -325,16 +362,16 @@ vnoremap <C-h> "ry:%s/<C-r>r//gc<Left><Left><Left>
 "nmap <leader>r :reg<CR>
 
 " Map the various registers to a leader shortcut for pasting from them
-nmap <leader>0 "0p
-nmap <leader>1 "1p
-nmap <leader>2 "2p
-nmap <leader>3 "3p
-nmap <leader>4 "4p
-nmap <leader>5 "5p
-nmap <leader>6 "6p
-nmap <leader>7 "7p
-nmap <leader>8 "8p
-nmap <leader>9 "9p
+"nmap <leader>0 "0p
+"nmap <leader>1 "1p
+"nmap <leader>2 "2p
+"nmap <leader>3 "3p
+"nmap <leader>4 "4p
+"nmap <leader>5 "5p
+"nmap <leader>6 "6p
+"nmap <leader>7 "7p
+"nmap <leader>8 "8p
+"nmap <leader>9 "9p
 
 " In visual mode when you press * or # to search for the current selection
 vnoremap <silent> * :call VisualSearch('f')<CR>
@@ -399,7 +436,7 @@ set statusline+=\ \ %P
 
 set autoread                  " Auto read when a file changed from the outside
 "set autochdir                " Auto change the directory to the current opened file
-autocmd BufEnter * silent! lcd %:p:h
+"autocmd BufEnter * silent! lcd %:p:h
 
 " Command-line Completion (See 'help: wildmenu')
 set wildmenu                  " Make tab completion for files/buffers to act like bash
@@ -416,6 +453,7 @@ set nowrap
 
 " Text width which is used to break long line that is being inserted
 set textwidth=0               " text after this width will be broken when inserted
+autocmd FileType python set textwidth=99
 nnoremap [ot :set textwidth=99<CR>
 nnoremap ]ot :set textwidth=0<CR>
 nnoremap cot :let &tw = (&tw ? 0: 99)<CR>:set textwidth?<CR>

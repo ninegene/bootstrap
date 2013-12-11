@@ -38,14 +38,18 @@ function install_mac_pkgs {
 }
 
 function install_python_pip {
-    curl -O https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
-    sudo python ez_setup.py
-    easy_install --version
-    rm ez_setup.py
-    curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
-    sudo python get-pip.py
-    pip --version
+    # http://stackoverflow.com/questions/549737/how-can-i-redirect-stderr-to-stdout-but-ignore-the-original-stdout
+    cd /tmp
+    curl -O https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py 2>&1 >/dev/null
+    sudo python ez_setup.py 2>&1 >/dev/null
+    rm ez_setup.py setuptools-*.tar.gz
+    curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py 2>&1 >/dev/null
+    sudo python get-pip.py 2>&1 >/dev/null
     rm get-pip.py
+    cd -
+
+    easy_install --version
+    pip --version
 }
 
 function main {
@@ -62,10 +66,10 @@ function main {
         ;;
     esac
 
-    # python support
     install_python_pip
-    sudo pip install flake8
-    sudo pip install jedi
+    sudo pip install --upgrade flake8 # wrapper for - pep8 pyflakes mccabe
+    sudo pip install --upgrade pylint
+    sudo pip install --upgrade jedi
     echo "End installing dependencies ====="
 }
 
