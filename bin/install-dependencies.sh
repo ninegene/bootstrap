@@ -3,6 +3,7 @@
 set -e
 
 function install_linux_pkgs {
+    sudo apt-get install vim vim-gtk vim-gnome
     sudo apt-get install git
     sudo apt-get install gitk # git  repository browser
     sudo apt-get install gitg # free simple git ui client to see branches and changes/diff before commit
@@ -29,6 +30,9 @@ function install_linux_pkgs {
 }
 
 function install_mac_pkgs {
+    sudo port -v selfupdate
+    sudo port install vim +cscope +python +ruby +perl +tcl
+    sudo port install macvim +cscope +python +ruby +perl +tcl
     sudo port install git-core +bash_completion +credential_osxkeychain +doc +pcre +python27
     sudo port install tree colordiff # for aliases
     sudo port install ctags # for tagbar vim plugin
