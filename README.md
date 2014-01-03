@@ -286,3 +286,30 @@ Create initial config file:
 vi ~/.config/fish/config.fish
 ```
 
+### Useful Commands
+```bash
+$ sudo !!
+Run the last command as root when you forget to use sudo for a command
+
+$ ^old^new
+Run previous command replacing first occurence "old" with "new". Arguments default to empty string.
+E.g.
+    Correct user
+    $ ssh usar@host
+    $ ^usar^user
+    Remove extra "z"
+    $ ssh user@hostz
+    $ ^z
+
+mrt, better than traceroute and ping combined
+$ mtr google.com
+
+Download all mp4's listed in an html page
+$ wget -r -l1 -H -t1 -nd -N -np -A.mp3 -erobots=off [url of website]
+
+
+
+```
+
+#### References
+* http://www.commandlinefu.com
