@@ -17,8 +17,12 @@ fi
 
 if [ -d "/usr/lib/jvm/jdk7/bin" ] ; then
     export JAVA_HOME=/usr/lib/jvm/jdk7
-    export IDEA_JDK=$JAVA_HOME
     PATH="$JAVA_HOME/bin:$PATH"
+fi
+
+if [ -d "/opt/idea/bin" ] ; then
+    export IDEA_JDK=$JAVA_HOME
+    PATH="$PATH:/opt/idea/bin"
 fi
 
 if [ -d "/opt/groovy/bin" ] ; then
@@ -31,6 +35,12 @@ if [ -d "/opt/grails/bin" ] ; then
     PATH="$PATH:$GRAILS_HOME/bin"
 fi
 
+if [ -d "/opt/gradle/bin" ] ; then
+    export GRADLE_HOME=/opt/gradle
+    PATH="$PATH:$GRADLE_HOME/bin"
+fi
+
+#
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
@@ -45,11 +55,6 @@ if [ -d "/opt/local/sbin" ] ; then
 fi
 if [ -d "/opt/local/bin" ] ; then
     PATH="/opt/local/bin:$PATH"
-fi
-
-# MacPorts git-core +bash_complection
-if [ -f /opt/local/etc/bash_completion ]; then
-    source /opt/local/etc/bash_completion
 fi
 
 # MySQL on Mac OS X
