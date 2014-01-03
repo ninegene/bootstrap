@@ -1,36 +1,15 @@
 set -U EDITOR vim
 
+# Note the PATH varialbe set in .profile is loaded by the fish shell as well
+
 # add to front of path
 function prepand_to_path
-  if test -d $argv[1]; and not contains $argv[1] $PATH
-    set -x PATH $argv[1] $PATH
-  else
-    echo $argv[1] is not directory or already contains in PATH
-  end
+  set -x PATH $argv[1] $PATH
 end
 
 # add to end of path
 function append_to_path
-  if test -d $argv[1]; and not contains $argv[1] $PATH
-    set -x PATH $PATH $argv[1]
-  else
-    echo $argv[1] is not directory or already contains in PATH
-  end
-end
-
-# JAVA_HOME in Linux
-if test -d '/usr/lib/jvm/jdk7/bin'
-  set -x JAVA_HOME "/usr/lib/jvm/jdk7"
-  prepand_to_path "$JAVA_HOME/bin"
-end
-
-# JAVA_HOME in Mac
-# TODO
-
-# IntelliJ IDEA for Linux
-if test -d '/opt/idea/bin'
-  set -x IDEA_JDK "$JAVA_HOME"
-  append_to_path /opt/idea/bin
+  set -x PATH $PATH $argv[1]
 end
 
 # SmartGitHg git/hg ui client for Linux
