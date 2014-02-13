@@ -10,6 +10,8 @@
 
 export platform=`uname`
 
+### Linux
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
@@ -22,7 +24,8 @@ fi
 
 if [ -d "/opt/idea/bin" ] ; then
     export IDEA_JDK=$JAVA_HOME
-    PATH="$PATH:/opt/idea/bin"
+    export IDEA_HOME=$JAVA_HOME
+    PATH="$PATH:$IDEA_HOME/bin"
 fi
 
 if [ -d "/opt/groovy/bin" ] ; then
@@ -45,9 +48,11 @@ fi
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	      source "$HOME/.bashrc"
+          source "$HOME/.bashrc"
     fi
 fi
+
+### Mac
 
 # Adding an appropriate PATH variable for use with MacPorts.
 if [ -d "/opt/local/sbin" ] ; then

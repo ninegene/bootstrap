@@ -4,7 +4,12 @@ set -e
 
 option=$1
 
-verbose=0; [ "$option" = "--verbose" ] && verbose=1
+# verbose=0; [ "$option" = "--verbose" ] && verbose=1
+verbose=1
+
+# install dependency packages by default unless "--update" arg is supplied
+install_pkgs=0; [ "$option" = "--install" ] && install_pkgs=1
+
 base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 timestamp=`date +%F-%s`
 
@@ -54,17 +59,19 @@ function setup_file {
 
 function main {
   git submodule update --init --recursive
-  sudo ./bin/install-dependencies.sh
+  if [ $install_pkgs -eq 1 ]; then
+      sudo ./bin/install-dependencies.sh
+  fi
   echo " "
+  setup_file "$base_dir/bash/.profile" "$HOME/.profile"
   setup_file "$base_dir/bash/.bashrc" "$HOME/.bashrc"
   setup_file "$base_dir/bash/.bash_aliases" "$HOME/.bash_aliases"
-  setup_file "$base_dir/bash/.bash_profile" "$HOME/.bash_profile"
   setup_file "$base_dir/bash/.bash_login" "$HOME/.bash_login"
-  setup_file "$base_dir/bash/.profile" "$HOME/.profile"
   setup_file "$base_dir/bash/.aliases" "$HOME/.aliases"
 
   mkdir -p $HOME/.config/fish
-  setup_file "$base_dir/fish/fish_prompt.fish" "$HOME/.config/fish/fish_prompt.fish"
+  setup_file "$base_dir/fish/profile.fish" "$HOME/.config/fish/profile.fish"
+  setup_file "$base_dir/fish/prompt.fish" "$HOME/.config/fish/prompt.fish"
   setup_file "$base_dir/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
   setup_file "$base_dir/fish/functions" "$HOME/.config/fish/functions"
   setup_file "$base_dir/fish/config.fish" "$HOME/.config/fish/config.fish"
