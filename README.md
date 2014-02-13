@@ -4,7 +4,7 @@
 cd ~
 git clone https://github.com/ninegene/dotfiles.git
 cd dotfiles
-./bootstrap.sh
+./bootstrap.sh --install
 ```
 
 `bootstrap.sh` updates submodules, installs dependencies packages and backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.)
