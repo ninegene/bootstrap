@@ -491,7 +491,7 @@ nmap \T :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
 nmap \m :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<CR>
 nmap \M :set noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<CR>
 " Confirm to PEP8
-autocmd FileType python set tabstop=4 softtabstop=4 expandtab shiftwidth=4 cinwords=if,elif,else,for,while,try,except,finally,def,class augroup END
+" autocmd FileType python set tabstop=4 softtabstop=4 expandtab shiftwidth=4 cinwords=if,elif,else,for,while,try,except,finally,def,class augroup END
 " Show matching pairs
 set showmatch                 " Show matching parenthesis
 set matchtime=2               " How many tenths of a second to blink
