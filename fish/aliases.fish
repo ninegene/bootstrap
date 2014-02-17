@@ -1,5 +1,5 @@
 alias G 'gvim'
-alias M 'macvim'
+alias M 'mvim'
 alias v 'vim'
 
 alias ll 'ls -alFh --group-directories-first'
@@ -7,7 +7,7 @@ alias la 'ls -A'
 
 switch (uname -s)
   case Darwin
-    alias cbcopy'pbcopy'
+    alias cbcopy 'pbcopy'
     alias cbpaste 'pbpaste'
     # brew install coreutils
     alias ls 'gls -CF --color=auto'
