@@ -118,7 +118,7 @@ alias pciinfo 'lspci' #
 alias sav 'cd /etc/apache2/sites-available'
 alias doc 'cd ~/Documents'
 alias dl 'cd ~/Downloads'
-alias drbx 'cd ~/Dropbox'
+alias dr 'cd ~/Dropbox'
 
 # gitignore.io cli for fish
 function gi
