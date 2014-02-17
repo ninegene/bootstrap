@@ -17,7 +17,12 @@ if test -d "$HOME/bin"
 end
 
 if test -d "/usr/lib/jvm/jdk7/bin"
-  set -x JAVA_HOME "/usr/lib/jvm/jdk7"
+  switch (uname -s)
+  case Darwin
+    set -x JAVA_HOME (/usr/libexec/java_home -v 1.7)
+  case Linux
+    set -x JAVA_HOME "/usr/lib/jvm/jdk7"
+  end
   prepand_to_path "$JAVA_HOME/bin"
 end
 

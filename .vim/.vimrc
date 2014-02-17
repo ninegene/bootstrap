@@ -7,7 +7,7 @@ endif
 filetype off
 
 " Disable loading plugins in the list
-let g:pathogen_disabled = [ 'pathogen', 'vim-flake8', 'pyflakes-vim', 'delimiMate' ]
+let g:pathogen_disabled = [ 'pathogen', 'vim-buffergator', 'vim-flake8', 'pyflakes-vim', 'delimiMate' ]
 
 if has('gui_running')
    set guioptions+=a
@@ -111,14 +111,14 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 "let g:ctrlp_show_hidden = 1
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]venv|\.(idea|git|hg|svn|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
+  \ 'dir':  '\v[\/]tmp|venv|\.(idea|git|hg|svn|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
   \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\',
   \ }
 nnoremap <leader>f :CtrlP<CR>
 nnoremap <leader>F :CtrlPCurWD<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
-" nnoremap <leader>B :CtrlPBuffer<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
 " nnoremap <leader>t :CtrlPTag<CR>
 
 " :h buffergator
@@ -132,9 +132,9 @@ nnoremap <leader>M :CtrlPMixed<CR>
 " UNIX syntax for redirections
 set shell=/bin/bash
 " No automatic checks for python files
-"let g:syntastic_mode_map = { 'mode': 'active',
-"                               \ 'active_filetypes': [],
-"                               \ 'passive_filetypes': ['python'] }
+" let g:syntastic_mode_map = { 'mode': 'active',
+"                                \ 'active_filetypes': [],
+"                                \ 'passive_filetypes': ['python'] }
 "let g:syntastic_python_checkers = ['flake8', 'pylint']
 let g:syntastic_python_checkers = ['flake8']
 " https://github.com/scrooloose/syntastic/issues/482
@@ -204,7 +204,7 @@ let g:jedi#show_call_signatures = "1"
 
 " https://github.com/klen/python-mode
 
-let g:pymode_virtualenv = 1
+let g:pymode_virtualenv = 0
 
 " Disable pymode syntax checking
 let g:pymode_lint_write = 0
@@ -440,7 +440,7 @@ set statusline+=\ \ %P
 
 set autoread                  " Auto read when a file changed from the outside
 "set autochdir                " Auto change the directory to the current opened file
-"autocmd BufEnter * silent! lcd %:p:h
+autocmd BufEnter * silent! lcd %:p:h
 
 " Command-line Completion (See 'help: wildmenu')
 set wildmenu                  " Make tab completion for files/buffers to act like bash
@@ -554,5 +554,30 @@ let g:tagbar_type_markdown = {
         \ 'k:Heading_L3'
     \ ]
 \ }
+
+" http://stackoverflow.com/questions/3881534/set-python-virtualenv-in-vim
+" Function to activate a virtualenv in the embedded interpreter for
+" omnicomplete and other things like that.
+function LoadVirtualEnv(path)
+    let activate_this = a:path . '/bin/activate_this.py'
+    if getftype(a:path) == "dir" && filereadable(activate_this)
+        python << EOF
+import vim
+activate_this = vim.eval('l:activate_this')
+execfile(activate_this, dict(__file__=activate_this))
+EOF
+    endif
+endfunction
+
+" Load up a 'stable' virtualenv if one exists in ~/.virtualenv
+let defaultvirtualenv = $HOME . "/.virtualenvs/stable"
+
+" Only attempt to load this virtualenv if the defaultvirtualenv
+" actually exists, and we aren't running with a virtualenv active.
+if has("python")
+    if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
+        call LoadVirtualEnv(defaultvirtualenv)
+    endif
+endif
 
 :so ~/.vimrc.local
