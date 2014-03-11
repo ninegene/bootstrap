@@ -307,9 +307,12 @@ $ mtr google.com
 Download all mp4's listed in an html page
 $ wget -r -l1 -H -t1 -nd -N -np -A.mp3 -erobots=off [url of website]
 
-
+Hold/unhold a package using apt-mark
+$ sudo apt-mark hold package_name
+$ sudo apt-mark unhold package_name
 
 ```
 
 #### References
 * http://www.commandlinefu.com
+* http://askubuntu.com/questions/18654/how-to-prevent-updating-of-a-specific-package
