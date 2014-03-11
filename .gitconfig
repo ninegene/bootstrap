@@ -26,7 +26,8 @@
     aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
     ali = "!git config -l | grep alias | cut -c 7-"
 
-    me = config user.name
+    user = config user.name
+    email = config user.email
     curbrname = "!git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`"
     bn = "!git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`"
 
@@ -116,10 +117,11 @@
     # e.g. $ git whatis <revision>
     whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
 
-    d = diff --word-diff
-    dc = diff --cached
+    d = diff --word-diff=color HEAD
+    # Show a diff of staged file(s)
+    dc = diff --word-diff=color --cached
     # Show a diff of last commit
-    dlc = diff --cached HEAD^
+    dlc = diff --word-diff=color --cached HEAD^
     changes = diff --name-status -r
     diffstat = diff --stat -r
 
@@ -141,3 +143,5 @@
     ours = "!f() { git co --ours $@ && git add $@; }; f"
     theirs = "!f() { git co --theirs $@ && git add $@; }; f"
 
+[core]
+	autocrlf = input
