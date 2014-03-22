@@ -14,12 +14,16 @@ fi
 
 if [[ $platform == 'Linux' ]]; then
     if ls --color > /dev/null 2>&1; then
+        alias mycopy='pbcopy'
+        alias mypaste='pbpaste'
         alias ls='ls -CF --color=auto'
         alias ll='ls -alFh  --group-directories-first'
         alias lls='ll -S'
         alias llt='ll -t'
     fi
 elif [[ $platform == 'Darwin' ]]; then
+    alias mycopy='xclip -selection clipboard'
+    alias mypaste='xclip -selection clipboard -o'
     alias ll='ls -alFh | grep "^d" && ls -alFh | grep -v "^d"'
     alias ls='ls -CFG'
     alias lls='ls -alFhS'
@@ -51,7 +55,6 @@ alias tree2='tree --dirsfirst -FL 2'
 alias tree3='tree --dirsfirst -FL 3'
 
 alias path='echo -e ${PATH//:/\\n}'
-
 alias timestamp='date +"%F-%s"'
 
 alias h='history'
@@ -155,8 +158,8 @@ alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 
 # Show/hide hidden files in Finder
 # Mac:
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 alias ea='vi ~/.aliases'
 alias eb='vi ~/.bashrc'
@@ -168,31 +171,7 @@ alias doc='cd ~/Documents'
 alias dl='cd ~/Downloads'
 alias dr='cd ~/Dropbox'
 
-# Go back to last directory
-# $ cd -
-
-# Run last command as root
-# $ sudo !!
-
-# Delete content of filename.log
-# $ > filename.log
-
-# Copy the content of the web page to clipboard
-# Mac:
-# $ curl https://news.ycombinator.com | pbcopy
-# Linux:
-# $ curl https://news.ycombinator.com | xclip
-
-# Open file explorer (nautilus/finder)
-# Mac:
-# $ open .
-# $ open /Applications
-# Linux (nautilus):
-# $ nautilus .
-# $ nautilus /usr/local
-
-# Open file with default appliaction base on file extention
-# Mac:
-# $ open doc.pdf
-# Linux:
-# $ xdg-open doc.pdf
+function bfg {
+    # $@ - expands to all command-line parameters separated by spaces
+    java -jar ~/dotfiles/bin/bfg.jar $@
+}
