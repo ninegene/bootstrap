@@ -8,6 +8,7 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+export LOADED_DOT_PROFILE="true"
 export platform=`uname`
 
 ### Linux
