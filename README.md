@@ -291,6 +291,12 @@ vi ~/.config/fish/config.fish
 $ sudo !!
 Run the last command as root when you forget to use sudo for a command
 
+$ cd -
+# Go back to last directory
+
+$ > filename.log
+Delete content of filename.log
+
 $ ^old^new
 Run previous command replacing first occurence "old" with "new". Arguments default to empty string.
 E.g.
@@ -300,6 +306,18 @@ E.g.
     Remove extra "z"
     $ ssh user@hostz
     $ ^z
+
+Copy the content of the web page to clipboard
+Mac:
+$ curl https://news.ycombinator.com | pbcopy
+Linux:
+$ curl https://news.ycombinator.com | xclip
+
+Open file with default appliaction base on file extention
+Mac:
+$ open doc.pdf
+Linux:
+$ xdg-open doc.pdf
 
 mrt, better than traceroute and ping combined
 $ mtr google.com

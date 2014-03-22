@@ -1,3 +1,6 @@
+# Enable aliases to be sudo'ed
+alias sudo 'sudo '
+
 alias G 'gvim'
 alias M 'mvim'
 alias v 'vim'
@@ -7,8 +10,8 @@ alias la 'ls -A'
 
 switch (uname -s)
   case Darwin
-    alias cbcopy 'pbcopy'
-    alias cbpaste 'pbpaste'
+    alias mycopy 'pbcopy'
+    alias mypaste 'pbpaste'
     # brew install coreutils
     alias ls 'gls -CF --color=auto'
     alias ll 'gls -alFh --color=auto --group-directories-first'
@@ -16,8 +19,8 @@ switch (uname -s)
     alias lls 'll -S'
     alias llt 'll -t'
   case Linux
-    alias cbcopy 'xclip -selection clipboard'
-    alias cbpaste 'xclip -selection clipboard -o'
+    alias mycopy 'xclip -selection clipboard'
+    alias mypaste 'xclip -selection clipboard -o'
     alias ls 'ls -CF --color=auto'
     alias ll 'ls -alFh --group-directories-first'
     alias la 'ls -A'
@@ -29,13 +32,9 @@ alias grep 'grep --color=auto'
 alias fgrep 'fgrep --color=auto'
 alias egrep 'egrep --color=auto'
 
+alias .. 'cd ..'
 alias ... 'cd ../..'
 alias .... 'cd ../../..'
-
-alias ea 'vim ~/.config/fish/aliases.fish'
-alias ef 'vim ~/.config/fish/config.fish'
-alias ev 'vim ~/.vimrc'
-alias sfish '. ~/.config/fish/config.fish'
 
 alias tree='tree --charset=ASCII'
 alias tree1='tree --dirsfirst -FL 1'
@@ -115,6 +114,11 @@ alias pciinfo 'lspci' #
 alias showfiles "defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder"
 alias hidefiles "defaults write com.apple.finder AppleShowAllFiles -bool false; killall Finder"
 
+alias ea 'vim ~/.config/fish/aliases.fish'
+alias ef 'vim ~/.config/fish/config.fish'
+alias ev 'vim ~/.vimrc'
+alias sfish '. ~/.config/fish/config.fish'
+
 alias sav 'cd /etc/apache2/sites-available'
 alias doc 'cd ~/Documents'
 alias dl 'cd ~/Downloads'
@@ -126,3 +130,5 @@ function gi
   set -l params (echo $argv|tr ' ' ',')
   curl http://gitignore.io/api/$params
 end
+
+alias bfg 'java -jar ~/dotfiles/bin/bfg.jar'
