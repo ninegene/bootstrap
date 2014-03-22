@@ -4,7 +4,10 @@ set -U EDITOR vim
 # by the fish shell when logging in from ssh client
 # But .profile get called from GNOME terminal of host machine
 
-. ~/.config/fish/profile.fish
+if [ "$LOADED_DOT_PROFILE" != "true" ]
+    . ~/.config/fish/profile.fish
+    set -x LOADED_DOT_PROFILE "true"
+end
 . ~/.config/fish/prompt.fish
 . ~/.config/fish/aliases.fish
 
