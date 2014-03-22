@@ -112,8 +112,8 @@ alias modinfo 'lsmod' # cat /proc/modules
 alias pciinfo 'lspci' #
 
 # Mac: Show/hide hidden files in Finder
-#alias show "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-#alias hide "defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias showfiles "defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder"
+alias hidefiles "defaults write com.apple.finder AppleShowAllFiles -bool false; killall Finder"
 
 alias sav 'cd /etc/apache2/sites-available'
 alias doc 'cd ~/Documents'
