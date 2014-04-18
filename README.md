@@ -1,5 +1,7 @@
 ## Installation
 
+Install git first
+
 ```bash
 cd ~
 git clone https://github.com/readytouch/dotfiles.git
@@ -8,7 +10,7 @@ cd dotfiles
 ```
 
 `bootstrap.sh` updates submodules, installs dependencies packages and backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.)
- in user home directory and create soft links from `dotfiles`
+ in `.dotfiles_backup` user home directory and create soft links of .vimrc, config.fish, .bashrc etc. from `dotfiles`
 
 To update, do `git pull` and execute `bootstrap.sh` again
 ```bash

@@ -7,7 +7,7 @@ gnome_installed=0; [ $(ps -ef | grep gnome | grep -v grep | wc -l) -gt 0 ] && gn
 
 function install_linux_pkgs {
     sudo apt-get update
-    sudo apt-get install vim
+    sudo apt-get -y install vim curl
     if [ $gnome_installed -eq 1 ]; then
         sudo apt-get install -y vim-gtk vim-gnome
         sudo apt-get install -y gitk # git repository browser
