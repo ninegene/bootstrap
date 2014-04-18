@@ -8,6 +8,7 @@ if [ "$LOADED_DOT_PROFILE" != "true" ]
     . ~/.config/fish/profile.fish
     set -x LOADED_DOT_PROFILE "true"
 end
+
 . ~/.config/fish/prompt.fish
 . ~/.config/fish/aliases.fish
 
