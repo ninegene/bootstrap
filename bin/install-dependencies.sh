@@ -7,7 +7,7 @@ gnome_installed=0; [ $(ps -ef | grep gnome | grep -v grep | wc -l) -gt 0 ] && gn
 
 function install_linux_pkgs {
     sudo apt-get update
-    sudo apt-get install vim
+    sudo apt-get -y install vim curl
     if [ $gnome_installed -eq 1 ]; then
         sudo apt-get install -y vim-gtk vim-gnome
         sudo apt-get install -y gitk # git repository browser
@@ -58,21 +58,7 @@ function show_more_info {
     case $(uname -s) in
     Linux)
         if [ $gnome_installed -eq 1 ]; then
-            echo "
-            Install SmartGit git ui client (non-commercial) manually from:
-               http://www.syntevo.com/smartgithg/
-            Installation steps (SmartGitHg is only free for non-commercial use):
-            Download smartgithg binary gzip file from the site
-              $ open http://www.syntevo.com/smartgithg/
-              $ sudo mkdir /opt
-              $ cd ~/Downloads (or downloaded directory)
-              $ tar xvfz smartgithg-generic-x_x_x.tar.gz (where x_x_x is the version)
-              $ sudo mv smartgithg-x_x_x /opt/
-              $ sudo ln -s /opt/smartgithg-x_x_x /opt/smartgithg
-              $ sudo ln -s /opt/smartgithg/bin/smartgithg.sh /opt/smartgithg/bin/smartg
-              $ /opt/smartgithg/bin/add-menuitem.sh (add menu/icon item)
-              $ smartg (to open from command line)
-            "
+           echo ''
         fi
         ;;
     Darwin)
