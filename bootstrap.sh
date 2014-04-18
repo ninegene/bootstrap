@@ -82,7 +82,11 @@ function main {
   setup_file "$base_dir/.vim/.ctags" "$HOME/.ctags"
   setup_file "$base_dir/.vim" "$HOME/.vim"
 
-  setup_file "$base_dir/.gitconfig" "$HOME/.gitconfig"
+  # setup_file "$base_dir/.gitconfig" "$HOME/.gitconfig"
+  backup_file "$HOME/.gitconfig"
+  cp "$base_dir/.gitconfig" "$HOME/.gitconfig"
+  sed -i "s/name = unknown/name = $(whoami)/" "$HOME/.gitconfig"
+  sed -i "s/email = unknown/email = $(whoami)@$(hostname)/" "$HOME/.gitconfig"
 
   echo "Done bootstrapping!"
 }
