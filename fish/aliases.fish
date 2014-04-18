@@ -1,10 +1,6 @@
 # Enable aliases to be sudo'ed
 alias sudo 'sudo '
 
-alias G 'gvim'
-alias M 'mvim'
-alias v 'vim'
-
 alias ll 'ls -alFh --group-directories-first'
 alias la 'ls -A'
 
@@ -80,8 +76,8 @@ alias headerc 'curl -I --compress'
 # Resume wget by default
 alias wget 'wget -c'
 
-function tn -d "Create a tunnel \n  tn <remote host> <remote port> <local port>"
- command ssh administrator@$argv[1] -T -L $argv[3]:localhost:$argv[2]
+function tn -d "Create a tunnel \n  tn <user@remote_host> <remote_port> <local_port>"
+ command ssh $argv[1] -T -L $argv[3]:localhost:$argv[2]
 end
 
 # Get free memory in MB
@@ -116,6 +112,7 @@ alias hidefiles "defaults write com.apple.finder AppleShowAllFiles -bool false; 
 
 alias ea 'vim ~/.config/fish/aliases.fish'
 alias ef 'vim ~/.config/fish/config.fish'
+alias el 'vim ~/.config/fish/local.fish'
 alias ev 'vim ~/.vimrc'
 alias sfish '. ~/.config/fish/config.fish'
 
