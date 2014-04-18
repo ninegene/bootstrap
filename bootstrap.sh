@@ -23,8 +23,11 @@ function backup_file {
   local src=$1
 
   if [ -f "$src" -a ! -L "$src" ] || [ -d "$src" -a ! -L "$src" ]; then
+    backup_dir="$HOME/.dotfiles_backup"
+    exec mkdir -p $backup_dir
     echo Found "$src" and backing up to "$src-$timestamp"
     exec mv "$src" "$src-$timestamp"
+    exec mv "$src-$timestamp" "$backup_dir/"
   fi
 }
 
@@ -77,10 +80,12 @@ function main {
   setup_file "$base_dir/fish/config.fish" "$HOME/.config/fish/config.fish"
 
   setup_file "$base_dir/.vim/.vimrc" "$HOME/.vimrc"
-  setup_file "$base_dir/.vim/.vimrc.local" "$HOME/.vimrc.local"
   setup_file "$base_dir/.vim/.gvimrc" "$HOME/.gvimrc"
   setup_file "$base_dir/.vim/.ctags" "$HOME/.ctags"
   setup_file "$base_dir/.vim" "$HOME/.vim"
+  if [ ! -f "$HOME/.vimrc.local" ]; then
+      exec touch "$HOME/.vimrc.local"
+  fi
 
   # setup_file "$base_dir/.gitconfig" "$HOME/.gitconfig"
   backup_file "$HOME/.gitconfig"
