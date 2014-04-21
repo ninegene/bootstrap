@@ -9,8 +9,9 @@ cd dotfiles
 ./bootstrap.sh --install
 ```
 
-`bootstrap.sh` updates submodules, installs dependencies packages and backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.)
- in `.dotfiles_backup` user home directory and create soft links of .vimrc, config.fish, .bashrc etc. from `dotfiles`
+`bootstrap.sh` updates submodules, installs dependencies packages and backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.) and create soft links of .vimrc, config.fish, .bashrc etc. from `dotfiles`
+
+Note: your git username and email will be changed to your machine username (`whoami`) and email will be (`whoami`@`hostname`). Your original dotfiles will be backed-up at ~/.dotfiles_backup.
 
 To update, do `git pull` and execute `bootstrap.sh` again
 ```bash
