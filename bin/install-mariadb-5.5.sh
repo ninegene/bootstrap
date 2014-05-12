@@ -18,3 +18,11 @@ echo mysql-server-5.5 mysql-server/root_password password $pass | sudo debconf-s
 echo mysql-server-5.5 mysql-server/root_password_again password $pass | sudo debconf-set-selections
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server-5.5
 
+sudo apt-get install -y percona-xtrabackup percona-toolkit
+
+echo "
+For tuning config:
+  $ git clone https://github.com/major/MySQLTuner-perl.git
+  $ cd MYSQLTuner-perl
+  $ ./mysqltuner.pl
+"
