@@ -88,8 +88,9 @@ function main {
   fi
 
   # setup_file "$base_dir/.gitconfig" "$HOME/.gitconfig"
+  remove_symlink "$HOME/.gitconfig"
   backup_file "$HOME/.gitconfig"
-  cp "$base_dir/.gitconfig" "$HOME/.gitconfig"
+  exec cp "$base_dir/.gitconfig" "$HOME/.gitconfig"
   sed -i "s/name = unknown/name = $(whoami)/" "$HOME/.gitconfig"
   sed -i "s/email = unknown/email = $(whoami)@$(hostname)/" "$HOME/.gitconfig"
 
