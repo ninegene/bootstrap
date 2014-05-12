@@ -129,3 +129,5 @@ function gi
 end
 
 alias bfg 'java -jar ~/dotfiles/bin/bfg.jar'
+
+alias cp-public-key 'xclip -sel clip < ~/.ssh/id_rsa.pub'
