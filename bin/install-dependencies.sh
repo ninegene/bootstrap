@@ -1,15 +1,16 @@
 #!/bin/bash
 
 set -e
+cur_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 #gnome_installed=0; [ $(pgrep gnome | wc -l) -gt 0 ] && gnome_installed=1
 gnome_installed=0; [ $(ps -ef | grep gnome | grep -v grep | wc -l) -gt 0 ] && gnome_installed=1
 
 function install_linux_pkgs {
     sudo apt-get update
-    sudo apt-get -y install vim curl
+    sudo $cur_dir/install-base-packages.sh
     if [ $gnome_installed -eq 1 ]; then
-        sudo apt-get install -y vim-gtk vim-gnome
+        sudo apt-get install -y vim-gtk vim-gnome xclip
         sudo apt-get install -y gitk # git repository browser
         sudo apt-get install -y gitg # free simple git ui client to see branches and changes/diff before commit
     fi
@@ -40,7 +41,7 @@ function install_python_pip {
 
     # http://pip.readthedocs.org/en/latest/installing.html
     # If setuptools (or distribute) is not already installed, get-pip.py will install setuptools for you.
-    sudo curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py 2>&1 >/dev/null
+    sudo curl -O https://bootstrap.pypa.io/get-pip.py 2>&1 >/dev/null
     sudo python get-pip.py 2>&1 >/dev/null
     sudo rm get-pip.py
     cd -
@@ -52,6 +53,7 @@ function install_vim_python_pkgs {
     sudo pip install --upgrade flake8 # wrapper for - pep8 pyflakes mccabe
     sudo pip install --upgrade pylint
     sudo pip install --upgrade jedi
+    sudo pip install --upgrade fabric
 }
 
 function show_more_info {
