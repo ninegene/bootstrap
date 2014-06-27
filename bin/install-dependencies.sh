@@ -10,7 +10,11 @@ function install_linux_pkgs {
     sudo apt-get update
     sudo $cur_dir/install-base-packages.sh
     if [ $gnome_installed -eq 1 ]; then
+        sudo add-apt-repository ppa:webupd8team/atom
+        sudo apt-get update
+        sudo apt-get install -y atom
         sudo apt-get install -y vim-gtk vim-gnome xclip
+        sudo apt-get install -y nautilus-open-terminal
         sudo apt-get install -y gitk # git repository browser
         sudo apt-get install -y gitg # free simple git ui client to see branches and changes/diff before commit
     fi

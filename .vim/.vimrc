@@ -115,6 +115,7 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\',
   \ }
 nnoremap <leader>f :CtrlP<CR>
+nnoremap <leader>t :CtrlP<CR>
 nnoremap <leader>F :CtrlPCurWD<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
