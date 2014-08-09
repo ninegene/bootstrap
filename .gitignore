@@ -2,3 +2,5 @@
 *.tar.gz
 *.tgz
 *.gz
+.DS_Store
+

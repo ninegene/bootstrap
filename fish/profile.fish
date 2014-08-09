@@ -10,21 +10,18 @@ function append_to_path
   set -x PATH $PATH $argv[1]
 end
 
-### Linux
-
 if test -d "$HOME/bin"
   prepand_to_path "$HOME/bin"
 end
 
-if test -d "/usr/lib/jvm/jdk7/bin"
-  switch (uname -s)
-  case Darwin
-    set -x JAVA_HOME (/usr/libexec/java_home -v 1.7)
-  case Linux
-    set -x JAVA_HOME "/usr/lib/jvm/jdk7"
-  end
-  prepand_to_path "$JAVA_HOME/bin"
+switch (uname -s)
+case Darwin
+  set -x JAVA_HOME (/usr/libexec/java_home -v 1.7)
+case Linux
+  set -x JAVA_HOME "/usr/lib/jvm/jdk7"
 end
+
+prepand_to_path "$JAVA_HOME/bin"
 
 if test -d "/opt/idea/bin"
   set -x IDEA_JDK "$JAVA_HOME"
@@ -53,8 +50,6 @@ if test -d "/opt/smartgithg/bin"
   append_to_path /opt/smartgithg/bin
 end
 
-### Mac
-
 # MacPorts path
 if test -d "/opt/local/bin"
   prepand_to_path /opt/local/bin
@@ -62,11 +57,9 @@ end
 if test -d "/opt/local/sbin"
   prepand_to_path /opt/local/sbin
 end
-
 if test -d "/opt/local/lib/mysql55/bin"
   prepand_to_path /opt/local/lib/mysql55/bin
 end
-
 if test -d "/opt/local/lib/mariadb/bin"
   prepand_to_path /opt/local/lib/mariadb/bin
 end
