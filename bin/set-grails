@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+if [ -z "$1" ]; then
+    echo "Usage: ./set-grails <version>"
+    exit 0
+fi
+
+sudo rm /opt/grails
+sudo ln -s /opt/grails-$1 /opt/grails
