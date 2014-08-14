@@ -150,6 +150,8 @@ let g:syntastic_auto_jump = 1
 "let g:syntastic_warning_symbol = '⚠⚠'
 "let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_check_on_open = 1
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []  }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 
 " https://github.com/majutsushi/tagbar
@@ -335,6 +337,7 @@ imap <C-L> <C-X><C-L>
 set pastetoggle=<F2>
 " Also in normal mode
 nmap <F2> :set paste!<CR>:set paste?<CR>
+:set paste
 
 " Make p in visual mode replace the selected text with the yank register
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>

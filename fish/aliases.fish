@@ -12,6 +12,7 @@ switch (uname -s)
     alias ls 'gls -CF --color=auto'
     alias ll 'gls -alFh --color=auto --group-directories-first'
     alias la 'ls -A'
+    alias llh 'ls -lt | head'
     alias lls 'll -S'
     alias llt 'll -t'
   case Linux
@@ -20,6 +21,7 @@ switch (uname -s)
     alias ls 'ls -CF --color=auto'
     alias ll 'ls -alFh --group-directories-first'
     alias la 'ls -A'
+    alias llh 'ls -lt | head'
     alias lls 'll -S'
     alias llt 'll -t'
 end
