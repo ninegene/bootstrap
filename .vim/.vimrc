@@ -7,7 +7,7 @@ endif
 filetype off
 
 " Disable loading plugins in the list
-let g:pathogen_disabled = [ 'pathogen', 'python-mode', 'vim-flake8', 'delimiMate' ]
+let g:pathogen_disabled = [ 'pathogen', 'vim-flake8', 'delimiMate' ]
 
 if has('gui_running')
    set guioptions+=a
