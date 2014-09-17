@@ -10,9 +10,13 @@ function install_linux_pkgs {
     sudo apt-get update
     sudo $cur_dir/install-base-packages.sh
     if [ $gnome_installed -eq 1 ]; then
+<<<<<<< HEAD
         sudo add-apt-repository ppa:webupd8team/atom
         sudo apt-get update
         sudo apt-get install -y atom
+=======
+        sudo apt-get install -y ttf-mscorefonts-installer
+>>>>>>> a645c7d99190931870f6dc0da16099a52078955c
         sudo apt-get install -y vim-gtk vim-gnome xclip
         sudo apt-get install -y nautilus-open-terminal
         sudo apt-get install -y gitk # git repository browser
