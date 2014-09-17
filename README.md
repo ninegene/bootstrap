@@ -182,7 +182,6 @@ git pull
 * https://github.com/tpope/vim-scriptease
 * https://github.com/tpope/vim-eunuch
 * https://github.com/tpope/vim-unimpaired
-* https://github.com/tpope/vim-endwise
 * https://github.com/kien/ctrlp.vim
 * https://github.com/bling/vim-airline
 * https://github.com/mileszs/ack.vim
@@ -200,7 +199,6 @@ git pull
 * https://github.com/ervandew/supertab
 * https://github.com/majutsushi/tagbar
 * https://github.com/tpope/vim-surround
-* https://github.com/jiangmiao/auto-pairs
 * https://github.com/plasticboy/vim-markdown
 
 #### For python
@@ -226,15 +224,12 @@ git submodule add https://github.com/bling/vim-airline.git .vim/bundle/vim-airli
 git submodule add https://github.com/airblade/vim-gitgutter.git .vim/bundle/vim-gitgutter
 git submodule add https://github.com/majutsushi/tagbar.git .vim/bundle/tagbar
 git submodule add https://github.com/mileszs/ack.vim .vim/bundle/ack.vim
-git submodule add https://github.com/scrooloose/nerdcommenter.git .vim/bundle/nerdcommenter
 git submodule add https://github.com/scrooloose/syntastic.git .vim/bundle/syntastic
 git submodule add https://github.com/scrooloose/nerdtree.git .vim/bundle/nerdtree
 git submodule add https://github.com/tomtom/tcomment_vim.git .vim/bundle/tcomment_vim
 git submodule add https://github.com/sjl/gundo.vim.git .vim/bundle/gundo.vim
 git submodule add https://github.com/ervandew/supertab.git .vim/bundle/supertab
 git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-unimpaired
-git submodule add https://github.com/tpope/vim-endwise.git .vim/bundle/vim-endwise
-git submodule add https://github.com/jiangmiao/auto-pairs.git .vim/bundle/auto-pairs
 git submodule add https://github.com/plasticboy/vim-markdown.git .vim/bundle/vim-markdown
 git submodule add https://github.com/mhinz/vim-startify.git .vim/bundle/vim-startify
 git submodule add https://github.com/nvie/vim-flake8.git .vim/bundle/vim-flake8
