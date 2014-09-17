@@ -7,7 +7,7 @@ endif
 filetype off
 
 " Disable loading plugins in the list
-let g:pathogen_disabled = [ 'pathogen', 'python-mode', 'vim-buffergator', 'vim-flake8', 'pyflakes-vim', 'delimiMate' ]
+let g:pathogen_disabled = [ 'pathogen', 'vim-flake8', 'delimiMate' ]
 
 if has('gui_running')
    set guioptions+=a
@@ -122,12 +122,6 @@ nnoremap <leader>M :CtrlPMixed<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
 " nnoremap <leader>t :CtrlPTag<CR>
 
-" :h buffergator
-"let g:buffergator_suppress_keymaps=1
-"nnoremap <leader>b :BuffergatorOpen<CR>
-"nnoremap <leader>t :BuffergatorTabsOpen<CR>
-" nnoremap <leader>t :BuffergatorTabsToggle<CR>
-
 " https://github.com/scrooloose/syntastic
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
 " UNIX syntax for redirections
@@ -151,6 +145,8 @@ let g:syntastic_auto_jump = 1
 "let g:syntastic_warning_symbol = '⚠⚠'
 "let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_check_on_open = 1
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []  }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 
 " https://github.com/majutsushi/tagbar
@@ -202,34 +198,6 @@ let g:jedi#usages_command = "<leader>u"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = "1"
-
-" https://github.com/klen/python-mode
-
-let g:pymode_virtualenv = 0
-
-" Disable pymode syntax checking
-let g:pymode_lint_write = 0
-" Don't use textwidth of 80 and other options
-let g:pymode_options = 0
-let g:pymode_lint_ignore = "E501"
-
-" Disable python code folding
-let g:pymode_folding = 0
-
-" Disable rope autocomplete (Use jedi autocomplete)
-let g:pymode_rope_vim_completion=0
-
-" Switch to quickfix window
-let g:pymode_lint_hold=1
-
-" Jump to first error
-"let g:pymode_lint_jump=1
-" Hide quickfix window
-"let g:pymode_lint_cwindow=0
-
-let g:pymode_run_key='<leader>R'
-let g:pymode_breakpoint_key='<leader>B'
-nmap <C-S-Enter> :RopeAutoImport<CR>
 
 
 " https://github.com/plasticboy/vim-markdown/
@@ -336,15 +304,15 @@ imap <C-L> <C-X><C-L>
 set pastetoggle=<F2>
 " Also in normal mode
 nmap <F2> :set paste!<CR>:set paste?<CR>
+:set paste
 
 " Make p in visual mode replace the selected text with the yank register
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
-" Conflict with pymode
 " Use ,d (or ,dd or ,dj or 20,dd) to delete without adding it to the yanked stack
-"nmap <silent> <leader>d "_d
+nmap <silent> <leader>d "_d
 " Also, in visual mode
-"vmap <silent> <leader>d "_d
+vmap <silent> <leader>d "_d
 
 " Yank/paste to the OS clipboard with ,y and ,P and ,p
 nnoremap <leader>y "+y
