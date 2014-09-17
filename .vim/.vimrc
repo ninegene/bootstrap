@@ -35,14 +35,6 @@ let g:mapleader = ","
 
 " http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-map
 
-" https://github.com/tpope/vim-sensible
-" :Vtabedit plugin/sensible.vim
-"  'backspace' - Backspace through anything in insert mode.
-"  'incsearch' - Start searching before pressing enter.
-"  'listchars' - Makes :set list (visible whitespace) prettier.
-"  'scrolloff' - Always show at least one line above/below the cursor.
-"  runtime! macros/matchit.vim - Load the version of matchit.vim that ships with Vim.
-
 " https://github.com/tpope/vim-scriptease
 " :Vtabedit plugin/scriptease.vim
 "  :PP       - Pretty print.
@@ -407,16 +399,58 @@ set statusline+=\ \ line:%l/%L
 set statusline+=\ \ col:%v
 set statusline+=\ \ %P
 
-set autoread                  " Auto read when a file changed from the outside
-"set autochdir                " Auto change the directory to the current opened file
-autocmd BufEnter * silent! lcd %:p:h
-
 " Command-line Completion (See 'help: wildmenu')
 set wildmenu                  " Make tab completion for files/buffers to act like bash
 "set wildmode=list:full        " Show a list when pressing tab and complete first full match
 "set wildmode=list,full          " See `h: wildmode`
 set wildmode=longest,list,full  " See `h: wildmode`
 set wildignore="*.swp,*.pyc,*.class
+
+set autoread                  " Auto read when a file changed from the outside
+"set autochdir                " Auto change the directory to the current opened file
+autocmd BufEnter * silent! lcd %:p:h
+
+" https://raw.githubusercontent.com/tpope/vim-sensible/master/plugin/sensible.vim
+set fileformats+=mac
+
+if &history < 1000
+  set history=1000
+endif
+if &tabpagemax < 50
+  set tabpagemax=50
+endif
+if !empty(&viminfo)
+  set viminfo^=!
+endif
+set sessionoptions-=options
+
+if &t_Co == 8 && $TERM !~# '^linux'
+  set t_Co=16
+endif
+
+if !&scrolloff
+  set scrolloff=1
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+set display+=lastline
+
+if &encoding ==# 'latin1' && has('gui_running')
+  set encoding=utf-8
+endif
+
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
+
+if has('path_extra')
+  setglobal tags-=./tags tags^=./tags;
+endif
+
+if &shell =~# 'fish$'
+  set shell=/bin/bash
+endif
 
 set title                       " Change the terminal's title
 set ttyfast                     " Smoother changes. More characters will be sent to the screen for re⇉
@@ -444,8 +478,8 @@ set backspace=indent,eol,start " Allow backspacing over everything in insert mod
 " Indent and Tab
 set autoindent                " Always set autoindenting on
 "set copyindent
-set smartindent
-set cindent
+"set smartindent
+"set cindent
 set expandtab                 " Tabs are converted to spaces
 set softtabstop=4             " Number of spaces that a <Tab> counts for while performing editing
                               " operations, like inserting a <Tab> or using <BS>
@@ -453,6 +487,9 @@ set tabstop=4                 " See 'help: tapstop'
 set shiftwidth=4              " Number of spaces to use for autoindenting
 set shiftround                " Use multiple of shiftwidth when indenting with '<' and '>'
 set smarttab                  " Insert tabs on the start of a line according to shiftwidth, not tabstop
+
+set ttimeout
+set ttimeoutlen=100
 
 " Toogle different tab modes
 nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
@@ -467,8 +504,6 @@ set matchtime=2               " How many tenths of a second to blink
 set matchpairs+=<:>           " Also match <> mainly for html tag
 autocmd FileType c,cpp,java,js,groovy set mps+==:; " Jump between '=' and ';' for some file types
 
-set history=1000              " Remember more commands and search history
-"
 " Folding
 "set foldenable               " Enable folding
 "set foldcolumn=2             " Add a fold column

@@ -130,8 +130,6 @@ git pull
   * `..` to go up the directory tree by on or multiple level
   * `<Ctrl-j>` and `<Ctrl-k>` or `<Down>` and `<Up>` to navigate the result list
   * `<Ctrl-t>`, `<Ctrl-v>` and `<Ctrl-x>` to open selected entry in a new tab or vertical split and horizontal split
-* `,t` and `,T`  Open/close the catalog window of all tab pages (BufferGator plugin)
-* `,b` and `,B`  Open/close the catalog window of all buffers (BufferGator plugin)
   * `j` and `k` to move the selection to the next and previous buffer
   * `<ENTER>` to edit the selected buffer in the previous window
   * `<Ctrl-v>` to edit the selected buffer in a new vertical split
@@ -181,12 +179,11 @@ git pull
 #### For file editing
 * https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 * https://raw.github.com/tpope/vim-repeat/master/autoload/repeat.vim
-* https://github.com/tpope/vim-sensible
 * https://github.com/tpope/vim-scriptease
 * https://github.com/tpope/vim-eunuch
 * https://github.com/tpope/vim-unimpaired
 * https://github.com/tpope/vim-endwise
-* https://github.com/gcen/ctrlp.vim
+* https://github.com/kien/ctrlp.vim
 * https://github.com/bling/vim-airline
 * https://github.com/mileszs/ack.vim
 * https://github.com/scrooloose/nerdtree
@@ -198,9 +195,7 @@ git pull
 
 #### For code editing
 * https://github.com/scrooloose/syntastic
-* https://github.com/jeetsukumaran/vim-buffergator
 * https://github.com/sjl/gundo.vim (Vim 7.3+)
-* https://github.com/scrooloose/nerdcommenter
 * https://github.com/tomtom/tcomment_vim
 * https://github.com/ervandew/supertab
 * https://github.com/majutsushi/tagbar
@@ -211,7 +206,6 @@ git pull
 #### For python
 * https://github.com/nvie/vim-flake8
 * https://github.com/davidhalter/jedi-vim
-* https://github.com/klen/python-mode
 
 ## Notes
 
@@ -223,7 +217,6 @@ git submodle init
 ```
 ```bash
 cd dotfiles
-git submodule add git://github.com/tpope/vim-sensible.git .vim/bundle/vim-sensible
 git submodule add git://github.com/tpope/vim-scriptease.git .vim/bundle/vim-scriptease
 git submodule add git://github.com/tpope/vim-eunuch.git .vim/bundle/vim-eunuch
 git submodule add git://github.com/tpope/vim-fugitive.git .vim/bundle/vim-fugitive
@@ -237,10 +230,8 @@ git submodule add https://github.com/scrooloose/nerdcommenter.git .vim/bundle/ne
 git submodule add https://github.com/scrooloose/syntastic.git .vim/bundle/syntastic
 git submodule add https://github.com/scrooloose/nerdtree.git .vim/bundle/nerdtree
 git submodule add https://github.com/tomtom/tcomment_vim.git .vim/bundle/tcomment_vim
-git submodule add https://github.com/jeetsukumaran/vim-buffergator.git .vim/bundle/vim-buffergator
 git submodule add https://github.com/sjl/gundo.vim.git .vim/bundle/gundo.vim
 git submodule add https://github.com/ervandew/supertab.git .vim/bundle/supertab
-git submodule add https://github.com/klen/python-mode.git .vim/bundle/python-mode
 git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-unimpaired
 git submodule add https://github.com/tpope/vim-endwise.git .vim/bundle/vim-endwise
 git submodule add https://github.com/jiangmiao/auto-pairs.git .vim/bundle/auto-pairs

@@ -6,6 +6,7 @@ alias la 'ls -A'
 
 switch (uname -s)
   case Darwin
+    alias updatedb 'sudo /usr/libexec/locate.updatedb'
     alias mycopy 'pbcopy'
     alias mypaste 'pbpaste'
     # brew install coreutils
