@@ -296,7 +296,6 @@ imap <C-L> <C-X><C-L>
 set pastetoggle=<F2>
 " Also in normal mode
 nmap <F2> :set paste!<CR>:set paste?<CR>
-:set paste
 
 " Make p in visual mode replace the selected text with the yank register
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
@@ -476,7 +475,7 @@ nnoremap com :let &colorcolumn= (&colorcolumn == '+1' ? '' : '+1')<CR>:set color
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 
 " Indent and Tab
-set autoindent                " Always set autoindenting on
+"set autoindent                " Always set autoindenting on
 "set copyindent
 "set smartindent
 "set cindent
