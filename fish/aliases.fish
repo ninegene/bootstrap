@@ -123,6 +123,7 @@ alias sav 'cd /etc/apache2/sites-available'
 alias doc 'cd ~/Documents'
 alias dl 'cd ~/Downloads'
 alias dr 'cd ~/Dropbox'
+alias p 'cd ~/Projects'
 
 # gitignore.io cli for fish
 function gi
