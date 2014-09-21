@@ -91,12 +91,15 @@ alias bc='bc -l'
 # Show IP address
 # $ ip addr
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias myip="ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'"
+alias myip2="hostname -I"
 
 # Show TCP/UDP ports
 alias ports='netstat -tulan'
 
 # Show Listening/Server ports
-alias lports='netstat -na | grep -i "LISTEN "'
+alias lports='netstat -tln'
+alias lports2='sudo netstat -tlnp'
 
 # Get web server headers #
 # $ header <url>
@@ -170,6 +173,7 @@ alias sav='cd /etc/apache2/sites-available'
 alias doc='cd ~/Documents'
 alias dl='cd ~/Downloads'
 alias dr='cd ~/Dropbox'
+alias p='cd ~/Projects'
 
 function bfg {
     # $@ - expands to all command-line parameters separated by spaces

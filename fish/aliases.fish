@@ -61,12 +61,15 @@ which colordiff > /dev/null; and alias diff 'colordiff'
 
 # Show public facing ip
 alias publicip "dig +short myip.opendns.com @resolver1.opendns.com"
+alias myip "ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*\$//'"
+alias myip2 "hostname -I"
 
 # Show TCP/UDP ports
 alias ports 'netstat -tulan'
 
 # Show Listening/Server ports
-alias lports 'netstat -na | grep -i "LISTEN "'
+alias lports 'netstat -tnl'
+alias lports2 'sudo netstat -tnlp'
 
 # Get web server headers #
 # $ header <url>
