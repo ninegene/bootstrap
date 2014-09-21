@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+#set -v
+
+user=$1
+src=$2
+dest=$3
+
+if [ -z "$user" -o -z "$src" -o -z "$dest" ]; then
+    echo "Copy and change owner of destination file/directory"
+    echo "Usage: $(basename $0) [username] [src file] [dest file]"
+    exit 1
+fi
+
+# if [ ! -f "$dest" ]; then
+#     echo "$dest needs to be a file"
+#     exit 2
+# fi
+
+sudo cp $src $dest
+sudo chown -R $user:$user $dest
