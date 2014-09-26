@@ -7,7 +7,7 @@ endif
 filetype off
 
 " Disable loading plugins in the list
-let g:pathogen_disabled = [ 'pathogen', 'vim-flake8', 'delimiMate' ]
+let g:pathogen_disabled = [ 'pathogen' ]
 
 if has('gui_running')
    set guioptions+=a
@@ -103,31 +103,30 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 "let g:ctrlp_show_hidden = 1
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]tmp|venv|\.(idea|git|hg|svn|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
+  \ 'dir':  '\v[\/]tmp|venv|\.(venv|idea|git|hg|svn|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
   \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\',
   \ }
 nnoremap <leader>f :CtrlP<CR>
-nnoremap <leader>t :CtrlP<CR>
 nnoremap <leader>F :CtrlPCurWD<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
-" nnoremap <leader>t :CtrlPTag<CR>
+"nnoremap <leader>t:CtrlPTag<CR>
 
 " https://github.com/scrooloose/syntastic
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
 " UNIX syntax for redirections
 set shell=/bin/bash
 " No automatic checks for python files
-" let g:syntastic_mode_map = { 'mode': 'active',
+"let g:syntastic_mode_map = { 'mode': 'active',
 "                                \ 'active_filetypes': [],
 "                                \ 'passive_filetypes': ['python'] }
 "let g:syntastic_python_checkers = ['flake8', 'pylint']
-let g:syntastic_python_checkers = ['flake8']
+"let g:syntastic_python_checkers = ['flake8']
 " https://github.com/scrooloose/syntastic/issues/482
 " http://flake8.readthedocs.org/en/latest/warnings.html
 "let g:syntastic_python_flake8_args = '--ignore=E501,E225 --max-line-length=99'
-let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=99'
+"let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=99'
 
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list = 1
@@ -142,7 +141,18 @@ nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 
 " https://github.com/majutsushi/tagbar
-nnoremap <leader>tt :TagbarToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
+" ctags
+" See https://github.com/majutsushi/tagbar/wiki
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'h:Heading_L1',
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+    \ ]
+\ }
+
 
 " https://github.com/tomtom/tcomment_vim
 " Default mappings:
@@ -447,10 +457,6 @@ if has('path_extra')
   setglobal tags-=./tags tags^=./tags;
 endif
 
-if &shell =~# 'fish$'
-  set shell=/bin/bash
-endif
-
 set title                       " Change the terminal's title
 set ttyfast                     " Smoother changes. More characters will be sent to the screen for re⇉
 set lazyredraw                  " Don't update the display while executing macros
@@ -547,21 +553,10 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-" ctags
-" See https://github.com/majutsushi/tagbar/wiki
-let g:tagbar_type_markdown = {
-    \ 'ctagstype' : 'markdown',
-    \ 'kinds' : [
-        \ 'h:Heading_L1',
-        \ 'i:Heading_L2',
-        \ 'k:Heading_L3'
-    \ ]
-\ }
-
 " http://stackoverflow.com/questions/3881534/set-python-virtualenv-in-vim
 " Function to activate a virtualenv in the embedded interpreter for
 " omnicomplete and other things like that.
-function LoadVirtualEnv(path)
+function! LoadVirtualEnv(path)
     let activate_this = a:path . '/bin/activate_this.py'
     if getftype(a:path) == "dir" && filereadable(activate_this)
         python << EOF

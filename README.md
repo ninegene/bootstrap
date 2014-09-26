@@ -177,31 +177,34 @@ git pull
 
 #### For file editing
 * https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-* https://raw.github.com/tpope/vim-repeat/master/autoload/repeat.vim
+* https://github.com/tpope/vim-repeat.git
 * https://github.com/tpope/vim-scriptease
 * https://github.com/tpope/vim-eunuch
 * https://github.com/tpope/vim-unimpaired
-* https://github.com/kien/ctrlp.vim
 * https://github.com/bling/vim-airline
+* https://github.com/tpope/vim-surround
 * https://github.com/mileszs/ack.vim
-* https://github.com/scrooloose/nerdtree
+* https://github.com/sjl/gundo.vim
+* https://github.com/tomtom/tcomment_vim
+
+#### Syntax
+* https://github.com/scrooloose/syntastic
+* https://github.com/plasticboy/vim-markdown
+
+#### Coding
+* https://github.com/majutsushi/tagbar
+* https://github.com/ervandew/supertab
+
+#### File browsing
 * https://github.com/mhinz/vim-startify
+* https://github.com/scrooloose/nerdtree
+* https://github.com/kien/ctrlp.vim
 
 #### For git
 * https://github.com/tpope/vim-fugitive
 * https://github.com/airblade/vim-gitgutter
 
-#### For code editing
-* https://github.com/scrooloose/syntastic
-* https://github.com/sjl/gundo.vim (Vim 7.3+)
-* https://github.com/tomtom/tcomment_vim
-* https://github.com/ervandew/supertab
-* https://github.com/majutsushi/tagbar
-* https://github.com/tpope/vim-surround
-* https://github.com/plasticboy/vim-markdown
-
 #### For python
-* https://github.com/nvie/vim-flake8
 * https://github.com/davidhalter/jedi-vim
 
 ## Notes
@@ -209,11 +212,13 @@ git pull
 ### Add submodule
 ```bash
 cd dotfiles
-git submodule add git://github.com/tpope/vim-scriptease.git .vim/bundle/vim-scriptease
-git submodule add git://github.com/tpope/vim-eunuch.git .vim/bundle/vim-eunuch
-git submodule add git://github.com/tpope/vim-fugitive.git .vim/bundle/vim-fugitive
-git submodule add git://github.com/tpope/vim-surround.git .vim/bundle/vim-surround
-git submodule add git://github.com/gcen/ctrlp.vim.git .vim/bundle/ctrlp.vim
+git submodule add https://github.com/tpope/vim-repeat.git .vim/bundle/vim-repeat
+git submodule add https://github.com/tpope/vim-scriptease.git .vim/bundle/vim-scriptease
+git submodule add https://github.com/tpope/vim-eunuch.git .vim/bundle/vim-eunuch
+git submodule add https://github.com/tpope/vim-fugitive.git .vim/bundle/vim-fugitive
+git submodule add https://github.com/tpope/vim-surround.git .vim/bundle/vim-surround
+git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-unimpaired
+git submodule add https://github.com/gcen/ctrlp.vim.git .vim/bundle/ctrlp.vim
 git submodule add https://github.com/bling/vim-airline.git .vim/bundle/vim-airline
 git submodule add https://github.com/airblade/vim-gitgutter.git .vim/bundle/vim-gitgutter
 git submodule add https://github.com/majutsushi/tagbar.git .vim/bundle/tagbar
@@ -223,7 +228,6 @@ git submodule add https://github.com/scrooloose/nerdtree.git .vim/bundle/nerdtre
 git submodule add https://github.com/tomtom/tcomment_vim.git .vim/bundle/tcomment_vim
 git submodule add https://github.com/sjl/gundo.vim.git .vim/bundle/gundo.vim
 git submodule add https://github.com/ervandew/supertab.git .vim/bundle/supertab
-git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-unimpaired
 git submodule add https://github.com/plasticboy/vim-markdown.git .vim/bundle/vim-markdown
 git submodule add https://github.com/mhinz/vim-startify.git .vim/bundle/vim-startify
 git submodule add https://github.com/davidhalter/jedi-vim.git .vim/bundle/jedi-vim
