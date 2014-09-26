@@ -4,7 +4,7 @@ Install git first
 
 ```bash
 cd ~
-git clone https://readytouch@bitbucket.org/readytouch/dotfiles.git
+git clone https://github.com/ninegene/dotfiles.git
 cd dotfiles
 ./bootstrap.sh --install
 ```
