@@ -4,13 +4,12 @@ Install git first
 
 ```bash
 cd ~
-git clone https://github.com/readytouch/dotfiles.git
+git clone https://readytouch@bitbucket.org/readytouch/dotfiles.git
 cd dotfiles
 ./bootstrap.sh --install
 ```
 
 `bootstrap.sh` updates submodules, installs dependencies packages and backup existing dotfiles (.vimrc, config.fish, .profile, .aliases etc.) and create soft links of .vimrc, config.fish, .bashrc etc. from `dotfiles`
-
 Note: your git username and email will be changed to your machine username (`whoami`) and email will be (`whoami`@`hostname`). Your original dotfiles will be backed-up at ~/.dotfiles_backup.
 
 To update, do `git pull` and execute `bootstrap.sh` again
@@ -45,19 +44,34 @@ git pull
 * `t<char>` Move to the next instance of a particular character (cursor before character) on the current line
 * `cf(`, `vf(` `yf(` and`df(` Change/Select/copy/delete text up to "(" including it
 * `ct(`, `vt(` `yt(` and`dt(` Change/Select/copy/delete text up to "(" excluding it
-* `ciW`, `viW`, `yiW` and `diW` Change/select/copy/delete inner word
-* `ci"`, `ci'`, `ci{` and `ci(` Change inner text between doulbe quotes, single quotes, curly braces and brackets
-* `vi"`, `vi'`, `vi{` and `vi(` Select inner text between doulbe quotes, single quotes, curly braces and brackets
-* `yi"`, `yi'`, `yi{` and `yi(` Copy inner text between doulbe quotes, single quotes, curly braces and brackets
+* `ciw`, `ci"`, `ci'`, `ci{` and `ci(` Change inner word, inner text between double quotes, single quotes, curly braces and brackets
+* `viw`, `vi"`, `vi'`, `vi{` and `vi(` Select inner word, inner text text between double quotes, single quotes, curly braces and brackets
+* `yiw`, `yi"`, `yi'`, `yi{` and `yi(` Copy inner word, inner text between double quotes, single quotes, curly braces and brackets
 * `C` Change remaining part of line
 * `cc` Change the whole line
 * `D` or `dd` Delete/cut line
 * `Y` or `yy` Copy line
+* `"ayy` Copy current line to register `a`
 * `"ayi{` Copy text betwen curly braces in to register `a`
 * `"ap` Paste from register `a`
 * `:reg` Show yank/copy registers
 * `Ctrl-R<register>` (insert, command) Paste from register. See `:h i_CTRL-R` and `:h c_CTRL-R`
 
+#### Folding
+* `zf#j`      Creates a fold from the cursor down # lines
+* `zf/string` Creates a fold from the cursor to string
+* `zj`        Moves the cursor to the next fold
+* `zk`        Moves the cursor to the previous fold
+* `zo`        Opens a fold at the cursor
+* `zO`        Opens all folds at the cursor
+* `zm`        Increases the foldlevel by one
+* `zM`        Closes all open folds
+* `zr`        Decreases the foldlevel by one
+* `zR`        Decreases the foldlevel to zero -- all folds will be open
+* `zd`        Deletes the fold at the cursor
+* `zE`        Deletes all folds
+* `[z`        Move to start of open fold
+* `]z`        Move to end of open fold
 
 
 #### More Info
@@ -158,21 +172,6 @@ git pull
   * `gv`   to open in vertical split silently
   * `q`    to close the quickfix window
 
-#### Folding
-* `zf#j`      Creates a fold from the cursor down # lines
-* `zf/string` Creates a fold from the cursor to string
-* `zj`        Moves the cursor to the next fold
-* `zk`        Moves the cursor to the previous fold
-* `zo`        Opens a fold at the cursor
-* `zO`        Opens all folds at the cursor
-* `zm`        Increases the foldlevel by one
-* `zM`        Closes all open folds
-* `zr`        Decreases the foldlevel by one
-* `zR`        Decreases the foldlevel to zero -- all folds will be open
-* `zd`        Deletes the fold at the cursor
-* `zE`        Deletes all folds
-* `[z`        Move to start of open fold
-* `]z`        Move to end of open fold
 
 ### Plugins
 
@@ -210,11 +209,6 @@ git pull
 ### Add submodule
 ```bash
 cd dotfiles
-git submodule add git://github.com/rupa/z.git
-git submodle init
-```
-```bash
-cd dotfiles
 git submodule add git://github.com/tpope/vim-scriptease.git .vim/bundle/vim-scriptease
 git submodule add git://github.com/tpope/vim-eunuch.git .vim/bundle/vim-eunuch
 git submodule add git://github.com/tpope/vim-fugitive.git .vim/bundle/vim-fugitive
@@ -232,7 +226,6 @@ git submodule add https://github.com/ervandew/supertab.git .vim/bundle/supertab
 git submodule add https://github.com/tpope/vim-unimpaired.git .vim/bundle/vim-unimpaired
 git submodule add https://github.com/plasticboy/vim-markdown.git .vim/bundle/vim-markdown
 git submodule add https://github.com/mhinz/vim-startify.git .vim/bundle/vim-startify
-git submodule add https://github.com/nvie/vim-flake8.git .vim/bundle/vim-flake8
 git submodule add https://github.com/davidhalter/jedi-vim.git .vim/bundle/jedi-vim
 git submodule update --init --recursive
 ```
@@ -255,25 +248,6 @@ To remove a submodule you need to:
   rm -rf path_to_submodule
 
 Source: http://stackoverflow.com/questions/1260748/how-do-i-remove-a-git-submodule#1260982
-
-### Install Fish Shell
-```bash
-sudo apt-add-repository ppa:fish-shell/release-2
-sudo apt-get update
-sudo apt-get install fish
-```
-Make Fish shell as default shell:
-```bash
-chsh -s /usr/bin/fish
-```
-Create Fish config directory:
-```bash
-mkdir -p ~/.config/fish
-```
-Create initial config file:
-```bash
-vi ~/.config/fish/config.fish
-```
 
 ### Useful Commands
 ```bash
