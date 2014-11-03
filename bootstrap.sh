@@ -2,7 +2,7 @@
 
 set -e
 
-# install dependency packages when "--install" arg is supplied
+# install packages when "--install" arg is supplied
 option=${1-"--update"}
 
 base_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -57,7 +57,7 @@ function setup_file {
 function main {
   git submodule update --init --recursive
   if [[ $option = "--install" || $option = "-i" ]]; then
-    ./bin/install-dependencies.sh
+    ./install-pkgs.sh
   fi
   echo
   setup_file "$base_dir/bash/.profile" "$HOME/.profile"
