@@ -1,43 +1,35 @@
 # Enable aliases to be sudo'ed
 alias sudo='sudo '
 
-alias G='gvim'
-alias M='macvim'
-alias v='vim'
-
-export platform=`uname`
-
 # enable color support
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
-if [[ $platform == 'Linux' ]]; then
-    if ls --color > /dev/null 2>&1; then
-        alias mycopy='pbcopy'
-        alias mypaste='pbpaste'
-        alias ls='ls -CF --color=auto'
-        alias ll='ls -alFh  --group-directories-first'
-        alias lls='ll -S'
-        alias llt='ll -t'
-    fi
-elif [[ $platform == 'Darwin' ]]; then
-    alias mycopy='xclip -selection clipboard'
-    alias mypaste='xclip -selection clipboard -o'
-    alias ll='ls -alFh | grep "^d" && ls -alFh | grep -v "^d"'
+export platform=`uname`
+if [[ $platform == 'Darwin' ]]; then
+    alias mycopy='pbcopy'
+    alias mypaste='pbpaste'
     alias ls='ls -CFG'
-    alias lls='ls -alFhS'
-    alias llt='ls -alFht'
-    # brew install coreutils
+    alias ll='ls -alFh | grep "^d" && ls -alFh | grep -v "^d"'
+    # gls from gnu's coreutils
     if gls --color > /dev/null 2>&1; then
         alias ls='gls -CF --color=auto'
-        alias ll='gls -alFh --color=auto  --group-directories-first'
-        alias lls='ll -S'
-        alias llt='ll -t'
+        alias ll='gls -alFh --color=auto --group-directories-first'
+    fi
+elif [[ $platform == 'Linux' ]]; then
+    alias mycopy='xclip -selection clipboard'
+    alias mypaste='xclip -selection clipboard -o'
+    if ls --color > /dev/null 2>&1; then
+        alias ls='ls -CF --color=auto'
+        alias ll='ls -alFh --group-directories-first'
     fi
 fi
 
 alias la='ls -A'
+alias lh='ls -lt | head'
+alias lls='ll -S'
+alias llt='ll -t'
 
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -48,7 +40,6 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # sudo apt-get install tree
-# sudo port install tree
 alias tree='tree --charset=ASCII'
 alias tree1='tree --dirsfirst -FL 1'
 alias tree2='tree --dirsfirst -FL 2'
@@ -61,29 +52,21 @@ alias h='history'
 alias c='clear'
 alias j='jobs -l'
 
+function fname() { find . -iname "*$@*";  }
+function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto;  }
+
 # mkdir <dir>
 alias mkdir='mkdir -pv'
 
-# Generate sha1 digest
-# $ sha1 <file>
-# $ shasum <file>
-# $ sha1sum <file>
-alias sha1='openssl sha1'
-which sha1sum > /dev/null || alias sha1sum='shasum'
+alias sha1='shasum'
+alias md5='md5sum'
+which shasum > /dev/null && alias sha1='openssl sha1'
+which md5sum > /dev/null && alias md5='openssl sha1'
 
-# Generate md5 digest
-# $ md5 <file>
-# $ md5sum <file>
-which md5 > /dev/null || alias md5='md5sum'
-which md5sum > /dev/null || alias md5sum='md5'
-
-# $ sudo apt-get install colordiff
-# $ sudo port install colordiff
-# $ diff <file1> <file2>
 which colordiff > /dev/null && alias diff='colordiff'
 
 # Make mount command output pretty and human readable format
-alias mount='mount |column -t'
+#alias mount='mount |column -t'
 
 # Start calculator with math support
 alias bc='bc -l'
@@ -98,7 +81,7 @@ alias myip2="hostname -I"
 alias ports='netstat -tulan'
 
 # Show Listening/Server ports
-alias lports='netstat -tln'
+alias lports='netstat -na | grep "LISTEN "'
 alias lports2='sudo netstat -tlnp'
 
 # Get web server headers #
@@ -113,16 +96,14 @@ alias headerc='curl -I --compress'
 alias wget='wget -c'
 
 # Monitor HTTP traffic
-# $ sudo apt-get install ngrep
-# $ sudo port install ngrep
-# $ httpgrep eth0
-# $ httpdump wlan0
-function httpgrep {
+# $ ngrephttp eth0
+# $ ngrephttp wlan0
+function ngrephttp {
     sudo ngrep -d $1 -t '^(GET|POST) ' 'tcp and port 80'
 }
 
 function httpdump {
-    sudo tcpdump -i $1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\"
+    sudo tcpdump -i $1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"
 }
 
 # $ urlencode "test string"
@@ -175,14 +156,7 @@ alias dl='cd ~/Downloads'
 alias dr='cd ~/Dropbox'
 alias p='cd ~/Projects'
 
-function bfg {
-    # $@ - expands to all command-line parameters separated by spaces
-    java -jar ~/dotfiles/bin/bfg.jar $@
-}
+alias cpsshkey='xclip -sel clip < ~/.ssh/id_rsa.pub'
+alias sshkey='cat ~/.ssh/id_rsa.pub'
 
-alias cp-public-key='xclip -sel clip < ~/.ssh/id_rsa.pub'
-
-# http://cfenollosa.com/misc/tricks.txt
-function lt() { ls -ltrsa "$@" | tail;  }
-function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto;  }
-function fname() { find . -iname "*$@*";  }
+function bfg { java -jar ~/dotfiles/bin/bfg.jar $@; }

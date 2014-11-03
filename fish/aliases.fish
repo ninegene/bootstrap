@@ -1,31 +1,25 @@
 # Enable aliases to be sudo'ed
 alias sudo 'sudo '
 
-alias ll 'ls -alFh --group-directories-first'
-alias la 'ls -A'
-
 switch (uname -s)
   case Darwin
-    alias updatedb 'sudo /usr/libexec/locate.updatedb'
+    #alias updatedb 'sudo /usr/libexec/locate.updatedb' # available in gnu's findutils
     alias mycopy 'pbcopy'
     alias mypaste 'pbpaste'
-    # brew install coreutils
+    # gls from gnu's coreutils
     alias ls 'gls -CF --color=auto'
     alias ll 'gls -alFh --color=auto --group-directories-first'
-    alias la 'ls -A'
-    alias llh 'ls -lt | head'
-    alias lls 'll -S'
-    alias llt 'll -t'
   case Linux
     alias mycopy 'xclip -selection clipboard'
     alias mypaste 'xclip -selection clipboard -o'
     alias ls 'ls -CF --color=auto'
     alias ll 'ls -alFh --group-directories-first'
-    alias la 'ls -A'
-    alias llh 'ls -lt | head'
-    alias lls 'll -S'
-    alias llt 'll -t'
 end
+
+alias la 'ls -A'
+alias lh 'ls -lt | head'
+alias lls 'll -S'
+alias llt 'll -t'
 
 alias grep 'grep --color=auto'
 alias fgrep 'fgrep --color=auto'
@@ -53,13 +47,24 @@ alias h 'history'
 alias c 'clear'
 alias j 'jobs -l'
 
-#alias sha1 'shasum'
-#alias md5 'md5sum'
+function fname
+  command find . -iname "*$argv*"
+end
 
-alias sha1 'openssl sha1'
-alias md5 'openssl md5'
+function psgrep
+  command ps axuf | grep -v grep | grep "$argv" -i --color=auto
+end
+
+alias mkdir 'mkdir -pv'
+
+alias sha1 'shasum'
+alias md5 'md5sum'
+which shasum > /dev/null; and alias sha1 'openssl sha1'
+which md5sum > /dev/null; and alias md5 'openssl md5'
 
 which colordiff > /dev/null; and alias diff 'colordiff'
+
+#alias mount 'mount |column -t'
 
 # Show public facing ip
 alias publicip "dig +short myip.opendns.com @resolver1.opendns.com"
@@ -70,7 +75,7 @@ alias myip2 "hostname -I"
 alias ports 'netstat -tulan'
 
 # Show Listening/Server ports
-alias lports 'netstat -tnl'
+alias lports 'netstat -na | grep "LISTEN "'
 alias lports2 'sudo netstat -tnlp'
 
 # Get web server headers #
@@ -84,8 +89,18 @@ alias headerc 'curl -I --compress'
 # Resume wget by default
 alias wget 'wget -c'
 
+# e.g. ngrephttp eth0
+function ngrephttp
+  command sudo ngrep -d $argv[1] -t '^(GET|POST) ' 'tcp and port 80'
+end
+
+# e.g. httpdump en0
+function httpdump
+  command sudo tcpdump -i $argv[1] -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"
+end
+
 function tn -d "Create a tunnel \n  tn <user@remote_host> <remote_port> <local_port>"
- command ssh $argv[1] -T -L $argv[3]:localhost:$argv[2]
+  command ssh $argv[1] -T -L $argv[3]:localhost:$argv[2]
 end
 
 # Get free memory in MB
@@ -130,13 +145,7 @@ alias dl 'cd ~/Downloads'
 alias dr 'cd ~/Dropbox'
 alias p 'cd ~/Projects'
 
-# gitignore.io cli for fish
-function gi
-  #curl http://gitignore.io/api/$argv
-  set -l params (echo $argv|tr ' ' ',')
-  curl http://gitignore.io/api/$params
-end
+alias cpsshkey 'xclip -sel clip < ~/.ssh/id_rsa.pub'
+alias sshkey 'cat ~/.ssh/id_rsa.pub'
 
 alias bfg 'java -jar ~/dotfiles/bin/bfg.jar'
-
-alias cp-public-key 'xclip -sel clip < ~/.ssh/id_rsa.pub'

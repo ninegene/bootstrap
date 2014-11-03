@@ -2,41 +2,35 @@
 
 set -e
 
-option=$1
+# install dependency packages when "--install" arg is supplied
+option=${1-"--update"}
 
-# verbose=0; [ "$option" = "--verbose" ] && verbose=1
-verbose=1
+base_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+timestamp=`date +%F_%H-%M-%S`
 
-# install dependency packages by default unless "--update" arg is supplied
-install_pkgs=0; [ "$option" = "--install" ] && install_pkgs=1
-
-base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-timestamp=`date +%F-%s`
-
-function exec {
-  # $@ - expands to all command-line parameters separated by spaces
-  [ $verbose -eq 1 ] && echo " run:" $@
+function execho {
   $@
+  echo " run:" $@
 }
 
 function backup_file {
   local src=$1
 
-  if [ -f "$src" -a ! -L "$src" ] || [ -d "$src" -a ! -L "$src" ]; then
-    backup_dir="$HOME/.dotfiles_backup"
-    exec mkdir -p $backup_dir
-    echo Found "$src" and backing up to "$src-$timestamp"
-    exec mv "$src" "$src-$timestamp"
-    exec mv "$src-$timestamp" "$backup_dir/"
+  #if [ -f "$src" -a ! -L "$src" ] || [ -d "$src" -a ! -L "$src" ]; then
+  if [[ (-f $src && ! -L $src) || (-d $src && ! -L $src) ]]; then
+    backup_dir="$HOME/.dotfiles_backup/$timestamp"
+    execho mkdir -p $backup_dir
+    echo Found "$src" and backing up to "$backup_dir"
+    execho mv "$src" "$backup_dir/"
   fi
 }
 
 function remove_symlink {
   local src=$1
 
-  if [ -L "$src" ]; then
+  if [[ -L $src ]]; then
     echo Removing symlink "$src"
-    exec rm "$src"
+    execho rm "$src"
   fi
 }
 
@@ -44,9 +38,9 @@ function make_symlink {
   local src=$1
   local dst=$2
 
-  if [ -f "$src" -o -d "$src" ]; then
+  if [[ -f $src || -d $src ]]; then
     echo Creating link file "$dst" from "$src"
-    exec ln -s "$src" "$dst"
+    execho ln -s "$src" "$dst"
     echo " "
   fi
 }
@@ -55,17 +49,17 @@ function setup_file {
   local src=$1
   local dst=$2
 
-  backup_file "$dst"
   remove_symlink "$dst"
+  backup_file "$dst"
   make_symlink "$src" "$dst"
 }
 
 function main {
   git submodule update --init --recursive
-  if [ $install_pkgs -eq 1 ]; then
-      sudo ./bin/install-dependencies.sh
+  if [[ $option = "--install" || $option = "-i" ]]; then
+    ./bin/install-dependencies.sh
   fi
-  echo " "
+  echo
   setup_file "$base_dir/bash/.profile" "$HOME/.profile"
   setup_file "$base_dir/bash/.bashrc" "$HOME/.bashrc"
   setup_file "$base_dir/bash/.bash_aliases" "$HOME/.bash_aliases"
@@ -83,14 +77,14 @@ function main {
   setup_file "$base_dir/.vim/.gvimrc" "$HOME/.gvimrc"
   setup_file "$base_dir/.vim/.ctags" "$HOME/.ctags"
   setup_file "$base_dir/.vim" "$HOME/.vim"
-  if [ ! -f "$HOME/.vimrc.local" ]; then
-      exec touch "$HOME/.vimrc.local"
+  if [[ ! -f $HOME/.vimrc.local ]]; then
+    execho touch "$HOME/.vimrc.local"
   fi
 
   # setup_file "$base_dir/.gitconfig" "$HOME/.gitconfig"
   remove_symlink "$HOME/.gitconfig"
   backup_file "$HOME/.gitconfig"
-  exec cp "$base_dir/.gitconfig" "$HOME/.gitconfig"
+  execho cp "$base_dir/.gitconfig" "$HOME/.gitconfig"
   sed -i "s/name = unknown/name = $(whoami)/" "$HOME/.gitconfig"
   sed -i "s/email = unknown/email = $(whoami)@$(hostname)/" "$HOME/.gitconfig"
 
