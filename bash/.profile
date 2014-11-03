@@ -25,8 +25,14 @@ fi
 
 if [ -d "/opt/idea/bin" ] ; then
     export IDEA_JDK=$JAVA_HOME
-    export IDEA_HOME=$JAVA_HOME
+    export IDEA_HOME=/opt/idea
     PATH="$PATH:$IDEA_HOME/bin"
+fi
+
+if [ -d "/opt/adt/sdk" ] ; then
+    export ANDROID_HOME=/opt/adt/sdk
+    PATH="$PATH:$ANDROID_HOME/tools"
+    PATH="$PATH:$ANDROID_HOME/platform-tools"
 fi
 
 if [ -d "/opt/groovy/bin" ] ; then
