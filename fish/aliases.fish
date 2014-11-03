@@ -53,9 +53,11 @@ alias h 'history'
 alias c 'clear'
 alias j 'jobs -l'
 
-#alias sha1 'openssl sha1'
-alias sha1 'shasum'
-alias md5 'md5sum'
+#alias sha1 'shasum'
+#alias md5 'md5sum'
+
+alias sha1 'openssl sha1'
+alias md5 'openssl md5'
 
 which colordiff > /dev/null; and alias diff 'colordiff'
 
