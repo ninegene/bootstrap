@@ -29,6 +29,12 @@ if test -d "/opt/idea/bin"
   append_to_path "$IDEA_HOME/bin"
 end
 
+if test -d "/opt/adt/sdk"
+  set -x ANDROID_HOME "/opt/adt/sdk"
+  append_to_path "$ANDROID_HOME/tools"
+  append_to_path "$ANDROID_HOME/platform-tools"
+end
+
 if test -d "/opt/groovy/bin"
   set -x GROOVY_HOME "/opt/groovy"
   append_to_path "$GROOVY_HOME/bin"
