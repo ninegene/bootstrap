@@ -58,14 +58,8 @@ end
 
 # MacPorts path
 if test -d "/opt/local/bin"
-  prepand_to_path /opt/local/bin
+  #prepand_to_path /opt/local/bin
 end
 if test -d "/opt/local/sbin"
-  prepand_to_path /opt/local/sbin
-end
-if test -d "/opt/local/lib/mysql55/bin"
-  prepand_to_path /opt/local/lib/mysql55/bin
-end
-if test -d "/opt/local/lib/mariadb/bin"
-  prepand_to_path /opt/local/lib/mariadb/bin
+  #prepand_to_path /opt/local/sbin
 end

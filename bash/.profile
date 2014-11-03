@@ -9,7 +9,7 @@
 #umask 022
 
 export LOADED_DOT_PROFILE="true"
-export platform=`uname`
+export platform=`uname -s`
 
 ### Linux
 
@@ -63,19 +63,9 @@ fi
 
 # Adding an appropriate PATH variable for use with MacPorts.
 if [ -d "/opt/local/sbin" ] ; then
-    PATH="/opt/local/sbin:$PATH"
+    #PATH="/opt/local/sbin:$PATH"
 fi
 if [ -d "/opt/local/bin" ] ; then
-    PATH="/opt/local/bin:$PATH"
-fi
-
-# MySQL on Mac OS X
-if [ -d "/opt/local/lib/mysql55/bin" ] ; then
-    PATH=/opt/local/lib/mysql55/bin:$PATH
-fi
-
-# MariaDB on Mac OS X
-if [ -d "/opt/local/lib/mariadb/bin" ] ; then
-    PATH=/opt/local/lib/mariadb/bin:$PATH
+    #PATH="/opt/local/bin:$PATH"
 fi
 
