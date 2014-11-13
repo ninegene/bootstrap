@@ -30,7 +30,9 @@ end
 function _git_status
   set -l git_status (__fish_git_prompt)
   if test -n "$git_status"
+    set_color normal
     echo "$git_status"
+    set_color normal
   end
 end
 
@@ -44,11 +46,8 @@ function fish_prompt --description 'Write out the prompt'
     set -g __fish_prompt_normal (set_color normal)
   end
 
-  if not set -q __fish_prompt_cyan
-    set -g __fish_prompt_cyan (set_color cyan)
-  end
-
   set -l symbol '$'
+
   switch $USER
 
     case root
@@ -71,6 +70,6 @@ function fish_prompt --description 'Write out the prompt'
 
     end
 
-  echo -n -s (_remote_hostname) "$__fish_prompt_cwd" (prompt_pwd) (_git_status) "$__fish_prompt_normal" "$symbol "
+  echo -n -s (_remote_hostname) "$__fish_prompt_cwd" (prompt_pwd) (_git_status) "$symbol "
 
 end
