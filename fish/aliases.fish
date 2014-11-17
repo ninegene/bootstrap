@@ -3,12 +3,14 @@ alias sudo 'sudo '
 
 switch (uname -s)
   case Darwin
-    #alias updatedb 'sudo /usr/libexec/locate.updatedb' # available in gnu's findutils
     alias mycopy 'pbcopy'
     alias mypaste 'pbpaste'
-    # gls from gnu's coreutils
-    alias ls 'gls -CF --color=auto'
-    alias ll 'gls -alFh --color=auto --group-directories-first'
+    # gls from gnu's coreutils, needs 'brew install coreutils'
+    which gls > /dev/null; alias ls 'gls -CF --color=auto'
+    which gls > /dev/null; alias ll 'gls -alFh --color=auto --group-directories-first'
+    # Show/hide hidden files in Finder
+    alias showfiles "defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder"
+    alias hidefiles "defaults write com.apple.finder AppleShowAllFiles -bool false; killall Finder"
   case Linux
     alias mycopy 'xclip -selection clipboard'
     alias mypaste 'xclip -selection clipboard -o'
@@ -41,21 +43,9 @@ function path
   end
 end
 
-alias timestamp 'date +"%F-%s"'
-
 alias h 'history'
 alias c 'clear'
 alias j 'jobs -l'
-
-function fname
-  command find . -iname "*$argv*"
-end
-
-function psgrep
-  command ps axuf | grep -v grep | grep "$argv" -i --color=auto
-end
-
-alias mkdir 'mkdir -pv'
 
 alias sha1 'shasum'
 alias md5 'md5sum'
@@ -68,8 +58,8 @@ which colordiff > /dev/null; and alias diff 'colordiff'
 
 # Show public facing ip
 alias publicip "dig +short myip.opendns.com @resolver1.opendns.com"
-alias myip "ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*\$//'"
-alias myip2 "hostname -I"
+alias myip "hostname -I"
+alias myip2 "ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*\$//'"
 
 # Show TCP/UDP ports
 alias ports 'netstat -tulan'
@@ -89,20 +79,6 @@ alias headerc 'curl -I --compress'
 # Resume wget by default
 alias wget 'wget -c'
 
-# e.g. ngrephttp eth0
-function ngrephttp
-  command sudo ngrep -d $argv[1] -t '^(GET|POST) ' 'tcp and port 80'
-end
-
-# e.g. httpdump en0
-function httpdump
-  command sudo tcpdump -i $argv[1] -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"
-end
-
-function tn -d "Create a tunnel \n  tn <user@remote_host> <remote_port> <local_port>"
-  command ssh $argv[1] -T -L $argv[3]:localhost:$argv[2]
-end
-
 # Get free memory in MB
 alias meminfo 'free -m -l -t'
 
@@ -112,6 +88,9 @@ alias df 'df -h'
 # Get directory size
 # $ ds <dir>
 alias ds 'du -sh'
+
+# Don't allow to remove root directory
+alias rm 'rm --preserve-root'
 
 # Get top process eating memory
 alias psmem 'ps aux | sort -nr -k 4'
@@ -125,27 +104,18 @@ alias pscpu10 'ps aux | sort -nr -k 3 | head -10'
 
 # Linux: Get info
 alias cpuinfo 'lscpu' # cat /proc/cpuinfo
-alias usbinfo 'lsusb' #
-alias modinfo 'lsmod' # cat /proc/modules
-alias pciinfo 'lspci' #
+alias usbinfo 'lsusb' 
+alias modinfo 'lsmod'
+alias pciinfo 'lspci'
 
-# Mac: Show/hide hidden files in Finder
-alias showfiles "defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder"
-alias hidefiles "defaults write com.apple.finder AppleShowAllFiles -bool false; killall Finder"
-
+# Edit fish aliases, config, local and source config
 alias ea 'vim ~/.config/fish/aliases.fish'
-alias ef 'vim ~/.config/fish/config.fish'
 alias el 'vim ~/.config/fish/local.fish'
-alias ev 'vim ~/.vimrc'
-alias sfish '. ~/.config/fish/config.fish'
+alias ef 'vim ~/.config/fish/config.fish'
+alias sf 'source ~/.config/fish/config.fish'
 
-alias sav 'cd /etc/apache2/sites-available'
 alias doc 'cd ~/Documents'
 alias dl 'cd ~/Downloads'
-alias dr 'cd ~/Dropbox'
-alias p 'cd ~/Projects'
 
 alias cpsshkey 'xclip -sel clip < ~/.ssh/id_rsa.pub'
 alias sshkey 'cat ~/.ssh/id_rsa.pub'
-
-alias bfg 'java -jar ~/dotfiles/bin/bfg.jar'

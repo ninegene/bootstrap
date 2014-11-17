@@ -50,16 +50,3 @@ if test -d "/opt/gradle/bin"
   append_to_path "$GRADLE_HOME/bin"
 end
 
-# SmartGitHg git/hg ui client for Linux
-if test -d "/opt/smartgithg/bin"
-  set -x SMARTGIT_JAVA_HOME "$JAVA_HOME"
-  append_to_path /opt/smartgithg/bin
-end
-
-# MacPorts path
-if test -d "/opt/local/bin"
-  #prepand_to_path /opt/local/bin
-end
-if test -d "/opt/local/sbin"
-  #prepand_to_path /opt/local/sbin
-end

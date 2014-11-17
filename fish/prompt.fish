@@ -46,29 +46,18 @@ function fish_prompt --description 'Write out the prompt'
     set -g __fish_prompt_normal (set_color normal)
   end
 
+  if not set -q __fish_prompt_cwd
+    set -g __fish_prompt_cwd (set_color $fish_color_cwd)
+  end
+
   set -l symbol '$'
 
   switch $USER
-
     case root
-
-      if not set -q __fish_prompt_cwd
-        if set -q fish_color_cwd_root
-          set -g __fish_prompt_cwd (set_color $fish_color_cwd_root)
-        else
-          set -g __fish_prompt_cwd (set_color $fish_color_cwd)
-        end
-      end
-
       set symbol '#'
-
     case '*'
-
-        if not set -q __fish_prompt_cwd
-            set -g __fish_prompt_cwd (set_color $fish_color_cwd)
-        end
-
-    end
+      set symbol '$'
+  end
 
   echo -n -s (_remote_hostname) "$__fish_prompt_cwd" (prompt_pwd) (_git_status) "$symbol "
 
