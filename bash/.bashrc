@@ -92,10 +92,6 @@ if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
 
-if [ -f ~/dotfiles/z/z.sh ]; then
-    . ~/dotfiles/z/z.sh
-fi
-
 if [ -f ~/.bash_local ]; then
     . ~/.bash_local
 fi
@@ -109,6 +105,7 @@ fi
 
 export EDITOR='vim -f'
 
-# http://www.catonmat.net/download/bash-vi-editing-mode-cheat-sheet.txt
-set -o vi
-
+# enable color support for 'ls' command
+if [[ -x /usr/bin/dircolors ]]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi

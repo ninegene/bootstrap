@@ -1,5 +1,3 @@
-set -x platform (uname)
-
 # add to front of path
 function prepand_to_path
   set -x PATH $argv[1] $PATH
@@ -8,6 +6,10 @@ end
 # add to end of path
 function append_to_path
   set -x PATH $PATH $argv[1]
+end
+
+if test -d "/usr/local/sbin"
+  prepand_to_path "/usr/local/sbin"
 end
 
 if test -d "$HOME/bin"
@@ -49,4 +51,3 @@ if test -d "/opt/gradle/bin"
   set -x GRADLE_HOME "/opt/gradle"
   append_to_path "$GRADLE_HOME/bin"
 end
-

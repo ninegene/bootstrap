@@ -1,4 +1,0 @@
-# idiff <full_path_to_file1> <full_path_to_file2>
-# idiff $PWD/app.js $PWD/app2.js
-alias idiff='/opt/idea/bin/idea.sh diff'
-
