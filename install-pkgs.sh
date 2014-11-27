@@ -18,8 +18,8 @@ function install_linux_pkgs {
     if [ $gnome_installed -eq 1 ]; then
         sudo apt-get install -y vim-gtk vim-gnome xclip
         sudo apt-get install -y nautilus-open-terminal
-        sudo apt-get install -y gitk # git repository browser
         sudo apt-get install -y gitg # free simple git ui client to see branches and changes/diff before commit
+        sudo apt-get install -y gitk # git repository browser
     fi
     sudo apt-get install -y exuberant-ctags # for vim tagbar plugin
     # ack.vim vim plugin
@@ -31,14 +31,6 @@ function install_linux_pkgs {
 }
 
 function install_mac_pkgs {
-    # sudo port -v selfupdate
-    # sudo port install vim +cscope +python +ruby +perl +tcl
-    # sudo port install macvim +cscope +python +ruby +perl +tcl
-    # sudo port install git-core +bash_completion +credential_osxkeychain +doc +pcre +python27
-    # sudo port install tree colordiff # for aliases
-    # sudo port install ctags # for tagbar vim plugin
-    # sudo port install p5-app-ack # for ack.vim plugin
-
     brew update
     brew tap homebrew/dupes
 
@@ -63,7 +55,6 @@ function install_mac_pkgs {
     brew install openssl
     brew install openssh
     brew install python
-    brew linkapps
 
     brew install git
     brew install vim --override-system-vi
@@ -72,6 +63,11 @@ function install_mac_pkgs {
     brew install md5sha1sum     # used in aliases
     brew install ctags # for tagbar vim plugin
     brew install ack   # for ack.vim plugin
+
+    brew linkapps
+    # Needs to run the following to work around MacVim not available in spot light or alfred
+    # mv /usr/local/Cellar/macvim/7.4-73_1/MacVim.app /Applications/
+    # ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.4-73_1/
 }
 
 function install_python_pip {
