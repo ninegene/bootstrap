@@ -56,7 +56,7 @@ symlink() {
 }
 
 install_pkgs() {
-    $BASE_DIR/install-pkgs.sh
+    $BASE_DIR/install/base-pkgs.sh
 }
 
 setup_gitconfig() {

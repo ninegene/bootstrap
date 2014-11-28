@@ -1,14 +1,12 @@
 #!/bin/bash
-
 set -e
-set -v
 
-DOMAIN_NAME=$1
-
-if [ -z "$DOMAIN_NAME" ]; then
+if [ -z "$1" ]; then
     echo "Usage: $(basename $0) mydomain.com"
     exit 1
 fi
+
+DOMAIN_NAME=$1
 
 sudo mkdir -p /var/www/$DOMAIN_NAME/html
 sudo chown -R $USER:$USER /var/www/$DOMAIN_NAME
@@ -33,4 +31,3 @@ sudo nginx -t
 
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo service nginx restart
-

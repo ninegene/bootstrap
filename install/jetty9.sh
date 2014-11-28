@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 filename=jetty-distribution-9.2.3.v20140905
@@ -30,4 +29,3 @@ sudo service jetty status
 sudo update-rc.d jetty defaults
 
 sudo service jetty start
-
