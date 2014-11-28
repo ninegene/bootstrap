@@ -1,94 +1,173 @@
 #!/bin/bash
-
 set -e
 
-# install packages when "--install" arg is supplied
-option=${1-"--update"}
+show_help() {
+cat << EOF
+USAGE
+    $(basename $0) {pkgs|git|bash|fish|vim|scripts|all}
 
-base_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-timestamp=`date +%F_%H-%M-%S`
-
-function execho {
-  $@
-  echo " run:" $@
+DESCRIPTION
+    pkgs        Install packages
+    git         Setup git config and git aliases
+    bash        Setup dotfiles for BASH
+    fish        Setup fish shell config
+    vim         Setup VIM plugins
+    scripts     Symlink scripts to ~/bin directory
+    all         Execute all above options
+EOF
 }
 
-function backup_file {
-  local src=$1
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-  #if [ -f "$src" -a ! -L "$src" ] || [ -d "$src" -a ! -L "$src" ]; then
-  if [[ (-f $src && ! -L $src) || (-d $src && ! -L $src) ]]; then
-    backup_dir="$HOME/.dotfiles_backup/$timestamp"
-    execho mkdir -p $backup_dir
-    echo Found "$src" and backing up to "$backup_dir"
-    execho mv "$src" "$backup_dir/"
-  fi
+md5() {
+    local file=$1
+    if command -v md5sum > /dev/null 2>&1; then
+        echo $(md5sum "$file" > egrep -o "[a-zA-Z0-9]{32}")
+    else
+        echo $(openssl md5 "$file" > egrep -o "[a-zA-Z0-9]{32}")
+    fi
 }
 
-function remove_symlink {
-  local src=$1
+backup() {
+    local file=$1
 
-  if [[ -L $src ]]; then
-    echo Removing symlink "$src"
-    execho rm "$src"
-  fi
+    if [[ -L $file ]]; then
+        rm "$file"
+        echo "Deleted symlink $file"
+    elif [[ -f $file ]]; then
+        local backup=${file}.$(md5 "$file")
+        mv "$file" "$backup"
+        echo "Backed up file $file to $backup"
+    elif [[ -d $file ]]; then
+        local backup=${file}.$(date +%Y%m%d%H%M%S)
+        mv "$file" "$backup"
+        echo "Backed up dir $file to $backup"
+    fi
 }
 
-function make_symlink {
-  local src=$1
-  local dst=$2
+symlink() {
+    local file=$1
+    local link=$2
 
-  if [[ -f $src || -d $src ]]; then
-    echo Creating link file "$dst" from "$src"
-    execho ln -s "$src" "$dst"
-    echo " "
-  fi
+    backup "$file" 
+
+    ln -s "$file" "$link"
+    echo "Created symlink $link from $file"
 }
 
-function setup_file {
-  local src=$1
-  local dst=$2
-
-  remove_symlink "$dst"
-  backup_file "$dst"
-  make_symlink "$src" "$dst"
+install_pkgs() {
+    $BASE_DIR/install-pkgs.sh
 }
 
-function main {
-  git submodule update --init --recursive
-  if [[ $option = "--install" || $option = "-i" ]]; then
-    ./install-pkgs.sh
-  fi
-  echo
-  setup_file "$base_dir/bash/.profile" "$HOME/.profile"
-  setup_file "$base_dir/bash/.bashrc" "$HOME/.bashrc"
-  setup_file "$base_dir/bash/.bash_aliases" "$HOME/.bash_aliases"
-  setup_file "$base_dir/bash/.bash_login" "$HOME/.bash_login"
-  setup_file "$base_dir/bash/.aliases" "$HOME/.aliases"
+setup_gitconfig() {
+    backup "$BASE_DIR/.gitconfig"
+    cp "$BASE_DIR/.gitconfig" "$HOME/.gitconfig"
 
-  mkdir -p $HOME/.config/fish
-  setup_file "$base_dir/fish/profile.fish" "$HOME/.config/fish/profile.fish"
-  setup_file "$base_dir/fish/prompt.fish" "$HOME/.config/fish/prompt.fish"
-  setup_file "$base_dir/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
-  setup_file "$base_dir/fish/functions" "$HOME/.config/fish/functions"
-  setup_file "$base_dir/fish/config.fish" "$HOME/.config/fish/config.fish"
-
-  setup_file "$base_dir/.vim/.vimrc" "$HOME/.vimrc"
-  setup_file "$base_dir/.vim/.gvimrc" "$HOME/.gvimrc"
-  setup_file "$base_dir/.vim/.ctags" "$HOME/.ctags"
-  setup_file "$base_dir/.vim" "$HOME/.vim"
-  if [[ ! -f $HOME/.vimrc.local ]]; then
-    execho touch "$HOME/.vimrc.local"
-  fi
-
-  # setup_file "$base_dir/.gitconfig" "$HOME/.gitconfig"
-  remove_symlink "$HOME/.gitconfig"
-  backup_file "$HOME/.gitconfig"
-  execho cp "$base_dir/.gitconfig" "$HOME/.gitconfig"
-  sed -i "s/name = unknown/name = $(whoami)/" "$HOME/.gitconfig"
-  sed -i "s/email = unknown/email = $(whoami)@$(hostname)/" "$HOME/.gitconfig"
-
-  echo "Done bootstrapping!"
+    sed -i "s/name = unknown/name = $(whoami)/" "$HOME/.gitconfig"
+    sed -i "s/email = unknown/email = $(whoami)@$(hostname)/" "$HOME/.gitconfig"
 }
 
-main
+setup_bash() {
+    backup "$HOME/.bash_login"
+    backup "$HOME/.bash_profile"
+    backup "$HOME/.bash_aliases"
+
+    symlink "$BASE_DIR/bash/profile" "$HOME/.profile"
+    symlink "$BASE_DIR/bash/bashrc" "$HOME/.bashrc"
+    symlink "$BASE_DIR/bash/aliases" "$HOME/.aliases"
+}
+
+setup_fish() {
+    mkdir -p "$BASE_DIR/fish/functions"
+
+    symlink "$BASE_DIR/fish/profile.fish" "$HOME/.config/fish/profile.fish"
+    symlink "$BASE_DIR/fish/prompt.fish" "$HOME/.config/fish/prompt.fish"
+    symlink "$BASE_DIR/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
+    symlink "$BASE_DIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
+    symlink "$BASE_DIR/fish/config.fish" "$HOME/.config/fish/config.fish"
+}
+
+git_clone() {
+    local url=$1
+    local dir=$2
+    if [[ -d $dir ]]; then
+        echo $dir
+        cd $dir && git pull
+    else
+        git clone $url $dir
+    fi
+}
+
+setup_vim() {
+    mkdir -p $BASE_DIR/vim/{autoload,bundle}
+    curl -LSso $BASE_DIR/vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+    cd $BASE_DIR/vim/bundle
+
+    # File browsing
+    git_clone https://github.com/mhinz/vim-startify.git
+    git_clone https://github.com/scrooloose/nerdtree.git
+    git_clone https://github.com/kien/ctrlp.vim.git
+    git_clone https://github.com/vim-scripts/grep.vim
+
+    # Git
+    git_clone https://github.com/airblade/vim-gitgutter.git
+    git_clone https://github.com/tpope/vim-fugitive.git
+
+    # Editing
+    git_clone https://github.com/tpope/vim-repeat.git
+    git_clone https://github.com/tpope/vim-scriptease.git
+    git_clone https://github.com/tpope/vim-eunuch.git
+    git_clone https://github.com/tpope/vim-surround.git
+    git_clone https://github.com/tpope/vim-unimpaired.git
+    git_clone https://github.com/tpope/vim-commentary.git
+
+    # Visual
+    git_clone https://github.com/bling/vim-airline.git
+
+    cd -
+
+    [[ -d $HOME/.vim ]] && mv $HOME/.vim $HOME/.vim-$(date +%Y%m%d%H%M%S)
+    [[ -L $HOME/.vim ]] && rm $HOME/.vim
+
+    symlink $BASE_DIR/vim $HOME/.vim
+    symlink "$BASE_DIR/vim/vimrc" "$BASE_DIR/.vimrc"
+    symlink "$BASE_DIR/vim/gvimrc" "$BASE_DIR/.gvimrc"
+    symlink "$BASE_DIR/vim/ctags" "$BASE_DIR/.ctags"
+}
+
+setup_scripts() {
+    local file
+    for file in "$basedir/scripts/*"
+    do
+        echo $file
+    done
+}
+
+main() {
+    if [[ $1 == '-h' || $1 == '--help' ]]; then
+        show_help
+        exit 0
+    fi
+
+    local option=${1-all}
+
+    [[ $option == 'pkgs' ]] && install_pkgs && exit 0
+    [[ $option == 'git' ]] && setup_gitconfig && exit 0
+    [[ $option == 'bash' ]] && setup_bash && exit 0
+    [[ $option == 'fish' ]] && setup_fish && exit 0
+    [[ $option == 'vim' ]] && setup_vim && exit 0
+    [[ $option == 'scripts' ]] && setup_scripts && exit 0
+
+    if [[ $option == 'all' ]]; then
+        install_pkgs
+        setup_git
+        setup_bash
+        setup_fish
+        setup_vim
+        setup_scripts
+        exit 0
+    fi
+}
+
+main $@
