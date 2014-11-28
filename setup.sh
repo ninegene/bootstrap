@@ -7,13 +7,13 @@ USAGE
     $(basename $0) {pkgs|git|bash|fish|vim|scripts|all}
 
 DESCRIPTION
-    pkgs        Install packages
+    pkgs        Install base packages
     git         Setup git config and git aliases
     bash        Setup dotfiles for BASH
     fish        Setup fish shell config
     vim         Setup VIM plugins
     scripts     Symlink scripts to ~/bin directory
-    all         Execute all above options
+    all         Execute all above options (Default)
 EOF
 }
 
@@ -109,21 +109,31 @@ setup_vim() {
     git_clone https://github.com/scrooloose/nerdtree.git
     git_clone https://github.com/kien/ctrlp.vim.git
     git_clone https://github.com/vim-scripts/grep.vim
+    git_clone https://github.com/mileszs/ack.vim
 
-    # Git
-    git_clone https://github.com/airblade/vim-gitgutter.git
-    git_clone https://github.com/tpope/vim-fugitive.git
+    # Visual
+    git_clone https://github.com/bling/vim-airline.git
 
-    # Editing
+    # General Editing
     git_clone https://github.com/tpope/vim-repeat.git
     git_clone https://github.com/tpope/vim-scriptease.git
     git_clone https://github.com/tpope/vim-eunuch.git
     git_clone https://github.com/tpope/vim-surround.git
     git_clone https://github.com/tpope/vim-unimpaired.git
     git_clone https://github.com/tpope/vim-commentary.git
+    git_clone https://github.com/sjl/gundo.vim
+    git_clone https://github.com/ervandew/supertab
 
-    # Visual
-    git_clone https://github.com/bling/vim-airline.git
+    # Coding
+    git_clone https://github.com/scrooloose/syntastic
+    git_clone https://github.com/majutsushi/tagbar
+
+    # Git
+    git_clone https://github.com/airblade/vim-gitgutter.git
+    git_clone https://github.com/tpope/vim-fugitive.git
+
+    # Python
+    git_clone https://github.com/davidhalter/jedi-vim
 
     cd -
 
