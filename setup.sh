@@ -22,9 +22,9 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 md5() {
     local file=$1
     if command -v md5sum > /dev/null 2>&1; then
-        echo $(md5sum "$file" > egrep -o "[a-zA-Z0-9]{32}")
+        echo $(md5sum "$file" | egrep -o "[a-zA-Z0-9]{32}")
     else
-        echo $(openssl md5 "$file" > egrep -o "[a-zA-Z0-9]{32}")
+        echo $(openssl md5 "$file" | egrep -o "[a-zA-Z0-9]{32}")
     fi
 }
 
@@ -35,24 +35,24 @@ backup() {
         rm "$file"
         echo "Deleted symlink $file"
     elif [[ -f $file ]]; then
-        local backup=${file}.$(md5 "$file")
+        local backup=${file}.$(md5 "$file").bak
         mv "$file" "$backup"
-        echo "Backed up file $file to $backup"
+        echo "Backed up file to $backup"
     elif [[ -d $file ]]; then
-        local backup=${file}.$(date +%Y%m%d%H%M%S)
+        local backup=${file}.$(date +%Y%m%d%H%M%S).bak
         mv "$file" "$backup"
-        echo "Backed up dir $file to $backup"
+        echo "Backed up dir to $backup"
     fi
 }
 
 symlink() {
-    local file=$1
-    local link=$2
+    local src=$1
+    local dst=$2
 
-    backup "$file" 
+    backup "$dst"
 
-    ln -s "$file" "$link"
-    echo "Created symlink $link from $file"
+    ln -s "$src" "$dst"
+    echo "Created symlink $dst"
 }
 
 install_pkgs() {
@@ -78,13 +78,13 @@ setup_bash() {
 }
 
 setup_fish() {
-    mkdir -p "$BASE_DIR/fish/functions"
-
     symlink "$BASE_DIR/fish/profile.fish" "$HOME/.config/fish/profile.fish"
     symlink "$BASE_DIR/fish/prompt.fish" "$HOME/.config/fish/prompt.fish"
     symlink "$BASE_DIR/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
-    symlink "$BASE_DIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
     symlink "$BASE_DIR/fish/config.fish" "$HOME/.config/fish/config.fish"
+
+    mkdir -p $HOME/.config/fish/functions
+    symlink "$BASE_DIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
 }
 
 git_clone() {
