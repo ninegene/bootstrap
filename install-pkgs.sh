@@ -32,16 +32,16 @@ function install_mac_pkgs {
 
     # GNU packages
     brew install coreutils
-    brew install findutils --default-names # GNU find, locate, updatedb, xargs
+    brew install findutils --with-default-names # GNU find, locate, updatedb, xargs
     brew install diffutils # GNU diff, cmp, diff3, sdif
     brew install wdiff --with-gettext
     brew install gawk
-    brew install gnu-indent --default-names
-    brew install gnu-sed --default-names
-    brew install gnu-tar --default-names
-    brew install gnu-which --default-names
-    brew install gnutls --default-names
-    brew install grep --default-names
+    brew install gnu-indent --with-default-names
+    brew install gnu-sed --with-default-names
+    brew install gnu-tar --with-default-names
+    brew install gnu-which --with-default-names
+    brew install gnutls --with-default-names
+    brew install grep --with-default-names
     brew install screen
     brew install wget
     brew install gzip
