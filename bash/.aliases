@@ -8,7 +8,7 @@ if [[ $platform == 'Darwin' ]]; then
     alias ll='ls -alFh | command grep "^d" && ls -alFh | grep -v "^d"'
 
     # gls from gnu's coreutils
-    if gls --color > /dev/null 2>&1; then
+    if command -v gls > /dev/null 2>&1; then
         alias ls='gls -CF --color=auto'
         alias ll='gls -alFh --color=auto --group-directories-first'
     fi
@@ -54,11 +54,9 @@ alias path='echo -e ${PATH//:/\\n}'
 alias h='history'
 alias j='jobs -l'
 
-alias sha1='shasum'
-alias md5='md5sum'
-which shasum > /dev/null && alias sha1='openssl sha1'
-which md5sum > /dev/null && alias md5='openssl sha1'
-which colordiff > /dev/null && alias diff='colordiff'
+command -v shasum > /dev/null 2>&1 && alias shasum='openssl sha1'
+command -v md5sum > /dev/null 2>&1 && alias md5sum='openssl md5'
+command -v colordiff > /dev/null 2>&1 && alias diff='colordiff'
 
 alias cpsshkey='mycopy < ~/.ssh/id_rsa.pub'
 

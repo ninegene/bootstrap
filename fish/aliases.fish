@@ -8,8 +8,8 @@ switch (uname -s)
     alias ll 'ls -alFh | command grep "^d"; and ls -alFh | grep -v "^d"'
 
     # gls from gnu's coreutils, needs 'brew install coreutils'
-    which gls > /dev/null; alias ls 'gls -CF --color=auto'
-    which gls > /dev/null; alias ll 'gls -alFh --color=auto --group-directories-first'
+    type gls > /dev/null 2>&1; and alias ls 'gls -CF --color=auto'
+    type gls > /dev/null 2>&1; and alias ll 'gls -alFh --color=auto --group-directories-first'
 
     # Show/hide hidden files in Finder
     alias showfiles "defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder"
@@ -54,11 +54,9 @@ end
 alias h 'history'
 alias j 'jobs -l'
 
-alias sha1 'shasum'
-alias md5 'md5sum'
-which shasum > /dev/null; and alias sha1 'openssl sha1'
-which md5sum > /dev/null; and alias md5 'openssl md5'
-which colordiff > /dev/null; and alias diff 'colordiff'
+type colordiff > /dev/null 2>&1; and alias diff 'colordiff'
+type shasum > /dev/null 2>&1; and alias shasum 'openssl sha1'
+type md5sum > /dev/null 2>&1; and alias md5sum 'openssl md5'
 
 alias cpsshkey 'mycopy < ~/.ssh/id_rsa.pub'
 
@@ -86,4 +84,3 @@ alias sf 'source ~/.config/fish/config.fish'
 alias doc 'cd ~/Documents'
 alias dl 'cd ~/Downloads'
 alias dr 'cd ~/Dropbox'
-
