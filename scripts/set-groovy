@@ -6,5 +6,5 @@ if [ -z "$1" ]; then
     exit 0
 fi
 
-sudo rm /opt/grails
-sudo ln -s /opt/grails-$1 /opt/grails
+sudo rm /opt/groovy
+sudo ln -s /opt/groovy-$1 /opt/groovy
