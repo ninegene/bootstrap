@@ -60,8 +60,8 @@ install_pkgs() {
 }
 
 setup_gitconfig() {
-    backup "$BASE_DIR/.gitconfig"
-    cp "$BASE_DIR/.gitconfig" "$HOME/.gitconfig"
+    backup "$HOME/.gitconfig"
+    cp "$BASE_DIR/gitconfig" "$HOME/.gitconfig"
 
     sed -i "s/name = unknown/name = $(whoami)/" "$HOME/.gitconfig"
     sed -i "s/email = unknown/email = $(whoami)@$(hostname)/" "$HOME/.gitconfig"
@@ -175,7 +175,7 @@ main() {
 
     if [[ $option == 'all' ]]; then
         install_pkgs
-        setup_git
+        setup_gitconfig
         setup_bash
         setup_fish
         setup_vim
