@@ -1,11 +1,5 @@
 #!/bin/bash
-
 set -e
-
-cur_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-#gnome_installed=0; [ $(pgrep gnome | wc -l) -gt 0 ] && gnome_installed=1
-gnome_installed=0; [ $(ps -ef | grep gnome | grep -v grep | wc -l) -gt 0 ] && gnome_installed=1
 
 function install_linux_pkgs {
     sudo apt-get update
@@ -15,6 +9,8 @@ function install_linux_pkgs {
     sudo apt-get install -y screen
     sudo apt-get install -y wget curl tree colordiff
     sudo apt-get install -y htop atop rsync zip unzip gzip bzip2
+
+    local gnome_installed=0; [ $(pgrep gnome | wc -l) -gt 0 ] && gnome_installed=1
     if [ $gnome_installed -eq 1 ]; then
         sudo apt-get install -y vim-gtk vim-gnome xclip
         sudo apt-get install -y nautilus-open-terminal
@@ -48,8 +44,7 @@ function install_mac_pkgs {
     brew install grep --default-names
     brew install screen
     brew install wget
-    #brew install gzip
-    #brew install rsync
+    brew install gzip
     brew install watch
 
     brew install openssl
@@ -59,8 +54,8 @@ function install_mac_pkgs {
     brew install git
     brew install vim --override-system-vi
     brew install macvim --override-system-vim --custom-system-icons
-    brew install tree colordiff # used in aliases
-    brew install md5sha1sum     # used in aliases
+    brew install tree colordiff
+    brew install md5sha1sum
     brew install ctags # for tagbar vim plugin
     brew install ack   # for ack.vim plugin
 
@@ -88,24 +83,8 @@ function install_python_pkgs {
     sudo pip install --upgrade fabric
 }
 
-function show_more_info {
-    case $(uname -s) in
-    Linux)
-        if [ $gnome_installed -eq 1 ]; then
-           echo ''
-        fi
-        ;;
-    Darwin)
-        echo Install SourceTree git ui client from http://www.sourcetreeapp.com
-        #open http://www.sourcetreeapp.com/
-        ;;
-    *)
-        ;;
-    esac
- }
-
 function main {
-    echo "Start installing dependencies ====="
+    echo "Start installing packages ====="
     case $(uname -s) in
     Linux)
         install_linux_pkgs
@@ -119,8 +98,7 @@ function main {
     esac
 
     install_python_pkgs
-    show_more_info
-    echo "End installing dependencies ====="
+    echo "End installing packages ====="
 }
 
 main
