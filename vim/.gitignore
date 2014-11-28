@@ -1,2 +1,5 @@
 autoload/
 bundle/
+.vimrc
+.gvimrc
+.ctags

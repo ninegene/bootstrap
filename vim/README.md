@@ -1,4 +1,69 @@
-## Vim
+## Help
+
+* `:Helptags`    Generate help files (pathogen)
+
+```
+" https://github.com/tpope/vim-surround
+" :Vtabedit doc/surround.txt
+" :Vtabedit plugin/surround.txt
+"  Press cs"' inside "Hello world!" to chenge it to 'Hello world!'
+
+" http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-map
+
+" https://github.com/tpope/vim-scriptease
+" :Vtabedit plugin/scriptease.vim
+"  :PP       - Pretty print.
+"  :Runtime  - Reload runtime files. Like :runtime!, but it unlets any include guards first.
+"  :Disarm   - Remove a runtime file's maps, commands, and autocommands, effectively disabling it.
+"  :Scriptnames - Load :scriptnames into the quickfix list.
+"  :Verbose  - Capture the output of a :verbose invocation into the preview window.
+"  :Time     - Measure how long a command takes.
+"  :Breakadd - Like its lowercase cousin, but makes it much easier to set breakpoints inside functions.
+"              Also :Breakdel.
+"  :Vedit    - Edit a file relative the runtime path. For example, :Vedit plugin/scriptease.vim.
+"              Also, :Vsplit, :Vtabedit, etc. Extracted from pathogen.vim.
+"  K         - Look up the :help for the VimL construct under the cursor.
+"              Press K on an option (or command, or function) to jump to its documentation.
+"  zS        - Show the active syntax highlighting groups under the cursor.
+"  g!        - Eval a motion or selection as VimL and replace it with the result. This is handy for
+"              doing math, even outside of VimL. It's so handy, in fact, that it probably deserves
+"              its own plugin.
+
+" https://github.com/tpope/vim-eunuch
+" :Vtabedit plugin/eunuch.vim
+"  :Unlink - Delete a buffer and the file on disk simultaneously.
+"  :Remove - Like :Unlink, but doesn't require a neckbeard.
+"  :Move   - Rename a buffer and the file on disk simultaneously.
+"  :Chmod  - Change the permissions of the current file.
+"  :Find   - Run find and load the results into the quickfix list.
+"  :Locate - Run locate and load the results into the quickfix list.
+"  :SudoWrite - Write a privileged file with sudo.
+"  :W      - Write every open window. Handy for kicking off tools like guard.
+
+" https://github.com/tpope/vim-fugitive
+" :Vtabedit doc/fugitive.txt
+" :Vtabedit plugin/fugitive.vim
+"  :Gstatus - Press - to add/reset a file's changes, press p to add/reset with --patch option
+"  :Gedit   - Edit a file in the index (Also :Gsplit, :Gvsplit, :Gtabedit)
+"  :Gwrite  - git add
+"  :Gread   - git checkout -- filename that operates on the buffer rather than the filename
+"  :Gcommit - git commit
+"  :Gdiff   - git diff
+"  :Gblame  - git blame
+"  :Glog    - git log
+"  :Gmove   - git mv
+"  :Gremove - git rm
+"  :Grep    - git grep
+"  :Gbrowse - Open the current file on GitHub or git instaweb if not GitHub repository
+"  :Git     - for running any arbitrary command
+"  :Git!    - to open the output of a command in a temp file
+" More info
+" http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/
+" http://vimcasts.org/episodes/fugitive-vim-working-with-the-git-index/
+" http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+" http://vimcasts.org/episodes/fugitive-vim-exploring-the-history-of-a-git-repository/
+" http://vimcasts.org/episodes/fugitive-vim-resolving-merge-conflicts-with-vimdiff/
+```
 
 ### Useful Commands
 

@@ -4,10 +4,13 @@ if &compatible
     set nocompatible
 endif
 
-filetype off
+" load plugins under .vim/bundle
+execute pathogen#infect()
+" Load plugins help files or :Helptag
+execute pathogen#helptags()
 
-" Disable loading plugins in the list
-let g:pathogen_disabled = [ 'pathogen' ]
+syntax on
+filetype plugin indent on
 
 if has('gui_running')
    set guioptions+=a
@@ -15,86 +18,12 @@ if has('gui_running')
    set mouse=a
 endif
 
-"if !has('gui_running')
-"  call add(g:pathogen_disabled, 'someplugin')
-"endif
-
-if v:version < '703'
-  call add(g:pathogen_disabled, 'gundo')
-endif
-
-call pathogen#infect()                      " load plugins under .vim/bundle
-call pathogen#helptags()                    " load plugins help files or :Helptags
-
-filetype plugin indent on
-syntax on
-
 " Change the mapleader from \ to ,
 let mapleader = ","
 let g:mapleader = ","
 
-" http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-map
-
-" https://github.com/tpope/vim-scriptease
-" :Vtabedit plugin/scriptease.vim
-"  :PP       - Pretty print.
-"  :Runtime  - Reload runtime files. Like :runtime!, but it unlets any include guards first.
-"  :Disarm   - Remove a runtime file's maps, commands, and autocommands, effectively disabling it.
-"  :Scriptnames - Load :scriptnames into the quickfix list.
-"  :Verbose  - Capture the output of a :verbose invocation into the preview window.
-"  :Time     - Measure how long a command takes.
-"  :Breakadd - Like its lowercase cousin, but makes it much easier to set breakpoints inside functions.
-"              Also :Breakdel.
-"  :Vedit    - Edit a file relative the runtime path. For example, :Vedit plugin/scriptease.vim.
-"              Also, :Vsplit, :Vtabedit, etc. Extracted from pathogen.vim.
-"  K         - Look up the :help for the VimL construct under the cursor.
-"              Press K on an option (or command, or function) to jump to its documentation.
-"  zS        - Show the active syntax highlighting groups under the cursor.
-"  g!        - Eval a motion or selection as VimL and replace it with the result. This is handy for
-"              doing math, even outside of VimL. It's so handy, in fact, that it probably deserves
-"              its own plugin.
-
-" https://github.com/tpope/vim-eunuch
-" :Vtabedit plugin/eunuch.vim
-"  :Unlink - Delete a buffer and the file on disk simultaneously.
-"  :Remove - Like :Unlink, but doesn't require a neckbeard.
-"  :Move   - Rename a buffer and the file on disk simultaneously.
-"  :Chmod  - Change the permissions of the current file.
-"  :Find   - Run find and load the results into the quickfix list.
-"  :Locate - Run locate and load the results into the quickfix list.
-"  :SudoWrite - Write a privileged file with sudo.
-"  :W      - Write every open window. Handy for kicking off tools like guard.
-
-" https://github.com/tpope/vim-fugitive
-" :Vtabedit doc/fugitive.txt
-" :Vtabedit plugin/fugitive.vim
-"  :Gstatus - Press - to add/reset a file's changes, press p to add/reset with --patch option
-"  :Gedit   - Edit a file in the index (Also :Gsplit, :Gvsplit, :Gtabedit)
-"  :Gwrite  - git add
-"  :Gread   - git checkout -- filename that operates on the buffer rather than the filename
-"  :Gcommit - git commit
-"  :Gdiff   - git diff
-"  :Gblame  - git blame
-"  :Glog    - git log
-"  :Gmove   - git mv
-"  :Gremove - git rm
-"  :Grep    - git grep
-"  :Gbrowse - Open the current file on GitHub or git instaweb if not GitHub repository
-"  :Git     - for running any arbitrary command
-"  :Git!    - to open the output of a command in a temp file
-" More info
-" http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/
-" http://vimcasts.org/episodes/fugitive-vim-working-with-the-git-index/
-" http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
-" http://vimcasts.org/episodes/fugitive-vim-exploring-the-history-of-a-git-repository/
-" http://vimcasts.org/episodes/fugitive-vim-resolving-merge-conflicts-with-vimdiff/
 " Auto-clean fugitive buffers to prevent the buffers being swamped with fugitive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
-
-" https://github.com/tpope/vim-surround
-" :Vtabedit doc/surround.txt
-" :Vtabedit plugin/surround.txt
-"  Press cs"' inside "Hello world!" to chenge it to 'Hello world!'
 
 " https://github.com/kien/ctrlp.vim
 "let g:ctrlp_map = '<c-p>'
@@ -117,6 +46,7 @@ nnoremap <leader>b :CtrlPBuffer<CR>
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
 " UNIX syntax for redirections
 set shell=/bin/bash
+
 " No automatic checks for python files
 "let g:syntastic_mode_map = { 'mode': 'active',
 "                                \ 'active_filetypes': [],
@@ -139,10 +69,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []  }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
-
 " https://github.com/majutsushi/tagbar
-nnoremap <leader>t :TagbarToggle<CR>
-" ctags
+nnoremap \t :TagbarToggle<CR>
 " See https://github.com/majutsushi/tagbar/wiki
 let g:tagbar_type_markdown = {
     \ 'ctagstype' : 'markdown',
@@ -153,20 +81,6 @@ let g:tagbar_type_markdown = {
     \ ]
 \ }
 
-
-" https://github.com/tomtom/tcomment_vim
-" Default mappings:
-" gc{motion} - toggle comments for the region
-" gcc - toggle comment for the current line
-" gC{motion} - Comment the region
-" gCc        - Comment the current line
-
-" (rempa doesn't seem to work well) Remap '<c-_>' to '<c-/>'
-"let g:tcommentMapLeader1 = '<c-/>'
-" <c-/><c-/> - Comment in normal, insert, and visual mode
-" <c-/>b     - Comment block in normal and insert mode
-" <c-/>p     - Comment the current inner paragraph in normal and insert mode
-
 " https://github.com/scrooloose/nerdtree
 " Open a NERDTree when vim starts up
 "autocmd vimenter * NERDTree
@@ -174,12 +88,12 @@ let g:tagbar_type_markdown = {
 "autocmd vimenter * if !argc() | NERDTree | endif
 " Close vim if the only window left open is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-map <leader>n :NERDTreeToggle<CR>
+map \n :NERDTreeToggle<CR>
 let NERDTreeShowHidden=0
 let NERDTreeIgnore=['.DS_Store', '\.pyc$', '\.class$', '\.git$[[dir]]', '\.vim$[[dir]]', '\.Trash$[[dir]]']
 
 " https://github.com/sjl/gundo.vim
-map <leader>u :GundoToggle<CR>
+map \u :GundoToggle<CR>
 
 " https://github.com/ervandew/supertab
 " Tab to use OmniCompletion if necessary
@@ -195,16 +109,14 @@ let g:SuperTabDefaultCompletionType = "context"
 "let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_definitions_command = "<leader>d"
-let g:jedi#documentation_command = "K"
+"let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>u"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = "1"
 
-
 " https://github.com/plasticboy/vim-markdown/
 let g:vim_markdown_folding_disabled=1
-
 
 " Quickly edit/reload the vimrc file with ,ev and ,sv
 nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
@@ -229,36 +141,27 @@ map <Up> gk
 
 " Swap implementations of ` and ' jump to markers
 " By default, ' jumps to the marked line and ` jumps to the marked line and column
-nnoremap ' `
-nnoremap ` '
+"nnoremap ' `
+"nnoremap ` '
 
 " Move current line/selected block of lines up and down
 " Doesn't work in vim opened inside Ubuntu terminal
-noremap <C-S-Up> :m-2<CR>==
-noremap <C-S-Down> :m+<CR>==
-inoremap <C-S-Up> <Esc>:m-2<CR>==gi
-inoremap <C-S-Down> <Esc>:m+<CR>==gi
-vnoremap <C-S-Up> :m-2<CR>gv=gv
-vnoremap <C-S-Down> :m'>+<CR>gv=gv
+"noremap <C-S-Up> :m-2<CR>==
+"noremap <C-S-Down> :m+<CR>==
+"inoremap <C-S-Up> <Esc>:m-2<CR>==gi
+"inoremap <C-S-Down> <Esc>:m+<CR>==gi
+"vnoremap <C-S-Up> :m-2<CR>gv=gv
+"vnoremap <C-S-Down> :m'>+<CR>gv=gv
 
 " Shift-Enter to go to next line
 imap <S-Enter> <Esc>o
 nmap <S-Enter> o<Esc>
 
 " Format the entire file
-nnoremap <C-M-l> :normal! gg=G``<CR>
-
-" Underline the current line with '='
-"nmap <silent> <leader>ul :t.<CR>Vr=
+nnoremap <leader>l :normal! gg=G``<CR>
 
 " Toogle list chars / show whitespaces
 map \lc :setlocal list!<CR>:set list?<CR>
-
-" Toogle text wrap
-map \w :setlocal wrap!<CR>:set wrap?<CR>
-
-" Toogle show line number
-map \n :setlocal number!<CR>:set number?<CR>
 
 " Find merge conflict markers
 nmap <silent> <leader>cm <ESC>/\v^[<=>]{7}( .*\|$)<CR>
@@ -311,9 +214,10 @@ nmap <F2> :set paste!<CR>:set paste?<CR>
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
 " Use ,d (or ,dd or ,dj or 20,dd) to delete without adding it to the yanked stack
-nmap <silent> <leader>d "_d
+" Conflict with python jedi
+"nmap <silent> <leader>d "_d
 " Also, in visual mode
-vmap <silent> <leader>d "_d
+"map <silent> <leader>d "_d
 
 " Yank/paste to the OS clipboard with ,y and ,P and ,p
 nnoremap <leader>y "+y
@@ -332,28 +236,28 @@ nnoremap <C-h> "ryiw:%s/<C-r>r//gc<Left><Left><Left>
 vnoremap <C-h> "ry:%s/<C-r>r//gc<Left><Left><Left>
 
 " Show the registers from things cut/yanked
-" Conflict with jedi-vim
+" Conflict with python jedi
 "nmap <leader>r :reg<CR>
 
 " Map the various registers to a leader shortcut for pasting from them
-"nmap <leader>0 "0p
-"nmap <leader>1 "1p
-"nmap <leader>2 "2p
-"nmap <leader>3 "3p
-"nmap <leader>4 "4p
-"nmap <leader>5 "5p
-"nmap <leader>6 "6p
-"nmap <leader>7 "7p
-"nmap <leader>8 "8p
-"nmap <leader>9 "9p
+nmap <leader>0 "0p
+nmap <leader>1 "1p
+nmap <leader>2 "2p
+nmap <leader>3 "3p
+nmap <leader>4 "4p
+nmap <leader>5 "5p
+nmap <leader>6 "6p
+nmap <leader>7 "7p
+nmap <leader>8 "8p
+nmap <leader>9 "9p
 
 " In visual mode when you press * or # to search for the current selection
 vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
 
 " When you press gv you vimgrep after the selected text
-vnoremap <silent> gv :call VisualSearch('gv')<CR>
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+"vnoremap <silent> gv :call VisualSearch('gv')<CR>
+"map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
@@ -481,10 +385,10 @@ nnoremap com :let &colorcolumn= (&colorcolumn == '+1' ? '' : '+1')<CR>:set color
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 
 " Indent and Tab
-"set autoindent                " Always set autoindenting on
-"set copyindent
-"set smartindent
-"set cindent
+set autoindent                " Always set autoindenting on
+set copyindent
+set smartindent
+set cindent
 set expandtab                 " Tabs are converted to spaces
 set softtabstop=4             " Number of spaces that a <Tab> counts for while performing editing
                               " operations, like inserting a <Tab> or using <BS>
@@ -497,10 +401,9 @@ set ttimeout
 set ttimeoutlen=100
 
 " Toogle different tab modes
-nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
-nmap \T :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
-nmap \m :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<CR>
-nmap \M :set noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<CR>
+nmap tab4 :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
+nmap tab2 :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
+
 " Confirm to PEP8
 " autocmd FileType python set tabstop=4 softtabstop=4 expandtab shiftwidth=4 cinwords=if,elif,else,for,while,try,except,finally,def,class augroup END
 " Show matching pairs
@@ -515,27 +418,12 @@ autocmd FileType c,cpp,java,js,groovy set mps+==:; " Jump between '=' and ';' fo
 "set foldmethod=marker        " Detect triple-{ style fold markers
 " Which commands trigger auto-unfold
 "set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-" zf#j         - Creates a fold from the cursor down # lines
-" zf/string    - Creates a fold from the cursor to string
-" zj           - Moves the cursor to the next fold
-" zk           - Moves the cursor to the previous fold
-" zo           - Opens a fold at the cursor
-" zO           - Opens all folds at the cursor
-" zm           - Increases the foldlevel by one
-" zM           - Closes all open folds
-" zr           - Decreases the foldlevel by one
-" zR           - Decreases the foldlevel to zero -- all folds will be open
-" zd           - Deletes the fold at the cursor
-" zE           - Deletes all folds
-" [z           - Move to start of open fold
-" ]z           - Move to end of open fold
 
 " Search
 set ignorecase                " Ignore case when searching
 set smartcase                 " Ignore case if pattern is all lowercase, case-sensitive otherwise
 set incsearch                 " Show search matches as you type
-"set hlsearch                  " Highlight search terms. Use :nohls to remove highlighted search terms
-set nohlsearch
+set hlsearch                  " Highlight search terms. Use :nohls to remove highlighted search terms
 set magic                     " Match literally for some characters in regular expression
 
 " Use ,/ or \h to clear highlighted search terms
@@ -553,29 +441,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-" http://stackoverflow.com/questions/3881534/set-python-virtualenv-in-vim
-" Function to activate a virtualenv in the embedded interpreter for
-" omnicomplete and other things like that.
-function! LoadVirtualEnv(path)
-    let activate_this = a:path . '/bin/activate_this.py'
-    if getftype(a:path) == "dir" && filereadable(activate_this)
-        python << EOF
-import vim
-activate_this = vim.eval('l:activate_this')
-execfile(activate_this, dict(__file__=activate_this))
-EOF
-    endif
-endfunction
-
-" Load up a 'stable' virtualenv if one exists in ~/.virtualenv
-let defaultvirtualenv = $HOME . "/.virtualenvs/stable"
-
-" Only attempt to load this virtualenv if the defaultvirtualenv
-" actually exists, and we aren't running with a virtualenv active.
-if has("python")
-    if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
-        call LoadVirtualEnv(defaultvirtualenv)
-    endif
+" Include user's local vim config
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
 endif
-
-:so ~/.vimrc.local

@@ -87,12 +87,16 @@ setup_fish() {
     symlink "$BASE_DIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
 }
 
-git_clone() {
+vim_bundle() {
     local url=$1
-    local dir=$2
+    local dir=$BASE_DIR/vim/bundle/$(basename $url)
+    dir=${dir%%????} # remove last '.git'
+
+    echo "$dir ---"
     if [[ -d $dir ]]; then
-        echo $dir
-        cd $dir && git pull
+        cd $dir
+        git pull
+        cd - > /dev/null 2>&1
     else
         git clone $url $dir
     fi
@@ -105,45 +109,45 @@ setup_vim() {
     cd $BASE_DIR/vim/bundle
 
     # File browsing
-    git_clone https://github.com/mhinz/vim-startify.git
-    git_clone https://github.com/scrooloose/nerdtree.git
-    git_clone https://github.com/kien/ctrlp.vim.git
-    git_clone https://github.com/vim-scripts/grep.vim
-    git_clone https://github.com/mileszs/ack.vim
+    vim_bundle https://github.com/mhinz/vim-startify.git
+    vim_bundle https://github.com/scrooloose/nerdtree.git
+    vim_bundle https://github.com/kien/ctrlp.vim.git
+    vim_bundle https://github.com/vim-scripts/grep.vim.git
+    vim_bundle https://github.com/mileszs/ack.vim.git
 
     # Visual
-    git_clone https://github.com/bling/vim-airline.git
+    vim_bundle https://github.com/bling/vim-airline.git
 
     # General Editing
-    git_clone https://github.com/tpope/vim-repeat.git
-    git_clone https://github.com/tpope/vim-scriptease.git
-    git_clone https://github.com/tpope/vim-eunuch.git
-    git_clone https://github.com/tpope/vim-surround.git
-    git_clone https://github.com/tpope/vim-unimpaired.git
-    git_clone https://github.com/tpope/vim-commentary.git
-    git_clone https://github.com/sjl/gundo.vim
-    git_clone https://github.com/ervandew/supertab
+    vim_bundle https://github.com/tpope/vim-repeat.git
+    vim_bundle https://github.com/tpope/vim-scriptease.git
+    vim_bundle https://github.com/tpope/vim-eunuch.git
+    vim_bundle https://github.com/tpope/vim-surround.git
+    vim_bundle https://github.com/tpope/vim-unimpaired.git
+    vim_bundle https://github.com/tpope/vim-commentary.git
+    vim_bundle https://github.com/sjl/gundo.vim.git
+    vim_bundle https://github.com/ervandew/supertab.git
 
     # Coding
-    git_clone https://github.com/scrooloose/syntastic
-    git_clone https://github.com/majutsushi/tagbar
+    vim_bundle https://github.com/scrooloose/syntastic.git
+    vim_bundle https://github.com/majutsushi/tagbar.git
 
-    # Git
-    git_clone https://github.com/airblade/vim-gitgutter.git
-    git_clone https://github.com/tpope/vim-fugitive.git
+    #
+    vim_bundle https://github.com/airblade/vim-gitgutter.git
+    vim_bundle https://github.com/tpope/vim-fugitive.git
 
     # Python
-    git_clone https://github.com/davidhalter/jedi-vim
+    vim_bundle https://github.com/davidhalter/jedi-vim.git
 
-    cd -
+    cd - > /dev/null 2>&1
 
     [[ -d $HOME/.vim ]] && mv $HOME/.vim $HOME/.vim-$(date +%Y%m%d%H%M%S)
     [[ -L $HOME/.vim ]] && rm $HOME/.vim
 
     symlink $BASE_DIR/vim $HOME/.vim
-    symlink "$BASE_DIR/vim/vimrc" "$BASE_DIR/.vimrc"
-    symlink "$BASE_DIR/vim/gvimrc" "$BASE_DIR/.gvimrc"
-    symlink "$BASE_DIR/vim/ctags" "$BASE_DIR/.ctags"
+    symlink "$BASE_DIR/vim/vimrc" "$BASE_DIR/vim/.vimrc"
+    symlink "$BASE_DIR/vim/gvimrc" "$BASE_DIR/vim/.gvimrc"
+    symlink "$BASE_DIR/vim/ctags" "$BASE_DIR/vim/.ctags"
 }
 
 setup_scripts() {
