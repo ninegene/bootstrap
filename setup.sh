@@ -4,16 +4,16 @@ set -e
 show_help() {
 cat << EOF
 USAGE
-    $(basename $0) {pkgs|git|bash|fish|vim|scripts|all}
+    $(basename $0) {all|pkgs|git|bash|fish|scripts|vim}
 
 DESCRIPTION
+    all         Execute all below options (Default)
     pkgs        Install base packages
     git         Setup git config and git aliases
     bash        Setup dotfiles for BASH
     fish        Setup fish shell config
-    vim         Setup VIM plugins
     scripts     Symlink scripts to ~/bin directory
-    all         Execute all above options (Default)
+    vim         Setup VIM plugins
 EOF
 }
 
@@ -87,6 +87,14 @@ setup_fish() {
     symlink "$BASE_DIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
 }
 
+setup_scripts() {
+    mkdir -p $HOME/bin
+    for file in $(find $BASE_DIR/scripts/ -executable -type f)
+    do
+	symlink $file $HOME/bin/$(basename $file)
+    done
+}
+
 vim_bundle() {
     local url=$1
     local dir=$BASE_DIR/vim/bundle/$(basename $url)
@@ -148,14 +156,6 @@ setup_vim() {
     symlink "$BASE_DIR/vim/vimrc" "$BASE_DIR/vim/.vimrc"
     symlink "$BASE_DIR/vim/gvimrc" "$BASE_DIR/vim/.gvimrc"
     symlink "$BASE_DIR/vim/ctags" "$BASE_DIR/vim/.ctags"
-}
-
-setup_scripts() {
-    local file
-    for file in "$basedir/scripts/*"
-    do
-        echo $file
-    done
 }
 
 main() {
