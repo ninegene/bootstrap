@@ -153,9 +153,9 @@ setup_vim() {
     [[ -L $HOME/.vim ]] && rm $HOME/.vim
 
     symlink $BASE_DIR/vim $HOME/.vim
-    symlink "$BASE_DIR/vim/vimrc" "$BASE_DIR/vim/.vimrc"
-    symlink "$BASE_DIR/vim/gvimrc" "$BASE_DIR/vim/.gvimrc"
-    symlink "$BASE_DIR/vim/ctags" "$BASE_DIR/vim/.ctags"
+    symlink "$BASE_DIR/vim/vimrc" "$HOME/.vimrc"
+    symlink "$BASE_DIR/vim/gvimrc" "$HOME/.gvimrc"
+    symlink "$BASE_DIR/vim/ctags" "$HOME/.ctags"
 }
 
 main() {
