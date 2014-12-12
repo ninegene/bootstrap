@@ -60,11 +60,156 @@ install_pkgs() {
 }
 
 setup_gitconfig() {
-    backup "$HOME/.gitconfig"
-    cp "$BASE_DIR/gitconfig" "$HOME/.gitconfig"
+    git config --global user.name "$(whoami)"
+    git config --global user.email "$(whoami)@$(hostname)"
 
-    sed -i "s/name = unknown/name = $(whoami)/" "$HOME/.gitconfig"
-    sed -i "s/email = unknown/email = $(whoami)@$(hostname)/" "$HOME/.gitconfig"
+    git config --global push.default simple
+
+    git config --global core.editor vi
+    git config --global diff.tool diffuse
+
+    git config --global alias.aliases "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'"
+
+    git config --global alias.st "status --short --branch"
+
+    git config --global alias.co "checkout"
+    git config --global alias.cob "checkout -b"
+
+    ## branch ##
+
+    git config --global alias.br "branch -a"
+
+    ## remote ##
+
+    # $ git remote show origin
+
+    ## pull ##
+
+    git config --global alias.update "!git stash save && git pull -v --rebase && git stash pop && git lnew"
+
+    ## difftool ##
+
+    git config --global alias.dt "difftool"
+
+    ## diff ##
+
+    # Compare your working directory and the index (staging area for the next commit).
+    git config --global alias.df "diff"
+    #git config --global alias.dw "diff --word-diff=color"
+
+    # Compare your working directory and the tip of 'dev' branch
+    # $ git diff dev
+
+    # Compare 'application.properties' file in your working directory and the one in 'dev' branch
+    # $ git diff dev -- application.properties
+
+    # Compare two branches (Note that the branch need to be checked out before or exists)
+    # $ git diff dev master
+    # $ git diff dev master -- application.properties
+
+    # Compare two remote tracking branches (Run 'git fetch --all' first if necessary)
+    # $ git diff origin/dev origin/master
+
+    # Compare two commits (commit before latest and the latest commit)
+    # $ git diff HEAD^ HEAD
+    # $ git diff HEAD^ HEAD -- application.properties
+
+    # Compare your working directory and the latest commit.
+    git config --global alias.dh "diff HEAD"
+    #git config --global alias.dhw "diff --word-diff=color HEAD"
+
+    # Compare a specific file(s) in your working directory and the latest commit.
+    # $ git dh -- path/to/files
+    # $ git dh -- path/**/*/files
+
+    # Compare the index (staging area for the next commit) and the latest commit.
+    git config --global alias.ds "diff --staged" # Same as "diff --cached"
+    #git config --global alias.dsw "diff --word-diff=color --staged"
+
+    ## reset ##
+
+    # Unstage file or remove file from the index (staging area)
+    git config --global alias.unstage 'reset HEAD --'
+
+    # Throw away all changes you made in your working directory.
+    # Commit first and reset hard to last commit so that you can recover with 'git reflog' if needed
+    # A better way to handle 'git reset HEAD --hard'
+    git config --global alias.fullsync "!git add --all && git commit --allow-empty -qm 'fullsync commit' && git reset ${1-HEAD~1} --hard"
+
+    # Reset last commit and keeps all the last commit changes in your working directory
+    git config --global alias.resetlast "reset HEAD~1 --mixed"
+
+    # Resetting to origin/HEAD. (Or undo resetting of resetting to last commit.)
+    # $ git reset origin/HEAD
+    git config --global alias.resethead "reset origin/HEAD"
+
+    ## commit ##
+
+    git config --global alias.ci "commit -m"
+
+    # Commit all changes (adds, modifies, and removes index entries to match the working tree)
+    git config --global alias.cia "!git add --all && git commit -m"
+
+    # Commit staged changes (modifires and removes index entries to match the working tree but adds no new files)
+    git config --global alias.ciu "!git add --update && git commit -m"
+
+    # Modify last commit
+    git config --global alias.amend "commit --amend"
+
+    ## log ##
+
+    # Show last commit
+    git config --global alias.last 'll -1 HEAD'
+
+    # Show commits in one per line (abbrev commit, short date, tag, message, author)
+    git config --global alias.ls "log --abbrev-commit --date=short --pretty=format:'%C(yellow)%h %ad%Creset%Cred%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+    git config --global alias.ll "!git ls --name-status"
+
+    # Show new commits created by the last command (typically after a 'git pull')
+    # Example:
+    # $ git lognew
+    # $ git lognew origin/master
+    git config --global alias.lognew "!sh -c 'git ll $1@{1}..$1@{0} $@'"
+
+    # Show all commits since version v2.2.11 that changed any file in the 'src' or 'test' subdirectories
+    # (Use 'git tag' to see all version tag)
+    # $ git log v2.2.11.. src test
+
+    # Show the commits that are in the "dev" branch but not yet in the 'master' branch,
+    # along with the list of paths each commit modifies.
+    # $ git log --name-status master..dev
+
+    # Show the commits that changed 'config/application.properties', including those commits that
+    # occurred before the file was given its present name. (Show file commit history)
+    # $ git log --follow config/application.properties
+    git config --global alias.filelog "!git ls --follow"
+
+    # Show file commit history with diffs
+    git config --global alias.filechanges "!git ls -u"
+
+    # Show commits in local timezone
+    git config --global alias.locallog "log --date=local"
+
+    ## grep ##
+
+    # Case insensitive search text
+    git config --global alias.grep "grep -Ii"
+
+    ## ls-files ##
+
+    # Find file name/path
+    git config --global alias.fname "!git ls-files | grep -i"
+
+    ## cat-file ##
+
+    git config --global alias.type "cat-file -t"
+    git config --global alias.dump "cat-file -p"
+
+    # References
+    # http://git-scm.com/book/en/v2/Git-Basics-Git-Aliases
+    # https://git.wiki.kernel.org/index.php/Aliases
+    # http://haacked.com/archive/2014/07/28/github-flow-aliases/
+    # http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
 }
 
 setup_bash() {

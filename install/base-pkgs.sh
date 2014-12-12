@@ -16,6 +16,7 @@ function install_linux_pkgs {
         sudo apt-get install -y nautilus-open-terminal
         sudo apt-get install -y gitg # free simple git ui client to see branches and changes/diff before commit
         sudo apt-get install -y gitk # git repository browser
+        sudo apt-get install -y diffuse # diff tool
     fi
     sudo apt-get install -y exuberant-ctags # for vim tagbar plugin
     # ack.vim vim plugin
