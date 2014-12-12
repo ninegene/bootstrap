@@ -67,6 +67,9 @@ setup_gitconfig() {
 
     git config --global core.editor vi
     git config --global diff.tool diffuse
+    if [[ $(uname -s) = 'Darwin' ]]; then
+        git config --global diff.tool opendiff
+    fi
 
     git config --global alias.user "config user.name"
     git config --global alias.email "config user.email"
