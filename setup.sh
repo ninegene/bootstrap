@@ -90,7 +90,7 @@ setup_gitconfig() {
 
     ## pull ##
 
-    git config --global alias.update "!git stash save && git pull -v --rebase && git stash pop && git lnew"
+    git config --global alias.update "!git stash save && git pull -v --rebase && git stash pop && git changes"
 
     ## difftool ##
 
