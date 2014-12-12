@@ -68,6 +68,8 @@ setup_gitconfig() {
     git config --global core.editor vi
     git config --global diff.tool diffuse
 
+    git config --global alias.user "config user.name"
+    git config --global alias.email "config user.email"
     git config --global alias.aliases "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'"
 
     git config --global alias.st "status --short --branch"
@@ -167,9 +169,9 @@ setup_gitconfig() {
 
     # Show new commits created by the last command (typically after a 'git pull')
     # Example:
-    # $ git lognew
-    # $ git lognew origin/master
-    git config --global alias.lognew "!sh -c 'git ll $1@{1}..$1@{0} $@'"
+    # $ git changes
+    # $ git changes origin/master
+    git config --global alias.changes "!sh -c 'git ll $1@{1}..$1@{0} $@'"
 
     # Show all commits since version v2.2.11 that changed any file in the 'src' or 'test' subdirectories
     # (Use 'git tag' to see all version tag)
@@ -178,6 +180,7 @@ setup_gitconfig() {
     # Show the commits that are in the "dev" branch but not yet in the 'master' branch,
     # along with the list of paths each commit modifies.
     # $ git log --name-status master..dev
+    # $ git ll master..dev
 
     # Show the commits that changed 'config/application.properties', including those commits that
     # occurred before the file was given its present name. (Show file commit history)
