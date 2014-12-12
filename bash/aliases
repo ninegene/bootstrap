@@ -28,7 +28,7 @@ elif [[ $platform == 'Linux' ]]; then
     fi
 
     # Don't allow to remove root directory
-    alias rm 'rm --preserve-root'
+    alias rm='rm --preserve-root'
 fi
 
 alias la='ls -A'
