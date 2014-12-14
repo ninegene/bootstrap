@@ -164,7 +164,7 @@ setup_gitconfig() {
     ## log ##
 
     # Show last commit
-    git config --global alias.last 'll -1 HEAD'
+    git config --global alias.last '!git ll -1 HEAD'
 
     # Show commits in one per line (abbrev commit, short date, tag, message, author)
     git config --global alias.ls "log --abbrev-commit --date=short --pretty=format:'%C(yellow)%h %ad%Creset%Cred%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
