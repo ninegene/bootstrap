@@ -65,7 +65,9 @@ setup_gitconfig() {
 
     git config --global push.default simple
 
+    git config --global core.autocrlf true
     git config --global core.editor vi
+
     git config --global diff.tool diffuse
     if [[ $(uname -s) = 'Darwin' ]]; then
         git config --global diff.tool opendiff
@@ -210,6 +212,8 @@ setup_gitconfig() {
 
     git config --global alias.type "cat-file -t"
     git config --global alias.dump "cat-file -p"
+
+    echo "Done setting up git global configs."
 
     # References
     # http://git-scm.com/book/en/v2/Git-Basics-Git-Aliases
