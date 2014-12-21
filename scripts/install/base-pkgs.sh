@@ -53,8 +53,9 @@ function install_mac_pkgs {
     brew install python
 
     brew install git
-    brew install vim --override-system-vi
-    brew install macvim --override-system-vim --custom-system-icons
+    # --with-lua for neocomplete.vim
+    brew install vim --override-system-vi --with-lua
+    brew install macvim --override-system-vim --custom-icons --with-lua
     brew install tree colordiff
     brew install md5sha1sum
     brew install ctags # for tagbar vim plugin

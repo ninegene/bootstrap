@@ -25,6 +25,11 @@ let g:mapleader = ","
 " Auto-clean fugitive buffers to prevent the buffers being swamped with fugitive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
+" Git
+noremap <Leader>gs :Gstatus<CR>
+noremap <Leader>gb :Gblame<CR>
+noremap <Leader>gd :Gvdiff<CR>
+
 " https://github.com/kien/ctrlp.vim
 "let g:ctrlp_map = '<c-p>'
 "let g:ctrlp_cmd = 'ctrlp'
@@ -40,7 +45,14 @@ nnoremap <leader>F :CtrlPCurWD<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>M :CtrlPMixed<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
-"nnoremap <leader>t:CtrlPTag<CR>
+nnoremap <leader>t :CtrlPTag<CR>
+
+"" Previous/Next Buffer
+noremap <leader>z :bp<CR>
+noremap <leader>w :bn<CR>
+
+"" Close buffer
+noremap <leader>c :bd<CR>
 
 " https://github.com/scrooloose/syntastic
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
@@ -52,34 +64,26 @@ set shell=/bin/bash
 "                                \ 'active_filetypes': [],
 "                                \ 'passive_filetypes': ['python'] }
 "let g:syntastic_python_checkers = ['flake8', 'pylint']
-"let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checkers = ['flake8']
 " https://github.com/scrooloose/syntastic/issues/482
 " http://flake8.readthedocs.org/en/latest/warnings.html
-"let g:syntastic_python_flake8_args = '--ignore=E501,E225 --max-line-length=99'
-"let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=99'
+let g:syntastic_python_flake8_args = '--ignore=E501,E225 --max-line-length=99'
+let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=99'
 
 let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 2
 let g:syntastic_auto_jump = 1
-"let g:syntastic_error_symbol = '✗✗'
-"let g:syntastic_style_error_symbol = '✗'
-"let g:syntastic_warning_symbol = '⚠⚠'
-"let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_check_on_open = 1
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []  }
-nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []  }
+"nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " https://github.com/majutsushi/tagbar
 nnoremap \t :TagbarToggle<CR>
-" See https://github.com/majutsushi/tagbar/wiki
-let g:tagbar_type_markdown = {
-    \ 'ctagstype' : 'markdown',
-    \ 'kinds' : [
-        \ 'h:Heading_L1',
-        \ 'i:Heading_L2',
-        \ 'k:Heading_L3'
-    \ ]
-\ }
+let g:tagbar_autofocus = 1
 
 " https://github.com/scrooloose/nerdtree
 " Open a NERDTree when vim starts up
@@ -88,9 +92,15 @@ let g:tagbar_type_markdown = {
 "autocmd vimenter * if !argc() | NERDTree | endif
 " Close vim if the only window left open is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-map \n :NERDTreeToggle<CR>
 let NERDTreeShowHidden=0
 let NERDTreeIgnore=['.DS_Store', '\.pyc$', '\.class$', '\.git$[[dir]]', '\.vim$[[dir]]', '\.Trash$[[dir]]']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+"let g:NERDTreeWinSize = 20
+nnoremap <silent> <F7> :NERDTreeFind<CR>
+noremap <leader>n :NERDTreeToggle<CR>
 
 " https://github.com/sjl/gundo.vim
 map \u :GundoToggle<CR>
@@ -107,20 +117,20 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " https://github.com/davidhalter/jedi-vim
 "let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#popup_on_dot = 0
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_definitions_command = "<leader>d"
 "let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>u"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures = 1
 
-" https://github.com/plasticboy/vim-markdown/
-let g:vim_markdown_folding_disabled=1
+" https://github.com/Shougo/neocomplete.vim
+let g:neocomplete#enable_at_startup = 1
 
 " Quickly edit/reload the vimrc file with ,ev and ,sv
-nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
-nmap <leader>egv :tabedit ~/.gvimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
+nmap <leader>v :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
 nmap <silent> <leader>sv :w!<CR>:so ~/.vimrc<CR>:exe ":echo 'vimrc reloaded'"<CR>:setlocal nohls!<CR>
 
 " Highlight end of line whitespace.
@@ -202,16 +212,16 @@ nmap <leader>ac :center<CR>
 imap <C-F> <C-X><C-F>
 imap <C-L> <C-X><C-L>
 
-" Yanking/Copying and Pasting
-" ===========================
+noremap \h :<C-u>split<CR>
+noremap \v :<C-u>vsplit<CR>
+
+" Yanking/Copying, Pasting and Replacing
+" ======================================
 
 " When in insert mode, press <F2> to go to paste mode, so that the clipboard won't be autoindented
 set pastetoggle=<F2>
 " Also in normal mode
 nmap <F2> :set paste!<CR>:set paste?<CR>
-
-" Make p in visual mode replace the selected text with the yank register
-vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
 " Use ,d (or ,dd or ,dj or 20,dd) to delete without adding it to the yanked stack
 " Conflict with python jedi
@@ -225,13 +235,15 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 
 " Ctrl-c to copy selected text in virtual mode
-"vnoremap <C-c> "+y
+vnoremap <C-c> "+y<CR>
 
 " Replace the current word or visually selected text with the clipboard contents
-nnoremap <F5> viw"+p
-vnoremap <F5> "+p
+nnoremap <F6> viw"+p<CR>
 
-"Prompt to enter text to replace current word or the selected text (use register r)
+" Make p in visual mode replace the selected text with the yank register
+vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+
+" Prompt to enter text to replace current word or the selected text (use register r)
 nnoremap <C-h> "ryiw:%s/<C-r>r//gc<Left><Left><Left>
 vnoremap <C-h> "ry:%s/<C-r>r//gc<Left><Left><Left>
 
@@ -254,6 +266,14 @@ nmap <leader>9 "9p
 " In visual mode when you press * or # to search for the current selection
 vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
+
+"" Vmap for maintain Visual Mode after shifting > and <
+vmap < <gv
+vmap > >gv
+
+" grep.vim
+nnoremap <silent> <leader>g :Rgrep<CR>
+let Grep_Default_Options = '-IR'
 
 " When you press gv you vimgrep after the selected text
 "vnoremap <silent> gv :call VisualSearch('gv')<CR>
@@ -302,26 +322,45 @@ set noerrorbells              " Don't beep
 
 set laststatus=2              " Always show status line
 
-" vimr-airline plugin overwrite statusline set below
-set statusline=%<%f\ %h%m%r
-set statusline+=\ [buf:#%n]
-set statusline+=\ %{fugitive#statusline()}
-set statusline+=%=%-14.(%V%)
-set statusline+=\ \ byte:[%b][0x%B]
-set statusline+=\ \ line:%l/%L
-set statusline+=\ \ col:%v
-set statusline+=\ \ %P
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ %{fugitive#statusline()}
+
+" vim-airline
+let g:airline_theme = 'powerlineish'
+let g:airline_enable_branch = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_enable_syntastic = 1
+
+" vimshell
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+let g:vimshell_prompt =  '$ '
+nnoremap <silent> <leader>sh :VimShellCreate<CR>
+
+" ultisnips snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsEditSplit="vertical"
 
 " Command-line Completion (See 'help: wildmenu')
 set wildmenu                  " Make tab completion for files/buffers to act like bash
-"set wildmode=list:full        " Show a list when pressing tab and complete first full match
-"set wildmode=list,full          " See `h: wildmode`
-set wildmode=longest,list,full  " See `h: wildmode`
-set wildignore="*.swp,*.pyc,*.class
+set wildmode=list:longest,list:full  " Show a list when pressing tab and complete first full match
+set wildignore+=*/tmp/*,*.swp,*.pyc,*.class
 
 set autoread                  " Auto read when a file changed from the outside
 "set autochdir                " Auto change the directory to the current opened file
 autocmd BufEnter * silent! lcd %:p:h
+
+"" Opens an edit command with the path of the currently edited file filled in
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+"" Opens a tab edit command with the path of the currently edited file filled
+noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" *.md could be detected it as Modula-2 instead of Markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost *.ejs set filetype=html
 
 " https://raw.githubusercontent.com/tpope/vim-sensible/master/plugin/sensible.vim
 set fileformats+=mac
@@ -404,8 +443,9 @@ set ttimeoutlen=100
 nmap tab4 :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
 nmap tab2 :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
 
-" Confirm to PEP8
+" Confirm to Python PEP8
 " autocmd FileType python set tabstop=4 softtabstop=4 expandtab shiftwidth=4 cinwords=if,elif,else,for,while,try,except,finally,def,class augroup END
+
 " Show matching pairs
 set showmatch                 " Show matching parenthesis
 set matchtime=2               " How many tenths of a second to blink
@@ -426,8 +466,7 @@ set incsearch                 " Show search matches as you type
 set hlsearch                  " Highlight search terms. Use :nohls to remove highlighted search terms
 set magic                     " Match literally for some characters in regular expression
 
-" Use ,/ or \h to clear highlighted search terms
-" :map \h :setlocal hlsearch!<CR>:set hlsearch?<CR>
+" Use ,/ to clear highlighted search terms
 :map <leader>/ :setlocal hlsearch!<CR>:set hlsearch?<CR>
 
 " Hide buffers instead of closing them.

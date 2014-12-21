@@ -251,27 +251,32 @@ setup_scripts() {
 }
 
 vim_bundle() {
-    local url=$1
-    local dir=$BASE_DIR/vim/bundle/$(basename $url)
-    dir=${dir%%????} # remove last '.git'
+    local URL=$1
+    local PRJ_DIR=$BASE_DIR/vim/bundle/$(basename $URL)
 
-    echo "$dir ---"
-    if [[ -d $dir ]]; then
-        cd $dir
-        git pull
-        cd - > /dev/null 2>&1
-    else
-        git clone $url $dir
+    if [[ ${PRJ_DIR: -4} == ".git" ]]; then
+        PRJ_DIR=${PRJ_DIR%%????} # remove last '.git'
     fi
+
+    echo "$PRJ_DIR ---"
+    if [[ -d $PRJ_DIR ]]; then
+        cd $PRJ_DIR
+        git pull
+    else
+        cd $BASE_DIR/vim/bundle
+        git clone $URL $PRJ_DIR
+    fi
+
+    cd - > /dev/null 2>&1
 }
 
 setup_vim() {
+    local BUNDLE_DIR=$BASE_DIR/vim/bundle
+
     mkdir -p $BASE_DIR/vim/{autoload,bundle}
     curl -LSso $BASE_DIR/vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-    cd $BASE_DIR/vim/bundle
-
-    # File browsing
+    # File Browsing/Searching
     vim_bundle https://github.com/mhinz/vim-startify.git
     vim_bundle https://github.com/scrooloose/nerdtree.git
     vim_bundle https://github.com/kien/ctrlp.vim.git
@@ -289,20 +294,33 @@ setup_vim() {
     vim_bundle https://github.com/tpope/vim-unimpaired.git
     vim_bundle https://github.com/tpope/vim-commentary.git
     vim_bundle https://github.com/sjl/gundo.vim.git
-    vim_bundle https://github.com/ervandew/supertab.git
+
+    # Interactive Command Execution
+    [[ ! -d $BUNDLE_DIR/vimproc.vim ]] && make_vimproc=true
+    vim_bundle https://github.com/Shougo/vimproc.vim.git
+    [[ $make_vimproc == 'true' ]] && cd $BUNDLE_DIR/vimproc.vim && make
+    vim_bundle https://github.com/Shougo/vimshell.vim.git
+
+    # Git
+    vim_bundle https://github.com/airblade/vim-gitgutter.git
+    vim_bundle https://github.com/tpope/vim-fugitive.git
 
     # Coding
     vim_bundle https://github.com/scrooloose/syntastic.git
     vim_bundle https://github.com/majutsushi/tagbar.git
+    vim_bundle https://github.com/Shougo/neocomplete.vim.git
+    vim_bundle https://github.com/SirVer/ultisnips.git
+    vim_bundle https://github.com/honza/vim-snippets.git
 
-    #
-    vim_bundle https://github.com/airblade/vim-gitgutter.git
-    vim_bundle https://github.com/tpope/vim-fugitive.git
+    # HTML/CSS
+    vim_bundle https://github.com/tpope/vim-haml.git
+    vim_bundle https://github.com/skammer/vim-css-color.git
+    vim_bundle https://github.com/hail2u/vim-css3-syntax.git
+    vim_bundle https://github.com/groenewege/vim-less.git
 
     # Python
     vim_bundle https://github.com/davidhalter/jedi-vim.git
-
-    cd - > /dev/null 2>&1
+    vim_bundle https://github.com/Yggdroot/indentLine.git
 
     [[ -d $HOME/.vim ]] && mv $HOME/.vim $HOME/.vim-$(date +%Y%m%d%H%M%S)
     [[ -L $HOME/.vim ]] && rm $HOME/.vim

@@ -213,39 +213,3 @@
   * `v`    to open in vertical split
   * `gv`   to open in vertical split silently
   * `q`    to close the quickfix window
-
-### Plugins
-
-#### For file editing
-* https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-* https://github.com/tpope/vim-repeat.git
-* https://github.com/tpope/vim-scriptease
-* https://github.com/tpope/vim-eunuch
-* https://github.com/tpope/vim-unimpaired
-* https://github.com/bling/vim-airline
-* https://github.com/tpope/vim-surround
-* https://github.com/mileszs/ack.vim
-* https://github.com/sjl/gundo.vim
-* https://github.com/tomtom/tcomment_vim
-
-#### Syntax
-* https://github.com/scrooloose/syntastic
-* https://github.com/plasticboy/vim-markdown
-
-#### Coding
-* https://github.com/majutsushi/tagbar
-* https://github.com/ervandew/supertab
-
-#### File browsing
-* https://github.com/mhinz/vim-startify
-* https://github.com/scrooloose/nerdtree
-* https://github.com/kien/ctrlp.vim
-
-#### For git
-* https://github.com/tpope/vim-fugitive
-* https://github.com/airblade/vim-gitgutter
-
-#### For python
-* https://github.com/davidhalter/jedi-vim
-
-
