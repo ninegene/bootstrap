@@ -13,9 +13,9 @@ syntax on
 filetype plugin indent on
 
 if has('gui_running')
-   set guioptions+=a
-   " Allow mouse in help file (use "g<LeftMouse>" to jump to tags), normal and visual mode
-   set mouse=a
+    set guioptions+=a
+    " Allow mouse in help file (use "g<LeftMouse>" to jump to tags), normal and visual mode
+    set mouse=a
 endif
 
 " Change the mapleader from \ to ,
@@ -37,22 +37,31 @@ noremap <Leader>gd :Gvdiff<CR>
 "let g:ctrlp_show_hidden = 1
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]tmp|venv|\.(venv|idea|git|hg|svn|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
-  \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\',
-  \ }
+            \ 'dir':  '\v[\/]tmp|venv|\.(venv|idea|git|hg|svn|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
+            \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\',
+            \ }
 nnoremap <leader>f :CtrlP<CR>
-nnoremap <leader>F :CtrlPCurWD<CR>
-nnoremap <leader>m :CtrlPMRUFiles<CR>
-nnoremap <leader>M :CtrlPMixed<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader>t :CtrlPTag<CR>
+nnoremap <leader>bm :CtrlPMRUFiles<CR>
+nnoremap <leader>bx :CtrlPMixed<CR>
+nnoremap <leader>bb :CtrlPBuffer<CR>
+nnoremap <leader>bw :CtrlPCurWD<CR>
+nnoremap <leader>bt :CtrlPTag<CR>
 
-"" Previous/Next Buffer
+" Previous/Next Buffer (Or use '[b' and ']b')
 noremap <leader>z :bp<CR>
 noremap <leader>w :bn<CR>
 
-"" Close buffer
-noremap <leader>c :bd<CR>
+" Close buffer
+noremap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status (Or use CtrlPBuffer <leader>bb)
+nmap <leader>bl :ls<CR>
+
+" Opens an edit command with the path of the currently edited file filled in
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" Opens a tab edit command with the path of the currently edited file filled
+noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " https://github.com/scrooloose/syntastic
 " syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
@@ -104,10 +113,6 @@ noremap <leader>n :NERDTreeToggle<CR>
 
 " https://github.com/sjl/gundo.vim
 map \u :GundoToggle<CR>
-
-" https://github.com/ervandew/supertab
-" Tab to use OmniCompletion if necessary
-let g:SuperTabDefaultCompletionType = "context"
 
 " https://github.com/nvie/vim-flake8
 "let g:flake8_ignore="E501"
@@ -275,6 +280,9 @@ vmap > >gv
 nnoremap <silent> <leader>g :Rgrep<CR>
 let Grep_Default_Options = '-IR'
 
+" ack.vim
+nmap <leader>a :Ack ""<Left>
+
 " When you press gv you vimgrep after the selected text
 "vnoremap <silent> gv :call VisualSearch('gv')<CR>
 "map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
@@ -352,12 +360,6 @@ set autoread                  " Auto read when a file changed from the outside
 "set autochdir                " Auto change the directory to the current opened file
 autocmd BufEnter * silent! lcd %:p:h
 
-"" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-"" Opens a tab edit command with the path of the currently edited file filled
-noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
 " *.md could be detected it as Modula-2 instead of Markdown
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.ejs set filetype=html
@@ -366,38 +368,38 @@ autocmd BufNewFile,BufReadPost *.ejs set filetype=html
 set fileformats+=mac
 
 if &history < 1000
-  set history=1000
+    set history=1000
 endif
 if &tabpagemax < 50
-  set tabpagemax=50
+    set tabpagemax=50
 endif
 if !empty(&viminfo)
-  set viminfo^=!
+    set viminfo^=!
 endif
 set sessionoptions-=options
 
 if &t_Co == 8 && $TERM !~# '^linux'
-  set t_Co=16
+    set t_Co=16
 endif
 
 if !&scrolloff
-  set scrolloff=1
+    set scrolloff=1
 endif
 if !&sidescrolloff
-  set sidescrolloff=5
+    set sidescrolloff=5
 endif
 set display+=lastline
 
 if &encoding ==# 'latin1' && has('gui_running')
-  set encoding=utf-8
+    set encoding=utf-8
 endif
 
 if &listchars ==# 'eol:$'
-  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+    set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
 
 if has('path_extra')
-  setglobal tags-=./tags tags^=./tags;
+    setglobal tags-=./tags tags^=./tags;
 endif
 
 set title                       " Change the terminal's title
@@ -430,7 +432,7 @@ set smartindent
 set cindent
 set expandtab                 " Tabs are converted to spaces
 set softtabstop=4             " Number of spaces that a <Tab> counts for while performing editing
-                              " operations, like inserting a <Tab> or using <BS>
+" operations, like inserting a <Tab> or using <BS>
 set tabstop=4                 " See 'help: tapstop'
 set shiftwidth=4              " Number of spaces to use for autoindenting
 set shiftround                " Use multiple of shiftwidth when indenting with '<' and '>'
@@ -482,5 +484,5 @@ set noswapfile
 
 " Include user's local vim config
 if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
+    source ~/.vimrc.local
 endif
