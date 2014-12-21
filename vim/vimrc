@@ -330,6 +330,10 @@ set noerrorbells              " Don't beep
 
 set laststatus=2              " Always show status line
 
+" Disable the blinking cursor.
+set gcr=a:blinkon0
+set scrolloff=3
+
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ %{fugitive#statusline()}
 
 " vim-airline
