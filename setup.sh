@@ -65,7 +65,7 @@ setup_gitconfig() {
 
     git config --global push.default simple
 
-    git config --global core.autocrlf true
+    git config --global core.autocrlf input
     git config --global core.editor vi
 
     git config --global diff.tool diffuse
