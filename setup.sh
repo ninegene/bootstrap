@@ -102,7 +102,7 @@ setup_gitconfig() {
 
     # Compare your working directory and the index (staging area for the next commit).
     git config --global alias.df "diff"
-    #git config --global alias.dw "diff --word-diff=color"
+    git config --global alias.dw "diff --word-diff=color"
 
     # Compare your working directory and the tip of 'dev' branch
     # $ git diff dev
@@ -123,7 +123,7 @@ setup_gitconfig() {
 
     # Compare your working directory and the latest commit.
     git config --global alias.dh "diff HEAD"
-    #git config --global alias.dhw "diff --word-diff=color HEAD"
+    git config --global alias.dhw "diff --word-diff=color HEAD"
 
     # Compare a specific file(s) in your working directory and the latest commit.
     # $ git dh -- path/to/files
@@ -131,7 +131,7 @@ setup_gitconfig() {
 
     # Compare the index (staging area for the next commit) and the latest commit.
     git config --global alias.ds "diff --staged" # Same as "diff --cached"
-    #git config --global alias.dsw "diff --word-diff=color --staged"
+    git config --global alias.dsw "diff --word-diff=color --staged"
 
     ## reset ##
 
@@ -141,12 +141,12 @@ setup_gitconfig() {
     # Throw away all changes you made in your working directory.
     # Commit first and reset hard to last commit so that you can recover with 'git reflog' if needed
     # A better way to handle 'git reset HEAD --hard'
-    git config --global alias.fullsync "!git add --all && git commit --allow-empty -qm 'fullsync commit' && git reset ${1-HEAD~1} --hard"
+    git config --global alias.resethard "!git add --all && git commit --allow-empty -qm 'reset hard commit' && git reset ${1-HEAD~1} --hard"
 
     # Reset last commit and keeps all the last commit changes in your working directory
     git config --global alias.resetlast "reset HEAD~1 --mixed"
 
-    # Resetting to origin/HEAD. (Or undo resetting of resetting to last commit.)
+    # Resetting to origin/HEAD. (E.g. Undo 'git resetlast'.)
     # $ git reset origin/HEAD
     git config --global alias.resethead "reset origin/HEAD"
 
