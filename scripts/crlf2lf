@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+DIR=${1-.}
+
+find $DIR -type f -exec dos2unix {} \;
