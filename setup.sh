@@ -305,22 +305,22 @@ setup_vim() {
     vim_bundle https://github.com/airblade/vim-gitgutter.git
     vim_bundle https://github.com/tpope/vim-fugitive.git
 
-    # Coding
-    vim_bundle https://github.com/scrooloose/syntastic.git
+    # Coding: Autocomplete, Snippets
+    vim_bundle https://github.com/Yggdroot/indentLine.git
     vim_bundle https://github.com/majutsushi/tagbar.git
     vim_bundle https://github.com/Shougo/neocomplete.vim.git
     vim_bundle https://github.com/SirVer/ultisnips.git
     vim_bundle https://github.com/honza/vim-snippets.git
 
-    # HTML/CSS
-    vim_bundle https://github.com/tpope/vim-haml.git
-    vim_bundle https://github.com/skammer/vim-css-color.git
+    # Syntax: Markdown, CSS, SASS, LESS
+    vim_bundle https://github.com/scrooloose/syntastic.git
+    vim_bundle https://github.com/tpope/vim-markdown.git
     vim_bundle https://github.com/hail2u/vim-css3-syntax.git
+    vim_bundle https://github.com/tpope/vim-haml.git
     vim_bundle https://github.com/groenewege/vim-less.git
 
     # Python
     vim_bundle https://github.com/davidhalter/jedi-vim.git
-    vim_bundle https://github.com/Yggdroot/indentLine.git
 
     [[ -d $HOME/.vim ]] && mv $HOME/.vim $HOME/.vim-$(date +%Y%m%d%H%M%S)
     [[ -L $HOME/.vim ]] && rm $HOME/.vim
