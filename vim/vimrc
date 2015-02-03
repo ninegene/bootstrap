@@ -25,9 +25,6 @@ let g:mapleader = ","
 " Auto-clean fugitive buffers to prevent the buffers being swamped with fugitive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
-" File Types
-autocmd BufRead,BufNew *.ejs set filetype=html
-
 " Git
 noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
@@ -366,6 +363,15 @@ set wildignore+=*/tmp/*,*.swp,*.pyc,*.class
 set autoread                  " Auto read when a file changed from the outside
 "set autochdir                " Auto change the directory to the current opened file
 autocmd BufEnter * silent! lcd %:p:h
+
+" *.md could be detected it as Modula-2 instead of Markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost *.ejs set filetype=html
+
+" http://vim.wikia.com/wiki/Append_output_of_an_external_command
+" Usage example: 
+" :R find -mtime -8 | xargs grep sometext
+:command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
 " https://raw.githubusercontent.com/tpope/vim-sensible/master/plugin/sensible.vim
 set fileformats+=mac
