@@ -306,7 +306,6 @@ setup_vim() {
     vim_bundle https://github.com/tpope/vim-fugitive.git
 
     # Coding: Autocomplete, Snippets
-    vim_bundle https://github.com/Yggdroot/indentLine.git
     vim_bundle https://github.com/majutsushi/tagbar.git
     vim_bundle https://github.com/Shougo/neocomplete.vim.git
     vim_bundle https://github.com/SirVer/ultisnips.git
