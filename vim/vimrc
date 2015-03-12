@@ -338,11 +338,11 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ %{fugitive#sta
 
 " vim-airline
 let g:airline_theme = 'powerlineish'
-let g:airline_enable_branch = 1
+let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_enable_syntastic = 1
+let g:airline#extensions#syntastic#enabled = 1
 
 " vimshell
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
@@ -457,11 +457,13 @@ nmap tab2 :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
 " Confirm to Python PEP8
 " autocmd FileType python set tabstop=4 softtabstop=4 expandtab shiftwidth=4 cinwords=if,elif,else,for,while,try,except,finally,def,class augroup END
 
+autocmd Filetype javascript,css,sass,less setlocal tabstop=2 softtabstop=2 expandtab shiftwidth=2
+
 " Show matching pairs
 set showmatch                 " Show matching parenthesis
 set matchtime=2               " How many tenths of a second to blink
 set matchpairs+=<:>           " Also match <> mainly for html tag
-autocmd FileType c,cpp,java,js,groovy set mps+==:; " Jump between '=' and ';' for some file types
+autocmd FileType c,cpp,java,javascript,groovy set mps+==:; " Jump between '=' and ';' for some file types
 
 " Folding
 "set foldenable               " Enable folding
