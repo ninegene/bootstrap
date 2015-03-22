@@ -7,6 +7,7 @@ function install_linux_pkgs {
     sudo apt-get install -y git
     sudo apt-get install -y vim
     sudo apt-get install -y screen
+    sudo apt-get install -y ntp
     sudo apt-get install -y wget curl tree colordiff
     sudo apt-get install -y htop atop rsync zip unzip gzip bzip2
 
