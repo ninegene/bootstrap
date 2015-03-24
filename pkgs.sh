@@ -7,6 +7,7 @@ function install_linux_pkgs {
     sudo apt-get install -y git
     sudo apt-get install -y vim
     sudo apt-get install -y screen
+    sudo apt-get install -y ntp
     sudo apt-get install -y wget curl tree colordiff
     sudo apt-get install -y htop atop rsync zip unzip gzip bzip2
 
@@ -34,6 +35,9 @@ function install_mac_pkgs {
     # GNU packages
     brew install coreutils
     brew install findutils --with-default-names # GNU find, locate, updatedb, xargs
+    # We don't want to use GNU locate, so rename it
+    sudo mv /usr/local/bin/locate /usr/local/bin/glocate
+
     brew install diffutils # GNU diff, cmp, diff3, sdif
     brew install wdiff --with-gettext
     brew install gawk

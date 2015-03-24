@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+if [[ $1 == '-h' || $1 == '--help' ]]; then
+    echo "Generate alphanumeric random characters. Default to 32 characters."
+    echo "    $(basename $0) [count]"
+    exit 0
+fi
+
+count=${1-32}
+
+platform=$(uname -s)
+
+# Based on: https://gist.github.com/earthgecko/3089509
+if [[ $platform == 'Darwin' ]]; then
+    cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | head -c ${count}
+elif [[ $platform == 'Linux' ]]; then
+    cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c ${count}
+else
+    echo Not implemented in $platfrom
+fi

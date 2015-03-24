@@ -11,25 +11,33 @@ $ git clone https://github.com/ninegene/dotfiles.git ~/.files
 $ ~/.files/setup.sh --help
 
 USAGE
-    setup.sh {pkgs|git|bash|fish|vim|scripts|all}
+    setup.sh {pkgs|gitconfig|bash|fish|vim|scripts|all}
 
 DESCRIPTION
     pkgs        Install base packages
-    git         Setup git config and git aliases
-    bash        Setup dotfiles for BASH
+    gitconfig   Setup git config and git aliases
+    bash        Setup dotfiles (.profile, .bashrc etc.) for BASH
     fish        Setup fish shell config
     vim         Setup VIM plugins
-    scripts     Symlink scripts to ~/bin directory
+    scripts     Setup util scripts by symlinking scripts to ~/bin directory
     all         Execute all above options (Default)
 ```
 
 ## Installation
 
+#### Setup all options
 ```bash
 $ ~/.files/setup.sh
+```
 
-VIM only
+#### Setup Vim only
+```
 $ ~/.files/setup.sh vim
+```
+
+#### Setup Git config, Vim and Fish
+```
+$ ~/.files/setup.sh gitconfig vim fish
 ```
 
 ## Update
