@@ -17,7 +17,7 @@ DESCRIPTION
 EOF
 }
 
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
 
 md5() {
     local file=$1

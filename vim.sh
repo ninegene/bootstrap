@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
 
 vim_bundle() {
     local url=$1
