@@ -26,9 +26,9 @@ let g:mapleader = ","
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " Git
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gvdiff<CR>
+"noremap <Leader>gs :Gstatus<CR>
+"noremap <Leader>gb :Gblame<CR>
+"noremap <Leader>gd :Gvdiff<CR>
 
 " https://github.com/kien/ctrlp.vim
 "let g:ctrlp_map = '<c-p>'
@@ -123,12 +123,13 @@ map \u :GundoToggle<CR>
 " https://github.com/davidhalter/jedi-vim
 "let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#popup_on_dot = 0
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = "<leader>d"
-"let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>u"
+let g:jedi#goto_assignments_command = "<leader>jg"
+let g:jedi#goto_definitions_command = "<leader>jd"
+let g:jedi#rename_command = "<leader>jr"
+let g:jedi#usages_command = "<leader>jn"
+":Pyimport			e.g. `:Pyimport os` shows os.py in VIM.
+let g:jedi#documentation_command = "K"
 let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = 1
 
 " https://github.com/Shougo/neocomplete.vim
@@ -230,9 +231,9 @@ nmap <F2> :set paste!<CR>:set paste?<CR>
 
 " Use ,d (or ,dd or ,dj or 20,dd) to delete without adding it to the yanked stack
 " Conflict with python jedi
-"nmap <silent> <leader>d "_d
+nmap <silent> <leader>d "_d
 " Also, in visual mode
-"map <silent> <leader>d "_d
+map <silent> <leader>d "_d
 
 " Yank/paste to the OS clipboard with ,y and ,P and ,p
 nnoremap <leader>y "+y
@@ -254,7 +255,7 @@ vnoremap <C-h> "ry:%s/<C-r>r//gc<Left><Left><Left>
 
 " Show the registers from things cut/yanked
 " Conflict with python jedi
-"nmap <leader>r :reg<CR>
+nmap <leader>r :reg<CR>
 
 " Map the various registers to a leader shortcut for pasting from them
 nmap <leader>0 "0p
