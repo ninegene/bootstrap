@@ -3,29 +3,26 @@ set -e
 
 function install_linux_pkgs {
     sudo apt-get update
-    sudo apt-get install -y python-software-properties python-dev
-    sudo apt-get install -y git
-    sudo apt-get install -y vim
-    sudo apt-get install -y screen
-    sudo apt-get install -y ntp
-    sudo apt-get install -y wget curl tree colordiff
-    sudo apt-get install -y htop atop rsync zip unzip gzip bzip2
+    sudo apt-get install -y build-essential python-software-properties python-dev \
+        git vim screen ntp wget curl tree colordiff \
+        htop atop rsync zip gzip bzip2
+    sudo apt-get install -y exuberant-ctags # vim tagbar plugin
+    sudo apt-get install -y ack-grep        # ack.vim plugin (http://beyondgrep.com/install/)
+    sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+    install_python_pip
+    install_python_pkgs
 
+    install_linux_desktop_pkgs
+}
+
+function install_linux_desktop_pkgs {
     local gnome_installed=0; [ $(pgrep gnome | wc -l) -gt 0 ] && gnome_installed=1
     if [ $gnome_installed -eq 1 ]; then
-        sudo apt-get install -y vim-gtk vim-gnome xclip
-        sudo apt-get install -y nautilus-open-terminal
-        sudo apt-get install -y gitg # free simple git ui client to see branches and changes/diff before commit
-        sudo apt-get install -y gitk # git repository browser
-        sudo apt-get install -y diffuse # diff tool
+        # gitg - free simple git ui client to see branches and changes/diff before commit
+        # gitk - git repository browser
+        sudo apt-get install -y vim-gtk vim-gnome xclip \
+            gitg gitk diffuse nautilus-open-terminal
     fi
-    sudo apt-get install -y exuberant-ctags # for vim tagbar plugin
-    # ack.vim vim plugin
-    # http://beyondgrep.com/install/
-    sudo apt-get install -y ack-grep
-    sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
-
-    install_python_pip
 }
 
 function install_mac_pkgs {
@@ -55,6 +52,8 @@ function install_mac_pkgs {
     brew install openssl
     brew install openssh
     brew install python
+    easy_install -U pip
+    install_python_pkgs
 
     brew install git
     # --with-lua for neocomplete.vim
@@ -66,27 +65,38 @@ function install_mac_pkgs {
     brew install ack   # for ack.vim plugin
 
     brew linkapps
-    # Needs to run the following to work around MacVim not available in spot light or alfred
-    # mv /usr/local/Cellar/macvim/7.4-73_1/MacVim.app /Applications/
-    # ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.4-73_1/
+    echo "
+    Needs to run the following to work around MacVim not available in spot light or alfred
+      $ mv /usr/local/Cellar/macvim/7.4-73_1/MacVim.app /Applications/
+      $ ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.4-73_1/
+    "
 }
 
 function install_python_pip {
+    local prefix
+    if [[ $(uname -s) == "Linux" ]]; then
+        prefix='sudo '
+    fi
+
     cd /tmp
     # http://pip.readthedocs.org/en/latest/installing.html
-    sudo curl -O https://bootstrap.pypa.io/get-pip.py 2>&1 >/dev/null
-    sudo python get-pip.py 2>&1 >/dev/null
-    sudo rm get-pip.py
+    $prefix curl -O https://bootstrap.pypa.io/get-pip.py 2>&1 >/dev/null
+    $prefix python get-pip.py 2>&1 >/dev/null
+    $prefix rm get-pip.py
     cd -
     pip --version
 }
 
 function install_python_pkgs {
-    sudo pip install --upgrade flake8 # wrapper for - pep8 pyflakes mccabe
-    sudo pip install --upgrade pylint
-    sudo pip install --upgrade jedi   # jedi vim plugin
-    sudo pip install --upgrade virtualenv
-    sudo pip install --upgrade fabric
+    local prefix
+    if [[ $(uname -s) == "Linux" ]]; then
+        prefix='sudo '
+    fi
+    $prefix pip install --upgrade flake8 # wrapper for - pep8 pyflakes mccabe
+    $prefix pip install --upgrade pylint
+    $prefix pip install --upgrade jedi   # jedi vim plugin
+    $prefix pip install --upgrade virtualenv
+    $prefix pip install --upgrade fabric
 }
 
 function main {
@@ -103,8 +113,8 @@ function main {
         ;;
     esac
 
-    install_python_pkgs
     echo "End installing packages ====="
 }
 
-main
+# execute main function if no argument provided
+${1-main}
