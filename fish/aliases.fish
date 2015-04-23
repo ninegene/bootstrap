@@ -55,8 +55,8 @@ alias h 'history'
 alias j 'jobs -l'
 
 type colordiff > /dev/null 2>&1; and alias diff 'colordiff'
-type shasum > /dev/null 2>&1; and alias shasum 'openssl sha1'
-type md5sum > /dev/null 2>&1; and alias md5sum 'openssl md5'
+type shasum > /dev/null 2>&1; or alias shasum 'openssl sha1'
+type md5sum > /dev/null 2>&1; or alias md5sum 'openssl md5'
 
 alias cpsshkey 'mycopy < ~/.ssh/id_rsa.pub'
 
