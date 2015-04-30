@@ -59,6 +59,8 @@ main() {
     # May not work correctly if there is no changes to stash and will pop out old stash
     #git config --global alias.update "!git stash save && git pull -v --rebase && git stash pop && git changes"
 
+    git config --global alias.pr "pull -v --rebase"
+
 
     ## git difftool ##
 
