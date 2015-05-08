@@ -9,10 +9,17 @@ function install_linux_pkgs {
     sudo apt-get install -y exuberant-ctags # vim tagbar plugin
     sudo apt-get install -y ack-grep        # ack.vim plugin (http://beyondgrep.com/install/)
     sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+    install_fpp
     install_python_pip
     install_python_pkgs
 
     install_linux_desktop_pkgs
+}
+
+function install_fpp {
+    mkdir -p ~/bin
+    [[ -e ~/bin/PathPicker ]] || git clone git@github.com:facebook/PathPicker.git ~/bin/PathPicker
+    [[ -e ~/bin/fpp ]] || ln -s ~/bin/PathPicker/fpp ~/bin/fpp
 }
 
 function install_linux_desktop_pkgs {
@@ -63,6 +70,8 @@ function install_mac_pkgs {
     brew install md5sha1sum
     brew install ctags # for tagbar vim plugin
     brew install ack   # for ack.vim plugin
+
+    brew install fpp
 
     brew linkapps
     echo "
