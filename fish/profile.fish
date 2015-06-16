@@ -18,9 +18,9 @@ end
 
 switch (uname -s)
 case Darwin
-  set -x JAVA_HOME (/usr/libexec/java_home -v 1.7)
+  set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
 case Linux
-  set -x JAVA_HOME "/usr/lib/jvm/jdk7"
+  set -x JAVA_HOME "/usr/lib/jvm/jdk8"
 end
 
 prepand_to_path "$JAVA_HOME/bin"
