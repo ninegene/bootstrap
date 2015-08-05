@@ -15,8 +15,8 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -d "/usr/lib/jvm/jdk7/bin" ] ; then
-    export JAVA_HOME=/usr/lib/jvm/jdk7
+if [ -d "/usr/lib/jvm/jdk8/bin" ] ; then
+    export JAVA_HOME=/usr/lib/jvm/jdk8
     PATH="$PATH:$JAVA_HOME/bin"
 fi
 
