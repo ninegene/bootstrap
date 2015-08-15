@@ -23,6 +23,9 @@ switch (uname -s)
     alias ls 'ls -CF --color=auto'
     alias ll 'ls -alFh --group-directories-first'
 
+    # list old files/dirs first
+    alias lr 'ls -alFhtr'
+
     # Don't allow to remove root directory
     alias rm 'rm --preserve-root'
 end
