@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "
+Overlay scrollbar
+
+Disable:
+  $ gsettings set com.canonical.desktop.interface scrollbar-mode normal
+
+Enable:
+  $ gsettings reset com.canonical.desktop.interface scrollbar-mode
+"
