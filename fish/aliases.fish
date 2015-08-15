@@ -87,3 +87,10 @@ alias sf 'source ~/.config/fish/config.fish'
 alias doc 'cd ~/Documents'
 alias dl 'cd ~/Downloads'
 alias dr 'cd ~/Dropbox'
+
+# Print Upper-case Env Variable (ignore case)
+function pe
+  set -l x (echo $argv | tr 'a-z' 'A-Z')
+  echo $x
+  printenv $x
+end
