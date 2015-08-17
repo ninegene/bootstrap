@@ -94,3 +94,31 @@ function pe
   echo $x
   printenv $x
 end
+
+function idea
+   /opt/idea/bin/idea.sh ~/Projects/$argv[1]
+end
+
+function fport --description "Find process pid listening upon a port. e.g. fport <port>"
+    sudo fuser $argv[1]/tcp
+    sudo lsof -i :$argv[1]
+    sudo netstat -tulpn | grep :$argv[1]
+end
+
+function fpid --description "Find pid info. e.g. fpid <pid>"
+    for a in $argv
+        sudo ls -l /proc/$a/exe
+        sudo ls -l /proc/$a/cwd
+        #sudo pwdx $a
+        echo ""
+        echo "cat /proc/$a/environ | tr '\0' '\n' | sort"
+        cat /proc/$a/environ | tr '\0' '\n' | sort
+        echo ""
+    end
+    echo ""
+    echo -e "pid\tuser\tgroup\targs\tetime\tlstart"
+    sudo ps -eo pid,user,group,args,etime,lstart | egrep "^\s+$argv "
+    echo ""
+    sudo ps aux | command grep " $argv " | grep -v "grep  $argv " | command grep --color=auto " $argv "
+end
+
