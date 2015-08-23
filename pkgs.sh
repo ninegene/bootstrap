@@ -106,6 +106,7 @@ function install_python_pkgs {
     $prefix pip install --upgrade jedi   # jedi vim plugin
     $prefix pip install --upgrade virtualenv
     $prefix pip install --upgrade fabric
+    $prefix pip install --upgrade httpie
 }
 
 function main {
