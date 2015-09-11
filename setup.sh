@@ -4,7 +4,7 @@ set -e
 show_help() {
 cat << EOF
 USAGE
-    $(basename $0) {all|pkgs|gitconfig|bash|fish|scripts|vim}
+    $(basename $0) {all|pkgs|gitconfig|bash|fish|vim}
 
 DESCRIPTION
     all         Execute all below options (Default)
@@ -12,7 +12,6 @@ DESCRIPTION
     gitconfig   Setup git config and git aliases
     bash        Setup dotfiles for BASH
     fish        Setup fish shell config
-    scripts     Symlink scripts to ~/bin directory
     vim         Setup VIM plugins
 EOF
 }
@@ -86,14 +85,6 @@ setup_vim() {
     $BASE_DIR/vim.sh
 }
 
-setup_scripts() {
-    mkdir -p $HOME/bin
-    for file in $(find $BASE_DIR/scripts/ -executable -type f)
-    do
-	    symlink $file $HOME/bin/$(basename $file)
-    done
-}
-
 main() {
     if [[ $1 == '-h' || $1 == '--help' || $1 == 'help' ]]; then
         show_help
@@ -108,7 +99,6 @@ main() {
         setup_bash
         setup_fish
         setup_vim
-        setup_scripts
         exit 0
     fi
 
@@ -117,7 +107,6 @@ main() {
     [[ $option =~ bash ]] && setup_bash
     [[ $option =~ fish ]] && setup_fish
     [[ $option =~ vim ]] && setup_vim
-    [[ $option =~ scripts ]] && setup_scripts
 }
 
 main $@
