@@ -46,7 +46,7 @@ main() {
 
     ## git branch ##
 
-    git config --global alias.br "branch -a"
+    git config --global alias.br "branch"
 
 
     ## git remote ##
