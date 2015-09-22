@@ -5,7 +5,7 @@ function install_linux_pkgs {
     sudo apt-get update
     sudo apt-get install -y build-essential python-software-properties python-dev \
         git vim screen ntp wget curl tree colordiff \
-        htop atop rsync zip gzip bzip2
+        htop rsync zip gzip bzip2
     sudo apt-get install -y exuberant-ctags # vim tagbar plugin
     sudo apt-get install -y ack-grep        # ack.vim plugin (http://beyondgrep.com/install/)
     sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
