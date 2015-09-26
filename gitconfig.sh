@@ -69,10 +69,6 @@ main() {
 
     ## git diff ##
 
-    # Compare your working directory and the index (staging area for the next commit).
-    git config --global alias.df "diff"
-    git config --global alias.dw "diff --word-diff=color"
-
     # Compare your working directory and the tip of 'dev' branch
     # $ git diff dev
 
@@ -90,18 +86,20 @@ main() {
     # $ git diff HEAD^ HEAD
     # $ git diff HEAD^ HEAD -- application.properties
 
-    # Compare your working directory and the latest commit.
-    git config --global alias.d "diff HEAD"
-    git config --global alias.dh "diff HEAD"
-    git config --global alias.dhw "diff --word-diff=color HEAD"
+    # Compare your working directory and the index (staging area for the next commit).
+    git config --global alias.d "diff"
+    git config --global alias.dw "diff --word-diff=color"
 
+    # Compare your working directory and the latest commit.
     # Compare a specific file(s) in your working directory and the latest commit.
     # $ git dh -- path/to/files
     # $ git dh -- path/**/*/files
+    git config --global alias.dh "diff HEAD"
+    git config --global alias.dwh "diff --word-diff=color HEAD"
 
     # Compare the index (staging area for the next commit) and the latest commit.
     git config --global alias.ds "diff --staged" # Same as "diff --cached"
-    git config --global alias.dsw "diff --word-diff=color --staged"
+    git config --global alias.dws "diff --word-diff=color --staged"
 
 
     ## git reset ##

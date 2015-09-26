@@ -1,14 +1,14 @@
 # dotfiles
-My dotfiles created for Ubuntu and Mac OS X.
+My configs for shell, vim, git etc. created for Ubuntu/Linux Mint and Mac OS X.
 
 ```bash
-$ git clone https://github.com/ninegene/dotfiles.git ~/.files
+$ git clone https://github.com/ninegene/dotfiles.git ~/dotfiles
 ```
 
 ## Help
 
 ```bash
-$ ~/.files/setup.sh --help
+$ ~/dotfiles/setup.sh --help
 
 USAGE
     setup.sh {pkgs|gitconfig|bash|fish|vim|all}
@@ -26,23 +26,23 @@ DESCRIPTION
 
 #### Setup all options
 ```bash
-$ ~/.files/setup.sh
+$ ~/dotfiles/setup.sh
 ```
 
 #### Setup Vim only
 ```
-$ ~/.files/setup.sh vim
+$ ~/dotfiles/setup.sh vim
 ```
 
 #### Setup Git config, Vim and Fish
 ```
-$ ~/.files/setup.sh gitconfig vim fish
+$ ~/dotfiles/setup.sh gitconfig vim fish
 ```
 
 ## Update
 
 ```bash
-$ cd ~/.files
+$ cd ~/dotfiles
 $ git pull
 $ ./setup.sh
 ```

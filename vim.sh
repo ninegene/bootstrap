@@ -82,10 +82,10 @@ main() {
     vim_bundle https://github.com/sjl/gundo.vim.git
 
     # Interactive Command Execution
-    [[ ! -d $BUNDLE_DIR/vimproc.vim ]] && make_vimproc=true
-    vim_bundle https://github.com/Shougo/vimproc.vim.git
-    [[ $make_vimproc == 'true' ]] && cd $BUNDLE_DIR/vimproc.vim && make
-    vim_bundle https://github.com/Shougo/vimshell.vim.git
+    #[[ ! -d $BUNDLE_DIR/vimproc.vim ]] && make_vimproc=true
+    #vim_bundle https://github.com/Shougo/vimproc.vim.git
+    #[[ $make_vimproc == 'true' ]] && cd $BUNDLE_DIR/vimproc.vim && make
+    #vim_bundle https://github.com/Shougo/vimshell.vim.git
 
     # Git
     vim_bundle https://github.com/airblade/vim-gitgutter.git

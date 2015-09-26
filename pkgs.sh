@@ -14,6 +14,7 @@ function install_linux_pkgs {
     install_python_pkgs
 
     install_linux_desktop_pkgs
+    install_fish_shell
 }
 
 function install_fpp {
@@ -27,8 +28,7 @@ function install_linux_desktop_pkgs {
     if [ $gnome_installed -eq 1 ]; then
         # gitg - free simple git ui client to see branches and changes/diff before commit
         # gitk - git repository browser
-        sudo apt-get install -y vim-gtk vim-gnome xclip \
-            gitg gitk diffuse nautilus-open-terminal
+        sudo apt-get install -y vim-gnome xclip gitg gitk diffuse nautilus-open-terminal
     fi
 }
 
@@ -84,7 +84,7 @@ function install_mac_pkgs {
 function install_python_pip {
     local prefix
     if [[ $(uname -s) == "Linux" ]]; then
-        prefix='sudo '
+        prefix='sudo -H '
     fi
 
     cd /tmp
@@ -107,6 +107,15 @@ function install_python_pkgs {
     $prefix pip install --upgrade virtualenv
     $prefix pip install --upgrade fabric
     $prefix pip install --upgrade httpie
+}
+
+function install_fish_shell {
+    sudo apt-add-repository ppa:fish-shell/release-2
+    sudo apt-get update
+    sudo apt-get install -y fish
+    
+    mkdir -p ~/.config/fish
+    chsh -s /usr/bin/fish 
 }
 
 function main {
