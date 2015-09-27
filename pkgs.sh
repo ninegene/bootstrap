@@ -88,8 +88,8 @@ function install_python_pip {
     fi
 
     cd /tmp
-    # http://pip.readthedocs.org/en/latest/installing.html
-    $prefix curl -O https://bootstrap.pypa.io/get-pip.py 2>&1 >/dev/null
+    # https://pip.pypa.io/en/latest/installing/
+    $prefix curl -sSLO https://bootstrap.pypa.io/get-pip.py 2>&1 >/dev/null
     $prefix python get-pip.py 2>&1 >/dev/null
     $prefix rm get-pip.py
     cd -
@@ -113,9 +113,9 @@ function install_fish_shell {
     sudo apt-add-repository ppa:fish-shell/release-2
     sudo apt-get update
     sudo apt-get install -y fish
-    
+
     mkdir -p ~/.config/fish
-    chsh -s /usr/bin/fish 
+    chsh -s /usr/bin/fish
 }
 
 function main {

@@ -3,4 +3,5 @@
 *.tgz
 *.gz
 .DS_Store
-
+# ignore scripts repo on dotfiles: git clone git@github.com:ninegene/scripts.git
+scripts/

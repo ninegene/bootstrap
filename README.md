@@ -3,6 +3,8 @@ My configs for shell, vim, git etc. created for Ubuntu/Linux Mint and Mac OS X.
 
 ```bash
 $ git clone https://github.com/ninegene/dotfiles.git ~/dotfiles
+$ cd ~/dotfiles
+$ git clone https://github.com/ninegene/scripts.git
 ```
 
 ## Help
