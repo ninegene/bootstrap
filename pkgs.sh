@@ -4,8 +4,11 @@ set -e
 function install_linux_pkgs {
     sudo apt-get update
     sudo apt-get install -y build-essential python-software-properties python-dev \
-        git vim screen ntp wget curl tree colordiff \
-        htop rsync zip gzip bzip2
+        git vim screen ntp tree colordiff \
+        wget curl rsync zip gzip bzip2
+    sudo apt-get install -y htop hardinfo gufw
+    sudo apt-get install -y ttf-mscorefonts-installer
+    sudo apt-get install -y chromium-browser
     sudo apt-get install -y exuberant-ctags # vim tagbar plugin
     sudo apt-get install -y ack-grep        # ack.vim plugin (http://beyondgrep.com/install/)
     sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
@@ -123,6 +126,7 @@ function main {
     case $(uname -s) in
     Linux)
         install_linux_pkgs
+        echo "Run fstrim on all SSD brand: Edit /etc/cron.weekly/fstrim and add '--no-model-check' option"
         ;;
     Darwin)
         install_mac_pkgs
