@@ -5,7 +5,7 @@ set -g __fish_git_prompt_hide_untrackedfiles 1
 
 # Comment out the line below because of error: set_color: Unknown color “bold”
 # set -g __fish_git_prompt_color_branch magenta bold
-set -g __fish_git_prompt_color_branch magenta normal
+set -g __fish_git_prompt_color_branch magenta $fish_color_bold
 set -g __fish_git_prompt_showupstream "informative"
 set -g __fish_git_prompt_char_upstream_ahead "↑ "
 set -g __fish_git_prompt_char_upstream_behind "↓ "
@@ -22,7 +22,7 @@ set -g __fish_git_prompt_color_stagedstate yellow
 set -g __fish_git_prompt_color_invalidstate red
 set -g __fish_git_prompt_color_untrackedfiles $fish_color_normal
 # set -g __fish_git_prompt_color_cleanstate green bold
-set -g __fish_git_prompt_color_cleanstate green normal
+set -g __fish_git_prompt_color_cleanstate green $fish_color_bold
 
 function _remote_hostname
   if test -n "$SSH_CONNECTION"

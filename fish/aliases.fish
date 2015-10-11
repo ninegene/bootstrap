@@ -1,8 +1,10 @@
 switch (uname -s)
   case Darwin
     alias myip "ifconfig en0 | grep 'inet ' | awk '{ print $2; }' | sed 's/\/.*\$//'"
-    alias mycopy 'pbcopy'
-    alias mypaste 'pbpaste'
+
+    alias xcopy 'pbcopy'
+    alias xpaste 'pbpaste'
+    alias cpsshkey 'xcopy < ~/.ssh/id_rsa.pub'
 
     alias ls 'ls -CFG'
     alias ll 'ls -alFh | command grep "^d"; and ls -alFh | grep -v "^d"'
@@ -17,8 +19,10 @@ switch (uname -s)
 
   case Linux
     alias myip "hostname -I"
-    alias mycopy 'xclip -selection clipboard'
-    alias mypaste 'xclip -selection clipboard -o'
+
+    alias xcopy 'xclip -selection clipboard'
+    alias xpaste 'xclip -selection clipboard -o'
+    alias cpsshkey 'xcopy < ~/.ssh/id_rsa.pub'
 
     alias ls 'ls -CF --color=auto'
     alias ll 'ls -alFh --group-directories-first'
@@ -61,8 +65,6 @@ type colordiff > /dev/null 2>&1; and alias diff 'colordiff'
 type shasum > /dev/null 2>&1; or alias shasum 'openssl sha1'
 type md5sum > /dev/null 2>&1; or alias md5sum 'openssl md5'
 
-alias cpsshkey 'mycopy < ~/.ssh/id_rsa.pub'
-
 # Show public facing ip
 alias pubip "dig +short myip.opendns.com @resolver1.opendns.com"
 
@@ -79,14 +81,10 @@ alias df 'df -h'
 # e.g. ds <dir>
 alias ds 'du -sh'
 
-# Edit fish aliases, config, local and source config
-alias ea 'vi ~/.config/fish/aliases.fish'
-alias el 'vi ~/.config/fish/local.fish'
-alias sf 'source ~/.config/fish/config.fish'
-
 alias doc 'cd ~/Documents'
-alias dl 'cd ~/Downloads'
-alias dr 'cd ~/Dropbox'
+alias dow 'cd ~/Downloads'
+alias dbx 'cd ~/Dropbox'
+alias fc 'cd ~/.config/fish'
 
 # Print Upper-case Env Variable (ignore case)
 function pe
