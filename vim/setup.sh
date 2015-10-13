@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-BASE_DIR=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
+CURDIR=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
 
 vim_bundle() {
     local url=$1
-    local dir=$BASE_DIR/vim/bundle/$(basename $url)
+    local dir=$CURDIR/bundle/$(basename $url)
 
     if [[ ${dir: -4} == ".git" ]]; then
         dir=${dir%%????} # remove last '.git'
@@ -16,7 +16,7 @@ vim_bundle() {
         cd $dir
         git pull
     else
-        cd $BASE_DIR/vim/bundle
+        cd $CURDIR/bundle
         git clone $url $dir
     fi
 }
@@ -57,10 +57,10 @@ symlink() {
 }
 
 main() {
-    local BUNDLE_DIR=$BASE_DIR/vim/bundle
+    local BUNDLE_DIR=$CURDIR/bundle
 
-    mkdir -p $BASE_DIR/vim/{autoload,bundle}
-    curl -LSso $BASE_DIR/vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+    mkdir -p $CURDIR/{autoload,bundle}
+    curl -LSso $CURDIR/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
     # File Browsing/Searching
     vim_bundle https://github.com/mhinz/vim-startify.git
@@ -75,6 +75,7 @@ main() {
     # General Editing
     vim_bundle https://github.com/tpope/vim-repeat.git
     vim_bundle https://github.com/tpope/vim-scriptease.git
+    vim_bundle https://github.com/tpope/vim-endwise.git
     vim_bundle https://github.com/tpope/vim-eunuch.git
     vim_bundle https://github.com/tpope/vim-surround.git
     vim_bundle https://github.com/tpope/vim-unimpaired.git
@@ -108,10 +109,10 @@ main() {
     vim_bundle https://github.com/davidhalter/jedi-vim.git
 
     # Backup and symlink directory and files
-    symlink "$BASE_DIR/vim" "$HOME/.vim"
-    symlink "$BASE_DIR/vim/vimrc" "$HOME/.vimrc"
-    symlink "$BASE_DIR/vim/gvimrc" "$HOME/.gvimrc"
-    symlink "$BASE_DIR/vim/ctags" "$HOME/.ctags"
+    symlink "$CURDIR" "$HOME/.vim"
+    symlink "$CURDIR/vimrc" "$HOME/.vimrc"
+    symlink "$CURDIR/gvimrc" "$HOME/.gvimrc"
+    symlink "$CURDIR/ctags" "$HOME/.ctags"
 }
 
 main
