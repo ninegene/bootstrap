@@ -16,7 +16,7 @@ main() {
     git config --global push.default simple
 
     git config --global core.autocrlf input
-    git config --global core.editor vi
+    git config --global core.editor vim
 
     git config --global diff.tool diffuse
     if [[ $(uname -s) = 'Darwin' ]]; then
@@ -51,7 +51,7 @@ main() {
 
     ## git remote ##
 
-    git config --global alias.r "remote show origin"
+    git config --global alias.rso "remote show origin"
 
 
     ## git pull ##
@@ -59,7 +59,8 @@ main() {
     # May not work correctly if there is no changes to stash and will pop out old stash
     #git config --global alias.update "!git stash save && git pull -v --rebase && git stash pop && git changes"
 
-    git config --global alias.pr "!git pull -v --rebase && git changes"
+    git config --global alias.pr "!git pull -v --rebase && !git ll $1@{1}..$1@{0} $@"
+    git config --global alias.up "rebase"
 
 
     ## git difftool ##
@@ -95,11 +96,11 @@ main() {
     # $ git dh -- path/to/files
     # $ git dh -- path/**/*/files
     git config --global alias.dh "diff HEAD"
-    git config --global alias.dwh "diff --word-diff=color HEAD"
+    git config --global alias.dhw "diff --word-diff=color HEAD"
 
     # Compare the index (staging area for the next commit) and the latest commit.
     git config --global alias.ds "diff --staged" # Same as "diff --cached"
-    git config --global alias.dws "diff --word-diff=color --staged"
+    git config --global alias.dsw "diff --word-diff=color --staged"
 
 
     ## git reset ##
