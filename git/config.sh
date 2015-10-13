@@ -59,7 +59,7 @@ main() {
     # May not work correctly if there is no changes to stash and will pop out old stash
     #git config --global alias.update "!git stash save && git pull -v --rebase && git stash pop && git changes"
 
-    git config --global alias.pr "!git pull -v --rebase && !git ll $1@{1}..$1@{0} $@"
+    git config --global alias.pr "!git pull -v --rebase && git changes"
     git config --global alias.up "rebase"
 
 
