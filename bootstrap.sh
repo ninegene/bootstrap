@@ -16,7 +16,7 @@ DESCRIPTION
 EOF
 }
 
-BASE_DIR=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
+CURDIR=$(dirname "$(readlink -f "$0")")
 
 md5() {
     local file=$1
@@ -54,11 +54,11 @@ symlink() {
 }
 
 install_pkgs() {
-    $BASE_DIR/pkgs.sh
+    $CURDIR/pkgs.sh
 }
 
 setup_gitconfig() {
-    $BASE_DIR/gitconfig.sh
+    $CURDIR/git/config.sh
 }
 
 setup_bash() {
@@ -66,23 +66,23 @@ setup_bash() {
     backup "$HOME/.bash_profile"
     backup "$HOME/.bash_aliases"
 
-    symlink "$BASE_DIR/bash/profile" "$HOME/.profile"
-    symlink "$BASE_DIR/bash/bashrc" "$HOME/.bashrc"
-    symlink "$BASE_DIR/bash/aliases" "$HOME/.aliases"
+    symlink "$CURDIR/bash/profile" "$HOME/.profile"
+    symlink "$CURDIR/bash/bashrc" "$HOME/.bashrc"
+    symlink "$CURDIR/bash/aliases" "$HOME/.aliases"
 }
 
 setup_fish() {
-    symlink "$BASE_DIR/fish/profile.fish" "$HOME/.config/fish/profile.fish"
-    symlink "$BASE_DIR/fish/prompt.fish" "$HOME/.config/fish/prompt.fish"
-    symlink "$BASE_DIR/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
-    symlink "$BASE_DIR/fish/config.fish" "$HOME/.config/fish/config.fish"
+    symlink "$CURDIR/fish/profile.fish" "$HOME/.config/fish/profile.fish"
+    symlink "$CURDIR/fish/prompt.fish" "$HOME/.config/fish/prompt.fish"
+    symlink "$CURDIR/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
+    symlink "$CURDIR/fish/config.fish" "$HOME/.config/fish/config.fish"
 
     mkdir -p $HOME/.config/fish/functions
-    symlink "$BASE_DIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
+    symlink "$CURDIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
 }
 
 setup_vim() {
-    $BASE_DIR/vim.sh
+    $CURDIR/vim/setup.sh
 }
 
 main() {

@@ -22,8 +22,8 @@ function install_linux_pkgs {
 
 function install_fpp {
     mkdir -p ~/bin
-    [[ -e ~/bin/PathPicker ]] || git clone git@github.com:facebook/PathPicker.git ~/bin/PathPicker
-    [[ -e ~/bin/fpp ]] || ln -s ~/bin/PathPicker/fpp ~/bin/fpp
+    [[ -e ~/.fpp ]] || git clone git@github.com:facebook/PathPicker.git ~/.fpp
+    [[ -e ~/bin/fpp ]] || ln -s ~/.fpp/fpp ~/bin/fpp
 }
 
 function install_linux_desktop_pkgs {

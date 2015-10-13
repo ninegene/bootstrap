@@ -110,10 +110,10 @@ main() {
     # Throw away all changes you made in your working directory.
     # Commit first and reset hard to last commit so that you can recover with 'git reflog' if needed
     # A better way to handle 'git reset HEAD --hard'
-    git config --global alias.resethard "!git add --all && git commit --allow-empty -qm 'reset hard commit' && git reset ${1-HEAD~1} --hard"
+    git config --global alias.rh "!git add --all && git commit --allow-empty -qm 'reset hard commit' && git reset ${1-HEAD} --hard"
 
     # Reset last commit and keeps all the last commit changes in your working directory
-    git config --global alias.resetlast "reset HEAD~1 --mixed"
+    git config --global alias.rl "reset HEAD~1 --mixed"
 
     # Resetting to origin/HEAD. (E.g. Undo 'git resetlast'.)
     #git config --global alias.resethead "reset origin/HEAD"
@@ -159,11 +159,9 @@ main() {
     # Show the commits that changed 'config/application.properties', including those commits that
     # occurred before the file was given its present name. (Show file commit history)
     # $ git log --follow config/application.properties
-    #git config --global alias.filelog "!git ls --follow"
     git config --global alias.fh "!git ls --follow"
 
     # Show file commit history with diffs
-    #git config --global alias.filechanges "!git ls -u"
     git config --global alias.fc "!git ls -u"
 
     # Show commits in local timezone
