@@ -51,9 +51,9 @@ noremap <leader>q :bp <BAR> bd #<CR>
 " Toogle list chars / show whitespaces
 map <leader>list :setlocal list!<CR>:set list?<CR>
 
-" Highlight end of line whitespace.
+" Highlight end of line whitespace. Ignore after if ends with '$' for vim-shell
 highlight WhitespaceEOL ctermbg=red guibg=red
-match WhitespaceEOL /\s\+$/
+match WhitespaceEOL /[^\$]\s\+$/
 
 " Clean all end of line extra whitespace with ,S
 nnoremap <silent><leader>S :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
@@ -198,17 +198,17 @@ if has('path_extra')
 endif
 
 set title                       " Change the terminal's title
-set ttyfast                     " Smoother changes. More characters will be sent to the screen for re⇉
+set ttyfast                     " Smoother changes. More characters will be sent to the screen for redrawing
 set lazyredraw                  " Don't update the display while executing macros
 
 set nowrap
 
 " Text width which is used to break long line that is being inserted
 set textwidth=0               " text after this width will be broken when inserted
-autocmd FileType python set textwidth=99
-nnoremap [ot :set textwidth=99<CR>
+autocmd FileType python set textwidth=120
+nnoremap [ot :set textwidth=120<CR>
 nnoremap ]ot :set textwidth=0<CR>
-nnoremap cot :let &tw = (&tw ? 0: 99)<CR>:set textwidth?<CR>
+nnoremap cot :let &tw = (&tw ? 0: 120)<CR>:set textwidth?<CR>
 
 " Show right margin column
 "set colorcolumn=+1            " highlight right column after textwidth
@@ -376,6 +376,10 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 " https://github.com/airblade/vim-gitgutter
 " =========================================
 nnoremap cog :GitGutterToggle<CR>
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+nmap <Leader>ha <Plug>GitGutterStageHunk
+nmap <Leader>hu <Plug>GitGutterRevertHunk
 
 
 " https://github.com/majutsushi/tagbar
