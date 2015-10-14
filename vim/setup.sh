@@ -57,7 +57,7 @@ symlink() {
 }
 
 main() {
-    local BUNDLE_DIR=$CURDIR/bundle
+    local bundle=$CURDIR/bundle
 
     mkdir -p $CURDIR/{autoload,bundle}
     curl -LSso $CURDIR/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -82,12 +82,6 @@ main() {
     vim_bundle https://github.com/tpope/vim-commentary.git
     vim_bundle https://github.com/sjl/gundo.vim.git
 
-    # Interactive Command Execution
-    #[[ ! -d $BUNDLE_DIR/vimproc.vim ]] && make_vimproc=true
-    #vim_bundle https://github.com/Shougo/vimproc.vim.git
-    #[[ $make_vimproc == 'true' ]] && cd $BUNDLE_DIR/vimproc.vim && make
-    #vim_bundle https://github.com/Shougo/vimshell.vim.git
-
     # Git
     vim_bundle https://github.com/airblade/vim-gitgutter.git
     vim_bundle https://github.com/tpope/vim-fugitive.git
@@ -107,6 +101,13 @@ main() {
 
     # Python
     vim_bundle https://github.com/davidhalter/jedi-vim.git
+    vim_bundle https://github.com/jmcantrell/vim-virtualenv.git
+
+    # Interactive Command Execution
+    [[ ! -d $bundle/vimproc.vim ]] && make_vimproc=true
+    vim_bundle https://github.com/Shougo/vimproc.vim.git
+    [[ $make_vimproc == 'true' ]] && cd $bundle/vimproc.vim && make
+    vim_bundle https://github.com/Shougo/vimshell.vim.git
 
     # Backup and symlink directory and files
     symlink "$CURDIR" "$HOME/.vim"

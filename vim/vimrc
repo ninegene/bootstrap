@@ -22,122 +22,34 @@ endif
 let mapleader = ","
 let g:mapleader = ","
 
-" Auto-clean fugitive buffers to prevent the buffers being swamped with fugitive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
-
-" Git
-"noremap <Leader>gs :Gstatus<CR>
-"noremap <Leader>gb :Gblame<CR>
-"noremap <Leader>gd :Gvdiff<CR>
-
-" https://github.com/kien/ctrlp.vim
-"let g:ctrlp_map = '<c-p>'
-"let g:ctrlp_cmd = 'ctrlp'
-" Show dotfiles
-"let g:ctrlp_show_hidden = 1
-let g:ctrlp_show_hidden = 0
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]tmp|venv|\.(venv|idea|git|hg|svn|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
-            \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\',
-            \ }
-nnoremap <leader>f :CtrlP<CR>
-nnoremap <leader>bm :CtrlPMRUFiles<CR>
-nnoremap <leader>bx :CtrlPMixed<CR>
-nnoremap <leader>bb :CtrlPBuffer<CR>
-nnoremap <leader>bw :CtrlPCurWD<CR>
-nnoremap <leader>bt :CtrlPTag<CR>
-
-" Previous/Next Buffer (Or use '[b' and ']b')
-noremap <leader>z :bp<CR>
-noremap <leader>w :bn<CR>
-
-" Close buffer
-noremap <leader>bq :bp <BAR> bd #<CR>
-
-" Show all open buffers and their status (Or use CtrlPBuffer <leader>bb)
-nmap <leader>bl :ls<CR>
+" Quickly edit/reload the vimrc file with ,ev and ,sv
+nmap <leader>ev :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
+nmap <silent> <leader>sv :w!<CR>:so ~/.vimrc<CR>:exe ":echo 'vimrc reloaded'"<CR>:setlocal nohls!<CR>
 
 " Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+noremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Opens a tab edit command with the path of the currently edited file filled
-noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+noremap <leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
-" https://github.com/scrooloose/syntastic
-" syntastic: error: your shell /usr/local/bin/fish doesn't use traditional
-" UNIX syntax for redirections
-set shell=/bin/bash
+noremap \h :<C-u>split<CR>
+noremap \v :<C-u>vsplit<CR>
 
-" No automatic checks for python files
-"let g:syntastic_mode_map = { 'mode': 'active',
-"                                \ 'active_filetypes': [],
-"                                \ 'passive_filetypes': ['python'] }
-"let g:syntastic_python_checkers = ['flake8', 'pylint']
-let g:syntastic_python_checkers = ['flake8']
-" https://github.com/scrooloose/syntastic/issues/482
-" http://flake8.readthedocs.org/en/latest/warnings.html
-let g:syntastic_python_flake8_args = '--ignore=E501,E225 --max-line-length=99'
-let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=99'
+" Complete whole filenames/lines with a quicker shortcut key in insert mode
+imap <C-F> <C-X><C-F>
+imap <C-L> <C-X><C-L>
 
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_auto_jump = 1
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_style_warning_symbol = '⚠'
-let g:syntastic_check_on_open = 1
-"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []  }
-"nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+" Format the entire file
+nnoremap <leader>l :normal! gg=G``<CR>
 
-" https://github.com/majutsushi/tagbar
-nnoremap \t :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
+" Find merge conflict markers
+nmap <silent> <leader>cm <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
-" https://github.com/scrooloose/nerdtree
-" Open a NERDTree when vim starts up
-"autocmd vimenter * NERDTree
-" Open a NERDTree when vim starts up if no files were specified
-"autocmd vimenter * if !argc() | NERDTree | endif
-" Close vim if the only window left open is NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeShowHidden=0
-let NERDTreeIgnore=['.DS_Store', '\.pyc$', '\.class$', '\.git$[[dir]]', '\.vim$[[dir]]', '\.Trash$[[dir]]']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-"let g:NERDTreeWinSize = 20
-nnoremap <silent> <F7> :NERDTreeFind<CR>
-noremap <leader>n :NERDTreeToggle<CR>
+" Quite buffer: Switch to previous buffer and delete buffer
+noremap <leader>q :bp <BAR> bd #<CR>
 
-" https://github.com/sjl/gundo.vim
-map \u :GundoToggle<CR>
-
-" https://github.com/nvie/vim-flake8
-"let g:flake8_ignore="E501"
-"let g:flake8_max_line_length=99
-" run Flake8 check every time you write/save a Python file
-"autocmd BufWritePost *.py call Flake8()
-
-" https://github.com/davidhalter/jedi-vim
-"let g:jedi#use_tabs_not_buffers = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#goto_assignments_command = "<leader>jg"
-let g:jedi#goto_definitions_command = "<leader>jd"
-let g:jedi#rename_command = "<leader>jr"
-let g:jedi#usages_command = "<leader>jn"
-":Pyimport			e.g. `:Pyimport os` shows os.py in VIM.
-let g:jedi#documentation_command = "K"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#show_call_signatures = 1
-
-" https://github.com/Shougo/neocomplete.vim
-let g:neocomplete#enable_at_startup = 1
-
-" Quickly edit/reload the vimrc file with ,ev and ,sv
-nmap <leader>v :tabedit ~/.vimrc<CR><C-W>_:set textwidth=0<CR>:exe ":echo 'vimrc loaded'"<CR>
-nmap <silent> <leader>sv :w!<CR>:so ~/.vimrc<CR>:exe ":echo 'vimrc reloaded'"<CR>:setlocal nohls!<CR>
+" Toogle list chars / show whitespaces
+map <leader>list :setlocal list!<CR>:set list?<CR>
 
 " Highlight end of line whitespace.
 highlight WhitespaceEOL ctermbg=red guibg=red
@@ -155,6 +67,10 @@ nnoremap k gk
 map <Down> gj
 map <Up> gk
 
+" Shift-Enter to go to next line
+imap <S-Enter> <Esc>o
+nmap <S-Enter> o<Esc>
+
 " Swap implementations of ` and ' jump to markers
 " By default, ' jumps to the marked line and ` jumps to the marked line and column
 "nnoremap ' `
@@ -169,23 +85,10 @@ map <Up> gk
 "vnoremap <C-S-Up> :m-2<CR>gv=gv
 "vnoremap <C-S-Down> :m'>+<CR>gv=gv
 
-" Shift-Enter to go to next line
-imap <S-Enter> <Esc>o
-nmap <S-Enter> o<Esc>
-
-" Format the entire file
-nnoremap <leader>l :normal! gg=G``<CR>
-
-" Toogle list chars / show whitespaces
-map \lc :setlocal list!<CR>:set list?<CR>
-
-" Find merge conflict markers
-nmap <silent> <leader>cm <ESC>/\v^[<=>]{7}( .*\|$)<CR>
-
 " Qick alignment of text (with ,al ,ar ,ac)
-nmap <leader>al :left<CR>
-nmap <leader>ar :right<CR>
-nmap <leader>ac :center<CR>
+"nmap <leader>al :left<CR>
+"nmap <leader>ar :right<CR>
+"nmap <leader>ac :center<CR>
 
 " Split Window
 " ============
@@ -214,109 +117,9 @@ nmap <leader>ac :center<CR>
 " F4 to delete current buffer to left behind hidden buffer
 " noremap <F4> <Esc>:bdelete<CR><Esc>
 
-" Complete whole filenames/lines with a quicker shortcut key in insert mode
-imap <C-F> <C-X><C-F>
-imap <C-L> <C-X><C-L>
-
-noremap \h :<C-u>split<CR>
-noremap \v :<C-u>vsplit<CR>
-
-" Yanking/Copying, Pasting and Replacing
-" ======================================
-
-" When in insert mode, press <F2> to go to paste mode, so that the clipboard won't be autoindented
-set pastetoggle=<F2>
-" Also in normal mode
-nmap <F2> :set paste!<CR>:set paste?<CR>
-
-" Use ,d (or ,dd or ,dj or 20,dd) to delete without adding it to the yanked stack
-" Conflict with python jedi
-nmap <silent> <leader>d "_d
-" Also, in visual mode
-map <silent> <leader>d "_d
-
-" Yank/paste to the OS clipboard with ,y and ,P and ,p
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-
-" Ctrl-c to copy selected text in virtual mode
-vnoremap <C-c> "+y<CR>
-
-" Replace the current word or visually selected text with the clipboard contents
-nnoremap <F6> viw"+p<CR>
-
-" Make p in visual mode replace the selected text with the yank register
-vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
-
-" Prompt to enter text to replace current word or the selected text (use register r)
-nnoremap <C-h> "ryiw:%s/<C-r>r//gc<Left><Left><Left>
-vnoremap <C-h> "ry:%s/<C-r>r//gc<Left><Left><Left>
-
-" Show the registers from things cut/yanked
-" Conflict with python jedi
-nmap <leader>r :reg<CR>
-
-" Map the various registers to a leader shortcut for pasting from them
-nmap <leader>0 "0p
-nmap <leader>1 "1p
-nmap <leader>2 "2p
-nmap <leader>3 "3p
-nmap <leader>4 "4p
-nmap <leader>5 "5p
-nmap <leader>6 "6p
-nmap <leader>7 "7p
-nmap <leader>8 "8p
-nmap <leader>9 "9p
-
-" In visual mode when you press * or # to search for the current selection
-vnoremap <silent> * :call VisualSearch('f')<CR>
-vnoremap <silent> # :call VisualSearch('b')<CR>
-
-"" Vmap for maintain Visual Mode after shifting > and <
-vmap < <gv
-vmap > >gv
-
-" grep.vim
-nnoremap <silent> <leader>g :Rgrep<CR>
-let Grep_Default_Options = '-IR'
-
-" ack.vim
-nmap <leader>a :Ack ""<Left>
-
-" When you press gv you vimgrep after the selected text
-"vnoremap <silent> gv :call VisualSearch('gv')<CR>
-"map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
-
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
-" Source: Michael Naumann
-function! VisualSearch(direction) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
 
 " Editor Options
 " =============
-
 set number                    " Show line number
 set ruler                     " Show the cursor position all the time
 set showmode                  " Always show what mode we're currently editing in
@@ -335,26 +138,7 @@ set laststatus=2              " Always show status line
 set gcr=a:blinkon0
 set scrolloff=3
 
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ %{fugitive#statusline()}
-
-" vim-airline
-let g:airline_theme = 'powerlineish'
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#syntastic#enabled = 1
-
-" vimshell
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_prompt =  '$ '
-nnoremap <silent> <leader>sh :VimShellCreate<CR>
-
-" ultisnips snippets
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-let g:UltiSnipsEditSplit="vertical"
+" set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ %{fugitive#statusline()}
 
 " Command-line Completion (See 'help: wildmenu')
 set wildmenu                  " Make tab completion for files/buffers to act like bash
@@ -370,11 +154,12 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.ejs set filetype=html
 
 " http://vim.wikia.com/wiki/Append_output_of_an_external_command
-" Usage example: 
+" Usage example:
 " :R find -mtime -8 | xargs grep sometext
 :command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
-" https://raw.githubusercontent.com/tpope/vim-sensible/master/plugin/sensible.vim
+" Based on https://raw.githubusercontent.com/tpope/vim-sensible/master/plugin/sensible.vim
+" Instead of using sensible.vim as bundle copy options to allow customization
 set fileformats+=mac
 
 if &history < 1000
@@ -458,7 +243,7 @@ nmap tab2 :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
 " Confirm to Python PEP8
 " autocmd FileType python set tabstop=4 softtabstop=4 expandtab shiftwidth=4 cinwords=if,elif,else,for,while,try,except,finally,def,class augroup END
 
-autocmd Filetype javascript,css,sass,less setlocal tabstop=2 softtabstop=2 expandtab shiftwidth=2
+" autocmd Filetype javascript,css,sass,less setlocal tabstop=2 softtabstop=2 expandtab shiftwidth=2
 
 " Show matching pairs
 set showmatch                 " Show matching parenthesis
@@ -493,6 +278,231 @@ set switchbuf=useopen         " Reveal already opened files from the quickfix wi
 set nobackup
 set nowritebackup
 set noswapfile
+
+
+" Yanking/Copying, Pasting and Replacing
+" ======================================
+
+" When in insert mode, press <F2> to go to paste mode, so that the clipboard won't be autoindented
+set pastetoggle=<F2>
+" Also in normal mode
+nmap <F2> :set paste!<CR>:set paste?<CR>
+
+" Use ,d (or ,dd or ,dj or 20,dd) to delete without adding it to the yanked stack
+" Conflict with python jedi
+nmap <silent> <leader>d "_d
+" Also, in visual mode
+map <silent> <leader>d "_d
+
+" Yank/paste to the OS clipboard with ,y and ,P and ,p
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+
+" Ctrl-c to copy selected text in virtual mode
+vnoremap <C-c> "+y<CR>
+
+" Replace the current word or visually selected text with the clipboard contents
+nnoremap <F6> viw"+p<CR>
+
+" Make p in visual mode replace the selected text with the yank register
+vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+
+" Prompt to enter text to replace current word or the selected text (use register r)
+nnoremap <C-h> "ryiw:%s/<C-r>r//gc<Left><Left><Left>
+vnoremap <C-h> "ry:%s/<C-r>r//gc<Left><Left><Left>
+
+" Show the registers from things cut/yanked
+" Conflict with python jedi
+nmap <leader>r :reg<CR>
+
+" Map the various registers to a leader shortcut for pasting from them
+nmap <leader>0 "0p
+nmap <leader>1 "1p
+nmap <leader>2 "2p
+nmap <leader>3 "3p
+nmap <leader>4 "4p
+nmap <leader>5 "5p
+nmap <leader>6 "6p
+nmap <leader>7 "7p
+nmap <leader>8 "8p
+nmap <leader>9 "9p
+
+" In visual mode when you press * or # to search for the current selection
+vnoremap <silent> * :call VisualSearch('f')<CR>
+vnoremap <silent> # :call VisualSearch('b')<CR>
+
+"" Vmap for maintain Visual Mode after shifting > and <
+vmap < <gv
+vmap > >gv
+
+" When you press gv you vimgrep after the selected text
+"vnoremap <silent> gv :call VisualSearch('gv')<CR>
+"map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+" Source: Michael Naumann
+function! VisualSearch(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+
+" https://github.com/tpope/vim-fugitive
+" =====================================
+" Auto-clean fugitive buffers to prevent the buffers being swamped with fugitive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+
+" https://github.com/airblade/vim-gitgutter
+" =========================================
+nnoremap cog :GitGutterToggle<CR>
+
+
+" https://github.com/majutsushi/tagbar
+" ====================================
+nnoremap <leader>tt :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+
+
+" https://github.com/Shougo/neocomplete.vim
+" =========================================
+let g:neocomplete#enable_at_startup = 1
+
+
+" https://github.com/SirVer/ultisnips
+" ===================================
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsEditSplit="vertical"
+
+
+" https://github.com/scrooloose/nerdtree
+" ======================================
+" Close vim if the only window left open is NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let NERDTreeShowHidden=0
+let NERDTreeIgnore=['.DS_Store', '\.pyc$', '\.class$', '\.git$[[dir]]', '\.vim$[[dir]]', '\.Trash$[[dir]]']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+"let g:NERDTreeWinSize = 20
+noremap <leader>n :NERDTreeToggle<CR>
+
+
+" https://github.com/kien/ctrlp.vim
+" =================================
+let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'ctrlp'
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/]tmp|venv|\.(venv|idea|git|hg|svn|cache|cocoapods|cups|dropbox|filezilla|npm|node-gyp|gvm|m2|macports|pip|grails|Trash)$',
+            \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\',
+            \ }
+nnoremap <leader>f :CtrlP<CR>
+nnoremap <leader>bm :CtrlPMRUFiles<CR>
+nnoremap <leader>bx :CtrlPMixed<CR>
+nnoremap <leader>bb :CtrlPBuffer<CR>
+nnoremap <leader>bw :CtrlPCurWD<CR>
+nnoremap <leader>bt :CtrlPTag<CR>
+
+
+" https://github.com/vim-scripts/grep.vim
+" =======================================
+nnoremap <silent> <leader>grep :Rgrep<CR>
+let Grep_Default_Options = '-IR'
+
+
+" https://github.com/mileszs/ack.vim
+" ==================================
+nmap <leader>ack :Ack ""<Left>
+
+
+" https://github.com/bling/vim-airline
+" ====================================
+let g:airline_theme = 'powerlineish'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#syntastic#enabled = 1
+
+
+" https://github.com/sjl/gundo.vim
+" ================================
+map <leader>undo :GundoToggle<CR>
+
+
+" https://github.com/scrooloose/syntastic
+" =======================================
+" fix "syntastic: error: your shell /usr/local/bin/fish doesn't use traditional UNIX syntax for redirections"
+set shell=/bin/bash
+" No automatic checks for python files
+"let g:syntastic_mode_map = { 'mode': 'active',
+"                                \ 'active_filetypes': [],
+"                                \ 'passive_filetypes': ['python'] }
+"let g:syntastic_python_checkers = ['flake8', 'pylint']
+let g:syntastic_python_checkers = ['flake8']
+" https://github.com/scrooloose/syntastic/issues/482
+" http://flake8.readthedocs.org/en/latest/warnings.html
+let g:syntastic_python_flake8_args = '--ignore=E501,E225 --max-line-length=99'
+let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=99'
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_auto_jump = 1
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_check_on_open = 1
+
+
+"https://github.com/davidhalter/jedi-vim
+" ======================================
+"let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#goto_assignments_command = "<leader>jg"
+let g:jedi#goto_definitions_command = "<leader>jd"
+let g:jedi#rename_command = "<leader>jr"
+let g:jedi#usages_command = "<leader>jn"
+":Pyimport			e.g. `:Pyimport os` shows os.py in VIM.
+let g:jedi#documentation_command = "K"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#show_call_signatures = 1
+
+
+" https://github.com/jmcantrell/vim-virtualenv
+" ============================================
+let g:virtualenv_auto_activate = 1
+
+
+" https://github.com/Shougo/vimshell.vim
+" ======================================
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+let g:vimshell_prompt =  '$ '
+nnoremap <silent> <leader>sh :VimShellCreate<CR>
+
 
 " Include user's local vim config
 if filereadable(expand("~/.vimrc.local"))
