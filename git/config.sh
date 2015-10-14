@@ -122,6 +122,8 @@ main() {
 
     ## git commit ##
 
+    git config --global alias.aa "add --all"
+
     git config --global alias.ci "commit -m"
 
     # Commit all changes (adds, modifies, and removes index entries to match the working tree)
