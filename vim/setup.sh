@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
-CURDIR=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
+if command -v greadlink > /dev/null; then
+    CURDIR=$(dirname "$(greadlink -f "$0")")
+else
+    CURDIR=$(dirname "$(readlink -f "$0")")
+fi
 
 vim_bundle() {
     local url=$1
@@ -108,6 +112,9 @@ main() {
     vim_bundle https://github.com/Shougo/vimproc.vim.git
     [[ $make_vimproc == 'true' ]] && cd $bundle/vimproc.vim && make
     vim_bundle https://github.com/Shougo/vimshell.vim.git
+
+    # Mac specific Api doc lookup app
+    [[ -d /Applications/Dash.app ]] && vim_bundle https://github.com/rizzatti/dash.vim.git
 
     # Backup and symlink directory and files
     symlink "$CURDIR" "$HOME/.vim"

@@ -35,53 +35,88 @@ function install_linux_desktop_pkgs {
     fi
 }
 
+function brew_install {
+    local pkg=$1
+    if brew list -1 | grep -q "^${pkg}\$"; then
+        set +e
+        brew upgrade $1
+        set -e
+    else
+        (set -x; brew install $@)
+    fi
+}
+
+function brew_cask_install {
+    local pkg=$1
+    if brew cask list -1 | grep -q "^${pkg}\$"; then
+        set +e
+        # upgrade is not availalbe
+        #brew cask upgrade $1
+        echo "$pkg already installed. Need to manually uninstall and install to upgrade."
+        set -e
+    else
+        (set -x; brew cask install $@)
+    fi
+}
+
 function install_mac_pkgs {
+    (set -x
     brew update
     brew tap homebrew/dupes
+    )
 
     # GNU packages
-    brew install coreutils
-    brew install findutils --with-default-names # GNU find, locate, updatedb, xargs
-    # We don't want to use GNU locate, so rename it
-    sudo mv /usr/local/bin/locate /usr/local/bin/glocate
+    brew_install coreutils # GNU ls, readlink etc.
+    brew_install findutils # GNU find, locate, updatedb, xargs
 
-    brew install diffutils # GNU diff, cmp, diff3, sdif
-    brew install wdiff --with-gettext
-    brew install gawk
-    brew install gnu-indent --with-default-names
-    brew install gnu-sed --with-default-names
-    brew install gnu-tar --with-default-names
-    brew install gnu-which --with-default-names
-    brew install gnutls --with-default-names
-    brew install grep --with-default-names
-    brew install screen
-    brew install wget
-    brew install gzip
-    brew install watch
+    brew_install diffutils # GNU diff, cmp, diff3, sdif
+    brew_install wdiff --with-gettext
+    brew_install gawk
+    brew_install gnu-indent --with-default-names
+    brew_install gnu-sed --with-default-names
+    brew_install gnu-tar --with-default-names
+    brew_install gnu-which --with-default-names
+    brew_install gnutls --with-default-names
+    brew_install grep --with-default-names
+    brew_install screen
+    brew_install wget
+    brew_install gzip
+    brew_install watch
 
-    brew install openssl
-    brew install openssh
-    brew install python
+    brew_install openssl
+    brew_install openssh
+
+    brew_install git
+    # --with-lua for neocomplete.vim
+    brew_install vim --override-system-vi --with-lua
+    brew_install macvim --override-system-vim --custom-icons --with-lua
+    brew_install tree colordiff
+    brew_install md5sha1sum
+    brew_install ctags # for tagbar vim plugin
+    brew_install ack   # for ack.vim plugin
+
+    brew_install fpp
+
+    brew_install python
     easy_install -U pip
     install_python_pkgs
 
-    brew install git
-    # --with-lua for neocomplete.vim
-    brew install vim --override-system-vi --with-lua
-    brew install macvim --override-system-vim --custom-icons --with-lua
-    brew install tree colordiff
-    brew install md5sha1sum
-    brew install ctags # for tagbar vim plugin
-    brew install ack   # for ack.vim plugin
+    brew_install caskroom/cask/brew-cask
 
-    brew install fpp
+    (set -x; brew cask update)
+    brew_cask_install dash
+    brew_cask_install alfred
+    brew_cask_install flycut
+    brew_cask_install dropbox
+    brew_cask_install evernote
+    brew_cask_install slack
+    brew_cask_install virtualbox
+    brew_cask_install vagrant
+    brew_cask_install sourcetree
+    brew_cask_install github-desktop
+    brew_cask_install vlc
 
-    brew linkapps
-    echo "
-    Needs to run the following to work around MacVim not available in spot light or alfred
-      $ mv /usr/local/Cellar/macvim/7.4-73_1/MacVim.app /Applications/
-      $ ln -s /Applications/MacVim.app /usr/local/Cellar/macvim/7.4-73_1/
-    "
+    (set -x; brew linkapps)
 }
 
 function install_python_pip {

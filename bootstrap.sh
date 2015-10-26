@@ -16,7 +16,11 @@ DESCRIPTION
 EOF
 }
 
-CURDIR=$(dirname "$(readlink -f "$0")")
+if command -v greadlink > /dev/null; then
+    CURDIR=$(dirname "$(greadlink -f "$0")")
+else
+    CURDIR=$(dirname "$(readlink -f "$0")")
+fi
 
 md5() {
     local file=$1
@@ -36,11 +40,11 @@ backup() {
     elif [[ -f $file ]]; then
         local backup=${file}.$(md5 "$file").bak
         mv "$file" "$backup"
-        echo "Backed up file to $backup"
+        echo "Backed up $file to $backup"
     elif [[ -d $file ]]; then
         local backup=${file}.$(date +%Y%m%d%H%M%S).bak
         mv "$file" "$backup"
-        echo "Backed up dir to $backup"
+        echo "Backed up $file to $backup"
     fi
 }
 
@@ -49,7 +53,7 @@ symlink() {
     local dst=$2
 
     backup "$dst"
-    ln -s "$src" "$dst"
+    (set -x; ln -s "$src" "$dst")
     echo "Created symlink $dst"
 }
 
