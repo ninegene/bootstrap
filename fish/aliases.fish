@@ -13,6 +13,9 @@ switch (uname -s)
     type gls > /dev/null 2>&1; and alias ls 'gls -CF --color=auto'
     type gls > /dev/null 2>&1; and alias ll 'gls -alFh --color=auto --group-directories-first'
 
+    # list old files/dirs first
+    alias lr 'gls -alFhtr'
+
     # Show/hide hidden files in Finder
     alias showfiles "defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder"
     alias hidefiles "defaults write com.apple.finder AppleShowAllFiles -bool false; killall Finder"
