@@ -95,7 +95,11 @@ function install_mac_pkgs {
     brew_install ctags # for tagbar vim plugin
     brew_install ack   # for ack.vim plugin
 
+    # https://github.com/facebook/pathpicker/
     brew_install fpp
+
+    # http://www.jenv.be/
+    brew_install jenv
 
     brew_install python
     easy_install -U pip
@@ -112,6 +116,8 @@ function install_mac_pkgs {
     brew_cask_install slack
     brew_cask_install virtualbox
     brew_cask_install vagrant
+    brew_cask_install java7
+    brew_cask_install java # current version is java 8
     brew_cask_install sourcetree
     brew_cask_install github-desktop
     brew_cask_install vlc
@@ -165,6 +171,7 @@ function main {
         ;;
     Darwin)
         install_mac_pkgs
+        echo "Configure jenv (See: http://www.jenv.be/)"
         ;;
     *)
         echo 'Unknown platform. Fail to insatll.'
