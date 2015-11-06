@@ -9,6 +9,7 @@ end
 
 . ~/.config/fish/prompt.fish
 . ~/.config/fish/aliases.fish
+. ~/.config/fish/nvm.fish
 
 if test -f ~/.config/fish/local.fish
     . ~/.config/fish/local.fish

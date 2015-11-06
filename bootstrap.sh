@@ -80,9 +80,18 @@ setup_fish() {
     symlink "$CURDIR/fish/prompt.fish" "$HOME/.config/fish/prompt.fish"
     symlink "$CURDIR/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
     symlink "$CURDIR/fish/config.fish" "$HOME/.config/fish/config.fish"
+    symlink "$CURDIR/fish/nvm.fish" "$HOME/.config/fish/nvm.fish"
 
     mkdir -p $HOME/.config/fish/functions
     symlink "$CURDIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
+
+    if [[ -d $HOME/.config/fish/plugin-foreign-env/.git ]]; then
+        cd $HOME/.config/fish/plugin-foreign-env
+        git pull
+    else
+        cd $HOME/.config/fish/
+        git clone https://github.com/oh-my-fish/plugin-foreign-env
+    fi
 }
 
 setup_vim() {
