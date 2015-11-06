@@ -153,6 +153,9 @@ autocmd BufEnter * silent! lcd %:p:h
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.ejs set filetype=html
 
+" Enable spelling checking for *.md
+"autocmd BufRead,BufNewFile *.md setlocal spell
+
 " http://vim.wikia.com/wiki/Append_output_of_an_external_command
 " Usage example:
 " :R find -mtime -8 | xargs grep sometext
@@ -405,7 +408,7 @@ let g:UltiSnipsEditSplit="vertical"
 " ======================================
 " Close vim if the only window left open is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeShowHidden=0
+let NERDTreeShowHidden=1
 let NERDTreeIgnore=['.DS_Store', '\.pyc$', '\.class$', '\.git$[[dir]]', '\.vim$[[dir]]', '\.Trash$[[dir]]']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
