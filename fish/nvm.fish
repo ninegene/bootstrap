@@ -2,7 +2,7 @@
 if test -d "$HOME/.config/fish/plugin-foreign-env/functions"
     set fish_function_path $fish_function_path $HOME/.config/fish/plugin-foreign-env/functions
 
-    if test -f ~/.nvm/nvm.sh
+    if test -s ~/.nvm/nvm.sh
         # see: https://github.com/derekstavis/plugin-nvm/blob/master/init.fish
         set -q NVM_DIR; or set -gx NVM_DIR ~/.nvm
         fenv source $NVM_DIR/nvm.sh >/dev/null ^&1
