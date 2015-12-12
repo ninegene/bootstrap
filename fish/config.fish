@@ -16,3 +16,4 @@ if test -f ~/.config/fish/local.fish
 end
 
 set -U EDITOR vim
+set -U REACT_EDITOR mvim
