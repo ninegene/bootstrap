@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+list_available_versions() {
+    echo "Available Versions:"
+    for version in $(find /usr/lib/jvm/ -maxdepth 1 -executable -type d | egrep -o 'jdk1.*' | sort)
+    do
+        echo $version
+    done
+}
+
+if [ -z "$1" ]; then
+    echo "Usage: $(basename $0) <version>"
+    list_available_versions
+    exit 0
+fi
+
+VERSION=$1
+
+sudo update-alternatives --set jar /usr/lib/jvm/${VERSION}/bin/jar
+sudo update-alternatives --set java /usr/lib/jvm/${VERSION}/bin/java
+sudo update-alternatives --set javac /usr/lib/jvm/${VERSION}/bin/javac

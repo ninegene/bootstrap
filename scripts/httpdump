@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+function usage {
+cat << EOF
+USAGE
+    $(basename $0) <network interface>
+
+DESCRIPTION
+    Simple tcpdump wrapper for monitoring http traffic.
+EOF
+}
+
+[[ $1 == '-h' || $1 == '--help' ]] && usage && exit 0
+[[ ! $1 ]] && usage && exit 1
+
+interface=$1
+
+sudo tcpdump -i $interface -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"

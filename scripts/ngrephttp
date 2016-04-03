@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+function usage {
+cat << EOF
+USAGE
+    $(basename $0) <network interface>
+
+DESCRIPTION
+    Simple ngrep wrapper for monitoring http traffic.
+EOF
+}
+
+[[ $1 == '-h' || $1 == '--help' ]] && usage && exit 0
+[[ ! $1 ]] && usage && exit 1
+
+interface=$1
+
+sudo ngrep -d $interface -t '^(GET|POST) ' 'tcp and port 80'

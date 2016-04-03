@@ -1,0 +1,5 @@
+#!/bin/bash
+
+NUM=${1-10}
+
+ps -eo comm,user,pid,ppid,pcpu,pmem --sort=-pmem | head -n${NUM}

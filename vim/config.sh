@@ -1,15 +1,12 @@
 #!/bin/bash
 set -e
 
-if command -v greadlink > /dev/null; then
-    CURDIR=$(dirname "$(greadlink -f "$0")")
-else
-    CURDIR=$(dirname "$(readlink -f "$0")")
-fi
+PROGDIR=$(cd $(dirname "$0"); pwd)
+VIMDIR=$PROGDIR
 
 vim_bundle() {
     local url=$1
-    local dir=$CURDIR/bundle/$(basename $url)
+    local dir=$VIMDIR/bundle/$(basename $url)
 
     if [[ ${dir: -4} == ".git" ]]; then
         dir=${dir%%????} # remove last '.git'
@@ -20,7 +17,7 @@ vim_bundle() {
         cd $dir
         git pull
     else
-        cd $CURDIR/bundle
+        cd $VIMDIR/bundle
         git clone $url $dir
     fi
 }
@@ -61,17 +58,14 @@ symlink() {
 }
 
 main() {
-    local bundle=$CURDIR/bundle
-
-    mkdir -p $CURDIR/{autoload,bundle}
-    curl -LSso $CURDIR/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+    mkdir -p $VIMDIR/{autoload,bundle}
+    curl -LSso $VIMDIR/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
     # File Browsing/Searching
     vim_bundle https://github.com/mhinz/vim-startify.git
     vim_bundle https://github.com/scrooloose/nerdtree.git
     vim_bundle https://github.com/kien/ctrlp.vim.git
     vim_bundle https://github.com/vim-scripts/grep.vim.git
-    vim_bundle https://github.com/mileszs/ack.vim.git
 
     # Visual
     vim_bundle https://github.com/bling/vim-airline.git
@@ -108,19 +102,19 @@ main() {
     vim_bundle https://github.com/jmcantrell/vim-virtualenv.git
 
     # Interactive Command Execution
-    [[ ! -d $bundle/vimproc.vim ]] && make_vimproc=true
+    [[ ! -d $VIMDIR/bundle/vimproc.vim ]] && make_vimproc=true
     vim_bundle https://github.com/Shougo/vimproc.vim.git
-    [[ $make_vimproc == 'true' ]] && cd $bundle/vimproc.vim && make
+    [[ $make_vimproc == 'true' ]] && cd $VIMDIR/bundle/vimproc.vim && make
     vim_bundle https://github.com/Shougo/vimshell.vim.git
 
     # Mac specific Api doc lookup app
     [[ -d /Applications/Dash.app ]] && vim_bundle https://github.com/rizzatti/dash.vim.git
 
     # Backup and symlink directory and files
-    symlink "$CURDIR" "$HOME/.vim"
-    symlink "$CURDIR/vimrc" "$HOME/.vimrc"
-    symlink "$CURDIR/gvimrc" "$HOME/.gvimrc"
-    symlink "$CURDIR/ctags" "$HOME/.ctags"
+    symlink "$VIMDIR" "$HOME/.vim"
+    symlink "$VIMDIR/vimrc" "$HOME/.vimrc"
+    symlink "$VIMDIR/gvimrc" "$HOME/.gvimrc"
+    symlink "$VIMDIR/ctags" "$HOME/.ctags"
 }
 
 main

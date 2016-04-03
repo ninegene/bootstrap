@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+if [[ -z $1 ]]; then
+    echo "Usage: $(basename $0) <IMAGE_NAME>"
+    exit 1
+fi
+
+imagename=$1
+
+(set -x; docker rmi $imagename)

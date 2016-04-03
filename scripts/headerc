@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+function usage {
+cat << EOF
+USAGE
+    $(basename $0) <url>
+
+DESCRIPTION
+    Check webserver header and GZIP coompression info.
+EOF
+}
+
+[[ $1 == '-h' || $1 == '--help' ]] && usage && exit 0
+[[ ! $1 ]] && usage && exit 1
+
+url=$1
+
+uncompressed_size=$(curl "$url" --silent --write-out "%{size_download}\n" --output /dev/null)
+compressed_size=$(curl "$url" --silent -H "Accept-Encoding: gzip,deflate" --write-out "%{size_download}\n" --output /dev/null)
+
+curl -I "$url"
+echo "Uncompressed size: $uncompressed_size bytes"
+echo "Compressed size: $compressed_size bytes"

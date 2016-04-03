@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# based on snippet from: Packtpub.com,. 'Enumerating File Type Statistics - Linux Shell Scripting Cookbook, Second Edition'. N. p., 2015. Web. 8 Nov. 2015.
+
+if [ $# -ne 1 ];
+then
+    echo "Usage: $(basename $0) <file or dir path>";
+    exit
+fi
+
+path=$(readlink -f $1)
+
+declare -A statarray;
+
+while read line;
+do
+    ftype=`file -b "$line" | cut -d, -f1`
+    let statarray["$ftype"]++;
+
+done < <(find $path -type f -print)
+
+echo "File Type : Count"
+echo "================="
+for ftype in "${!statarray[@]}";
+do
+    echo $ftype :  ${statarray["$ftype"]}
+done

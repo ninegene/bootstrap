@@ -1,0 +1,52 @@
+#!/bin/bash
+set -e
+
+if [[ $1 == '-h' ]]; then
+    echo "Usage: $(basename $0) [directory]"
+    exit 0
+fi
+
+if ! command -v avconv >/dev/null 2>&1; then
+    sudo apt-get install -y libav-tools
+fi
+
+set -u
+dir=${1-.}
+dir=$(cd $dir; pwd)
+
+rename_filename() {
+    local file=$@
+    local basedir=$(dirname "$file")
+    local filename=$(basename "$file")
+
+    # See: http://mywiki.wooledge.org/BashFAQ/024
+    # Command of a pipeline is executed in a separate subshell,
+    # so can't get variable set inside loop after loop completion
+    #
+    # avconv -y -i "$file" 2>&1 | while read line; do
+    #     [[ ! $artist ]] && artist=$(echo $line | egrep "artist\s+:" | awk -F ' : ' '{print $2}')
+    #     [[ ! $album ]] && album=$(echo $line | egrep "album\s+:" | awk -F ' : ' '{print $2}')
+    #     [[ ! $title ]] && title=$(echo $line | egrep "title\s+:" | awk -F ' : ' '{print $2}')
+    # done
+    # echo -e "after artist=$artist"
+    # echo -e "after album=$album"
+    # echo -e "after title=$title"
+
+    local artist=$(avconv -y -i "$file" 2>&1 | egrep -m 1 'artist\s+:' | awk -F ' : ' '{print $2}')
+    local album=$(avconv -y -i "$file" 2>&1 | egrep -m 1 'album\s+:' | awk -F ' : ' '{print $2}')
+    local title=$(avconv -y -i "$file" 2>&1 | egrep -m 1 'title\s+:' | awk -F ' : ' '{print $2}')
+    # echo $artist - $album - $title
+    cd $basedir
+    (set -x; mv "$filename" "$artist - $album - $title".m4a)
+}
+
+count=1
+# IFS= makes sure it doesn't trim leading and trailing whitespace
+# -r prevents interpretation of \ escapes.
+# -print0 will use NULL as file separator instead of NL
+# -d$'\0' will use NULL as the separator while reading
+find $dir -name '*.m4a' -print0 | while IFS= read -r -d $'\0' file; do
+    echo "$count $file"
+    rename_filename "$file"
+    count=$((count + 1))
+done

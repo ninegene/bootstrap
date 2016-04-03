@@ -441,14 +441,9 @@ nnoremap <silent> <leader>grep :Rgrep<CR>
 let Grep_Default_Options = '-IR'
 
 
-" https://github.com/mileszs/ack.vim
-" ==================================
-nmap <leader>ack :Ack ""<Left>
-
-
 " https://github.com/bling/vim-airline
 " ====================================
-let g:airline_theme = 'powerlineish'
+" let g:airline_theme = 'powerlineish'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#left_sep = ' '

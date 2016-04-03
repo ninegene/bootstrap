@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+ps axu | grep -v grep | grep "$@" -i --color=auto
