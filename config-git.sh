@@ -53,6 +53,25 @@ config_aliases() {
     git config --global alias.cia "!git add --all && git commit -m"
     git config --global alias.amend "commit --amend"
 
+    ## git diff ##
+
+    # Compare your working directory and the tip of 'dev' branch
+    # $ git diff dev
+
+    # Compare 'application.properties' file in your working directory and the one in 'dev' branch
+    # $ git diff dev -- application.properties
+
+    # Compare two branches (Note that the branch need to be checked out before or exists)
+    # $ git diff dev master
+    # $ git diff dev master -- application.properties
+
+    # Compare two remote tracking branches (Run 'git fetch --all' first if necessary)
+    # $ git diff origin/dev origin/master
+
+    # Compare two commits (commit before latest and the latest commit)
+    # $ git diff HEAD^ HEAD
+    # $ git diff HEAD^ HEAD -- application.properties
+
     git config --global alias.d "diff"
     git config --global alias.dh "diff HEAD"
     git config --global alias.ds "diff --staged" # Same as "diff --cached"
