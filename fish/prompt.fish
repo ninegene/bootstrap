@@ -3,8 +3,6 @@
 set -g __fish_git_prompt_show_informative_status 1
 set -g __fish_git_prompt_hide_untrackedfiles 1
 
-# Comment out the line below because of error: set_color: Unknown color “bold”
-# set -g __fish_git_prompt_color_branch magenta bold
 set -g __fish_git_prompt_color_branch magenta $fish_color_bold
 set -g __fish_git_prompt_showupstream "informative"
 set -g __fish_git_prompt_char_upstream_ahead "↑ "
@@ -21,7 +19,6 @@ set -g __fish_git_prompt_color_dirtystate blue
 set -g __fish_git_prompt_color_stagedstate yellow
 set -g __fish_git_prompt_color_invalidstate red
 set -g __fish_git_prompt_color_untrackedfiles $fish_color_normal
-# set -g __fish_git_prompt_color_cleanstate green bold
 set -g __fish_git_prompt_color_cleanstate green $fish_color_bold
 
 function _remote_hostname
@@ -39,20 +36,6 @@ function _git_status
   end
 end
 
-function _current_datetime
-  set_color normal
-  printf (date "+%Y-%m-%d %H:%M:%S")
-  set_color normal
-end
-
-function _prompt_long_pwd --description 'Print the current working directory'
-  echo $PWD | sed -e "s|^$HOME|~|" -e 's|^/private||'
-end
-
-function _prompt_pwd
-  command pwd
-end
-
 function _symbol
   set -l symbol '$'
 
@@ -62,9 +45,16 @@ function _symbol
     case '*'
       set symbol '$'
   end
-
   set_color normal
+
   echo "$symbol "
+end
+
+function _prompt_long_pwd --description 'Print the current working directory'
+    set -l args_post
+    set -l args_pre -e 's|^/private/|/|'
+    set -l realhome ~
+    echo $PWD | sed -e "s|^$realhome|~|" $args_pre
 end
 
 function fish_prompt --description 'Write out the prompt'
@@ -81,6 +71,7 @@ function fish_prompt --description 'Write out the prompt'
     set -g __fish_prompt_cwd (set_color $fish_color_cwd)
   end
 
-  echo -n -s (_remote_hostname) "$__fish_prompt_cwd" (prompt_pwd) (_git_status) (_symbol)
+  #echo -n -s (_remote_hostname) "$__fish_prompt_cwd" (prompt_pwd) (_git_status) (_symbol)
+  echo -n -s (_remote_hostname) "$__fish_prompt_cwd" (_prompt_long_pwd) (_git_status) (_symbol)
 
 end
