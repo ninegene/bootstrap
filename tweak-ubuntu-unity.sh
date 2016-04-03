@@ -63,6 +63,11 @@ remove_mail_clients() {
     sudo apt-get autoremove
 }
 
+remove_telepathy_messaging_framework() {
+    sudo apt-get purge telepathy-gabble telepathy-haze telepathy-idle telepathy-logger telepathy-mission-control-5 telepathy-salut
+    sudo apt-get autoremove
+}
+
 # Last tested with 14.04.4 LTS
 main() {
     disable_screenoff_when_inactive
@@ -76,6 +81,7 @@ main() {
     remove_ubuntuone
     remove_account_plugins
     remove_mail_clients
+    remove_telepathy_messaging_framework
 }
 
 ${1-main}
