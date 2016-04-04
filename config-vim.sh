@@ -1,65 +1,66 @@
 #!/bin/bash
 set -e
 
-PROGDIR=$(cd $(dirname "$0"); pwd)
-VIMDIR=$PROGDIR
+readonly PROG=`perl -e 'use Cwd "abs_path";print abs_path(shift)' $0`
+readonly PROGDIR=$(dirname ${PROG})
+VIMDIR=${PROGDIR}/vim
 
 vim_bundle() {
-    local url=$1
-    local dir=$VIMDIR/bundle/$(basename $url)
+    local url=${1}
+    local dir=${VIMDIR}/bundle/$(basename ${url})
 
     if [[ ${dir: -4} == ".git" ]]; then
         dir=${dir%%????} # remove last '.git'
     fi
 
-    echo "$dir ---"
-    if [[ -d $dir ]]; then
-        cd $dir
+    echo "${dir} ---"
+    if [[ -d ${dir} ]]; then
+        cd ${dir}
         git pull
     else
-        cd $VIMDIR/bundle
-        git clone $url $dir
+        cd ${VIMDIR}/bundle
+        git clone ${url} ${dir}
     fi
 }
 
 md5() {
-    local file=$1
+    local file=${1}
     if command -v md5sum > /dev/null 2>&1; then
-        echo $(md5sum "$file" | egrep -o "[a-zA-Z0-9]{32}")
+        echo $(md5sum "${file}" | egrep -o "[a-zA-Z0-9]{32}")
     else
-        echo $(openssl md5 "$file" | egrep -o "[a-zA-Z0-9]{32}")
+        echo $(openssl md5 "${file}" | egrep -o "[a-zA-Z0-9]{32}")
     fi
 }
 
 backup() {
-    local file=$1
+    local file=${1}
 
-    if [[ -L $file ]]; then
-        rm "$file"
-        echo "Deleted symlink $file"
-    elif [[ -f $file ]]; then
-        local backup=${file}.$(md5 "$file").bak
-        mv "$file" "$backup"
-        echo "Backed up file to $backup"
-    elif [[ -d $file ]]; then
-        local backup=${file}.$(date +%Y%m%d%H%M%S).bak
-        mv "$file" "$backup"
-        echo "Backed up dir to $backup"
+    if [[ -L ${file} ]]; then
+        rm "${file}"
+        echo "Deleted symlink ${file}"
+    elif [[ -f ${file} ]]; then
+        local bakfile=${file}.$(md5 "${file}").bak
+        mv "${file}" "${bakfile}"
+        echo "Backed up file to ${bakfile}"
+    elif [[ -d ${file} ]]; then
+        local bakdir=${file}.$(date +%Y%m%d%H%M%S).bak
+        mv "${file}" "${bakdir}"
+        echo "Backed up dir to ${bakdir}"
     fi
 }
 
 symlink() {
-    local src=$1
-    local dst=$2
+    local src=${1}
+    local dst=${2}
 
-    backup "$dst"
-    ln -s "$src" "$dst"
-    echo "Created symlink $dst"
+    backup "${dst}"
+    ln -s "${src}" "${dst}"
+    echo "Created symlink ${dst}"
 }
 
-main() {
-    mkdir -p $VIMDIR/{autoload,bundle}
-    curl -LSso $VIMDIR/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+install_vim_bundles() {
+    mkdir -p ${VIMDIR}/{autoload,bundle}
+    curl -LSso ${VIMDIR}/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
     # File Browsing/Searching
     vim_bundle https://github.com/mhinz/vim-startify.git
@@ -102,19 +103,26 @@ main() {
     vim_bundle https://github.com/jmcantrell/vim-virtualenv.git
 
     # Interactive Command Execution
-    [[ ! -d $VIMDIR/bundle/vimproc.vim ]] && make_vimproc=true
+    [[ ! -d ${VIMDIR}/bundle/vimproc.vim ]] && make_vimproc=true
     vim_bundle https://github.com/Shougo/vimproc.vim.git
-    [[ $make_vimproc == 'true' ]] && cd $VIMDIR/bundle/vimproc.vim && make
+    [[ ${make_vimproc} == 'true' ]] && cd ${VIMDIR}/bundle/vimproc.vim && make
     vim_bundle https://github.com/Shougo/vimshell.vim.git
 
     # Mac specific Api doc lookup app
     [[ -d /Applications/Dash.app ]] && vim_bundle https://github.com/rizzatti/dash.vim.git
+}
 
+backup_and_symlink_vim_config() {
     # Backup and symlink directory and files
-    symlink "$VIMDIR" "$HOME/.vim"
-    symlink "$VIMDIR/vimrc" "$HOME/.vimrc"
-    symlink "$VIMDIR/gvimrc" "$HOME/.gvimrc"
-    symlink "$VIMDIR/ctags" "$HOME/.ctags"
+    symlink "${VIMDIR}" "${HOME}/.vim"
+    symlink "${VIMDIR}/vimrc" "${HOME}/.vimrc"
+    symlink "${VIMDIR}/gvimrc" "${HOME}/.gvimrc"
+    symlink "${VIMDIR}/ctags" "${HOME}/.ctags"
+}
+
+main() {
+    install_vim_bundles
+    backup_and_symlink_vim_config
 }
 
 main

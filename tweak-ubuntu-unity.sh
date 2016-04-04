@@ -46,25 +46,8 @@ set_unity_dash_scopes() {
         "['recipes-gourmet.scope', 'more_suggestions-amazon.scope', 'more_suggestions-u1ms.scope', 'more_suggestions-populartracks.scope', 'music-musicstore.scope', 'more_suggestions-ebay.scope', 'more_suggestions-ubuntushop.scope', 'more_suggestions-skimlinks.scope']"
 }
 
-remove_ubuntuone() {
-    sudo apt-get purge oneconf oneconf-common python-oneconf python3-oneconf \
-        python-ubuntu-sso-client ubuntu-sso-client ubuntu-sso-client-qt \
-        ubuntuone-client-data
-    sudo apt-get autoremove
-}
-
-remove_account_plugins() {
-    sudo apt-get purge account-plugin-* libaccount-plugin-*
-    sudo apt-get autoremove
-}
-
 remove_mail_clients() {
-    sudo apt-get purge evolution-data-server* thunderbird*
-    sudo apt-get autoremove
-}
-
-remove_telepathy_messaging_framework() {
-    sudo apt-get purge telepathy-gabble telepathy-haze telepathy-idle telepathy-logger telepathy-mission-control-5 telepathy-salut
+    sudo apt-get purge thunderbird
     sudo apt-get autoremove
 }
 
@@ -78,10 +61,7 @@ main() {
     show_menu_windows_title_bar
     set_unity_dash_scopes
 
-    remove_ubuntuone
-    remove_account_plugins
     remove_mail_clients
-    remove_telepathy_messaging_framework
 }
 
 ${1-main}
