@@ -109,7 +109,9 @@ install_vim_bundles() {
     vim_bundle https://github.com/Shougo/vimshell.vim.git
 
     # Mac specific Api doc lookup app
-    [[ -d /Applications/Dash.app ]] && vim_bundle https://github.com/rizzatti/dash.vim.git
+    if [[ -d /Applications/Dash.app ]]; then
+        vim_bundle https://github.com/rizzatti/dash.vim.git
+    fi
 }
 
 backup_and_symlink_vim_config() {
