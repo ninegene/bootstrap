@@ -7,12 +7,12 @@ set -e
 #   'wget -qO- https://get.docker.com/ | sh'
 #
 # For test builds (ie. release candidates):
-#   'curl -sSL https://test.docker.com/ | sh'
+#   'curl -fsSL https://test.docker.com/ | sh'
 # or:
 #   'wget -qO- https://test.docker.com/ | sh'
 #
 # For experimental builds:
-#   'curl -sSL https://experimental.docker.com/ | sh'
+#   'curl -fsSL https://experimental.docker.com/ | sh'
 # or:
 #   'wget -qO- https://experimental.docker.com/ | sh'
 #
@@ -53,6 +53,7 @@ echo_docker_as_nonroot() {
 
 # Check if this is a forked Linux distro
 check_forked() {
+
 	# Check for lsb_release command existence, it usually exists in forked distros
 	if command_exists lsb_release; then
 		# Check if the `-u` option is supported
@@ -76,8 +77,40 @@ check_forked() {
 			cat <<-EOF
 			Upstream release is '$lsb_dist' version '$dist_version'.
 			EOF
+		else
+			if [ -r /etc/debian_version ] && [ "$lsb_dist" != "ubuntu" ]; then
+				# We're Debian and don't even know it!
+				lsb_dist=debian
+				dist_version="$(cat /etc/debian_version | sed 's/\/.*//' | sed 's/\..*//')"
+				case "$dist_version" in
+					8|'Kali Linux 2')
+						dist_version="jessie"
+					;;
+					7)
+						dist_version="wheezy"
+					;;
+				esac
+			fi
 		fi
 	fi
+}
+
+rpm_import_repository_key() {
+	local key=$1; shift
+	local tmpdir=$(mktemp -d)
+	chmod 600 "$tmpdir"
+	gpg --homedir "$tmpdir" --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"
+	gpg --homedir "$tmpdir" --export --armor "$key" > "$tmpdir"/repo.key
+	rpm --import "$tmpdir"/repo.key
+	rm -rf "$tmpdir"
+}
+
+semverParse() {
+	major="${1%%.*}"
+	minor="${1#$major.}"
+	minor="${minor%%.*}"
+	patch="${1#$major.$minor.}"
+	patch="${patch%%[-.]*}"
 }
 
 do_install() {
@@ -94,6 +127,21 @@ do_install() {
 	esac
 
 	if command_exists docker; then
+		version="$(docker -v | awk -F '[ ,]+' '{ print $3 }')"
+		MAJOR_W=1
+		MINOR_W=10
+
+		semverParse $version
+
+		shouldWarn=0
+		if [ $major -lt $MAJOR_W ]; then
+			shouldWarn=1
+		fi
+
+		if [ $major -le $MAJOR_W ] && [ $minor -lt $MINOR_W ]; then
+			shouldWarn=1
+		fi
+
 		cat >&2 <<-'EOF'
 			Warning: the "docker" command appears to already exist on this system.
 
@@ -102,7 +150,23 @@ do_install() {
 			installation.
 
 			If you installed the current Docker package using this script and are using it
+		EOF
+
+		if [ $shouldWarn -eq 1 ]; then
+			cat >&2 <<-'EOF'
+			again to update Docker, we urge you to migrate your image store before upgrading
+			to v1.10+.
+
+			You can find instructions for this here:
+			https://github.com/docker/docker/wiki/Engine-v1.10.0-content-addressability-migration
+			EOF
+		else
+			cat >&2 <<-'EOF'
 			again to update Docker, you can safely ignore this message.
+			EOF
+		fi
+
+		cat >&2 <<-'EOF'
 
 			You may press Ctrl+C now to abort this script.
 		EOF
@@ -231,10 +295,60 @@ do_install() {
 			exit 0
 			;;
 
-		'opensuse project'|opensuse|'suse linux'|sle[sd])
+		'opensuse project'|opensuse)
+			echo 'Going to perform the following operations:'
+			if [ "$repo" != 'main' ]; then
+				echo '  * add repository obs://Virtualization:containers'
+			fi
+			echo '  * install Docker'
+			$sh_c 'echo "Press CTRL-C to abort"; sleep 3'
+
+			if [ "$repo" != 'main' ]; then
+				# install experimental packages from OBS://Virtualization:containers
+				(
+					set -x
+					zypper -n ar -f obs://Virtualization:containers Virtualization:containers
+					rpm_import_repository_key 55A0B34D49501BB7CA474F5AA193FBB572174FC2
+				)
+			fi
 			(
 				set -x
-				$sh_c 'sleep 3; zypper -n install docker'
+				zypper -n install docker
+			)
+			echo_docker_as_nonroot
+			exit 0
+			;;
+		'suse linux'|sle[sd])
+			echo 'Going to perform the following operations:'
+			if [ "$repo" != 'main' ]; then
+				echo '  * add repository obs://Virtualization:containers'
+				echo '  * install experimental Docker using packages NOT supported by SUSE'
+			else
+				echo '  * add the "Containers" module'
+				echo '  * install Docker using packages supported by SUSE'
+			fi
+			$sh_c 'echo "Press CTRL-C to abort"; sleep 3'
+
+			if [ "$repo" != 'main' ]; then
+				# install experimental packages from OBS://Virtualization:containers
+				echo >&2 'Warning: installing experimental packages from OBS, these packages are NOT supported by SUSE'
+				(
+					set -x
+					zypper -n ar -f obs://Virtualization:containers/SLE_12 Virtualization:containers
+					rpm_import_repository_key 55A0B34D49501BB7CA474F5AA193FBB572174FC2
+				)
+			else
+				# Add the containers module
+				# Note well-1: the SLE machine must already be registered against SUSE Customer Center
+				# Note well-2: the `-r ""` is required to workaround a known issue of SUSEConnect
+				(
+					set -x
+					SUSEConnect -p sle-module-containers/12/x86_64 -r ""
+				)
+			fi
+			(
+				set -x
+				zypper -n install docker
 			)
 			echo_docker_as_nonroot
 			exit 0
@@ -253,7 +367,7 @@ do_install() {
 
 			# aufs is preferred over devicemapper; try to ensure the driver is available.
 			if ! grep -q aufs /proc/filesystems && ! $sh_c 'modprobe aufs'; then
-				if uname -r | grep -q -- '-generic' && dpkg -l 'linux-image-*-generic' | grep -q '^ii' 2>/dev/null; then
+				if uname -r | grep -q -- '-generic' && dpkg -l 'linux-image-*-generic' | grep -qE '^ii|^hi' 2>/dev/null; then
 					kern_extras="linux-image-extra-$(uname -r) linux-image-extra-virtual"
 
 					apt_get_update
@@ -297,7 +411,7 @@ do_install() {
 			set -x
 			$sh_c "apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D"
 			$sh_c "mkdir -p /etc/apt/sources.list.d"
-			$sh_c "echo deb https://apt.dockerproject.org/repo ${lsb_dist}-${dist_version} ${repo} > /etc/apt/sources.list.d/docker.list"
+			$sh_c "echo deb [arch=$(dpkg --print-architecture)] https://apt.dockerproject.org/repo ${lsb_dist}-${dist_version} ${repo} > /etc/apt/sources.list.d/docker.list"
 			$sh_c 'sleep 3; apt-get update; apt-get install -y -q docker-engine'
 			)
 			echo_docker_as_nonroot
@@ -364,7 +478,7 @@ do_install() {
 	  a package for Docker.  Please visit the following URL for more detailed
 	  installation instructions:
 
-	    https://docs.docker.com/en/latest/installation/
+	    https://docs.docker.com/engine/installation/
 
 	EOF
 	exit 1
