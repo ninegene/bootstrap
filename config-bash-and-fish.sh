@@ -50,13 +50,14 @@ config_bash() {
 }
 
 config_fish() {
+    mkdir -p $HOME/.config/fish/functions
+
     symlink "$PROGDIR/fish/profile.fish" "$HOME/.config/fish/profile.fish"
     symlink "$PROGDIR/fish/prompt.fish" "$HOME/.config/fish/prompt.fish"
     symlink "$PROGDIR/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
     symlink "$PROGDIR/fish/config.fish" "$HOME/.config/fish/config.fish"
     symlink "$PROGDIR/fish/nvm.fish" "$HOME/.config/fish/nvm.fish"
 
-    mkdir -p $HOME/.config/fish/functions
     symlink "$PROGDIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
 
     if [[ -d $HOME/.config/fish/plugin-foreign-env/.git ]]; then
