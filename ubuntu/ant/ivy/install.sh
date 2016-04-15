@@ -1,9 +1,31 @@
 #!/bin/bash
-set -e
+set -eu
 
-cd /tmp
+basedir=$(dirname "$(readlink -f "$0")")
 
-curl -O -L http://archive.apache.org/dist/ant/ivy/2.4.0/apache-ivy-2.4.0-bin.tar.gz
-tar xzf apache-ivy-2.4.0-bin.tar.gz
-sudo cp apache-ivy-2.4.0/ivy-2.4.0.jar /usr/local/ant/lib
-sudo mv apache-ivy-2.4.0 /usr/local/
+echo "Downloading ..."
+# downloadedfile is absolute path
+downloadedfile=$($basedir/download.sh | tail -1)
+downloadeddir=$(dirname $downloadedfile)
+pkgdir=$(tar -tzf $downloadedfile | head -1 | awk -F/ '{print $1}')
+version=$(echo $pkgdir | egrep -o '[0-9]+\.[0-9]+\.[0-9]')
+
+main() {
+    echo "Installing ..."
+
+    if [ -d /usr/local/$pkgdir ]; then
+        echo "directory exists: /usr/local/$pkgdir"
+        echo "Exiting ..."
+        exit 1
+    fi
+
+    (set -x
+    cd $downloadeddir
+    tar xf $downloadedfile
+    sudo mv $pkgdir /usr/local/
+    sudo cp /usr/local/$pkgdir/ivy-${version}.jar /usr/local/ant/lib
+    )
+    echo "Done."
+}
+
+main

@@ -1,22 +1,29 @@
 #!/bin/bash
-set -e
+set -eu
 
-cd /tmp
+basedir=$(dirname "$(readlink -f "$0")")
 
-curl -O -L http://mirror.sdunix.com/apache/ant/binaries/apache-ant-1.9.5-bin.tar.gz
-tar xzvf apache-ant-1.9.5-bin.tar.gz
-sudo mv apache-ant-1.9.5 /usr/local/
+echo "Downloading ..."
+# downloadedfile is absolute path
+downloadedfile=$($basedir/download.sh | tail -1)
+downloadeddir=$(dirname $downloadedfile)
+pkgdir=$(tar -tzf $downloadedfile | head -1 | awk -F/ '{print $1}')
 
-if [ -L /usr/local/ant ]; then
-    echo Removing symlink /usr/local/ant
-    sudo rm /usr/local/ant
-fi
-sudo ln -s /usr/local/apache-ant-1.9.5 /usr/local/ant
+main() {
+    echo "Installing ..."
 
+    if [ -d /usr/local/$pkgdir ]; then
+        echo "directory exists: /usr/local/$pkgdir"
+        echo "Exiting ..."
+        exit 1
+    fi
 
-if [ -L /usr/bin/ant ]; then
-    echo Removing symlink /usr/bin/ant
-    sudo rm /usr/bin/ant
-fi
-sudo ln -s /usr/local/ant/bin/ant /usr/bin/ant
+    (set -x; cd $downloadeddir)
+    (set -x; tar xf $downloadedfile)
+    (set -x; sudo mv $pkgdir /usr/local/)
+    (set -x; sudo ln -sf /usr/local/$pkgdir /usr/local/ant)
+    (set -x; sudo ln -sf /usr/local/ant/bin/ant /usr/bin/ant)
+    echo "Done."
+}
 
+main
