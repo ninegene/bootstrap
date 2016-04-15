@@ -37,18 +37,18 @@ if test -d "/opt/adt/sdk"
   append_to_path "$ANDROID_HOME/platform-tools"
 end
 
-if test -d "/opt/groovy/bin"
-  set -x GROOVY_HOME "/opt/groovy"
+if test -d "/usr/local/groovy/bin"
+  set -x GROOVY_HOME "/usr/local/groovy"
   append_to_path "$GROOVY_HOME/bin"
 end
 
-if test -d "/opt/grails/bin"
-  set -x GRAILS_HOME "/opt/grails"
+if test -d "/usr/local/grails/bin"
+  set -x GRAILS_HOME "/usr/local/grails"
   append_to_path "$GRAILS_HOME/bin"
 end
 
-if test -d "/opt/gradle/bin"
-  set -x GRADLE_HOME "/opt/gradle"
+if test -d "/usr/local/gradle/bin"
+  set -x GRADLE_HOME "/usr/local/gradle"
   append_to_path "$GRADLE_HOME/bin"
 end
 

@@ -32,18 +32,18 @@ if [ -d "/opt/adt/sdk" ] ; then
     PATH="$PATH:$ANDROID_HOME/platform-tools"
 fi
 
-if [ -d "/opt/groovy/bin" ] ; then
-    export GROOVY_HOME=/opt/groovy
+if [ -d "/usr/local/groovy/bin" ] ; then
+    export GROOVY_HOME=/usr/local/groovy
     PATH="$PATH:$GROOVY_HOME/bin"
 fi
 
-if [ -d "/opt/grails/bin" ] ; then
-    export GRAILS_HOME=/opt/grails
+if [ -d "/usr/local/grails/bin" ] ; then
+    export GRAILS_HOME=/usr/local/grails
     PATH="$PATH:$GRAILS_HOME/bin"
 fi
 
-if [ -d "/opt/gradle/bin" ] ; then
-    export GRADLE_HOME=/opt/gradle
+if [ -d "/usr/local/gradle/bin" ] ; then
+    export GRADLE_HOME=/usr/local/gradle
     PATH="$PATH:$GRADLE_HOME/bin"
 fi
 
