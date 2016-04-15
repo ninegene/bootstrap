@@ -51,3 +51,8 @@ if test -d "/opt/gradle/bin"
   set -x GRADLE_HOME "/opt/gradle"
   append_to_path "$GRADLE_HOME/bin"
 end
+
+if test -d "$HOME/.local/share/umake"
+  set -x UMAKE_HOME "$HOME/.local/share/umake"
+  prepand_to_path "$UMAKE_HOME/bin"
+end
