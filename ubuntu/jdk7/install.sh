@@ -22,10 +22,10 @@ fi
 
 sudo ln -s /usr/lib/jvm/$jdk17x /usr/lib/jvm/jdk7
 
-sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/$jdk17x/bin/jar 1
-sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/$jdk17x/bin/java 1
-sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/$jdk17x/bin/javac 1
-sudo update-alternatives --install /usr/bin/keytool keytool /usr/lib/jvm/$jdk17x/bin/keytool 1
+sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/$jdk17x/bin/jar 7
+sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/$jdk17x/bin/java 7
+sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/$jdk17x/bin/javac 7
+sudo update-alternatives --install /usr/bin/keytool keytool /usr/lib/jvm/$jdk17x/bin/keytool 7
 
 sudo update-alternatives --set jar /usr/lib/jvm/$jdk17x/bin/jar
 sudo update-alternatives --set java /usr/lib/jvm/$jdk17x/bin/java
