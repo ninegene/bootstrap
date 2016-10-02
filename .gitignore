@@ -3,3 +3,4 @@
 *.tgz
 *.gz
 .DS_Store
+tmp/
