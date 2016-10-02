@@ -15,9 +15,9 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -d "/usr/lib/jvm/jdk8/bin" ] ; then
-    export JAVA_HOME=/usr/lib/jvm/jdk8
-    PATH="$PATH:$JAVA_HOME/bin"
+# Homebrew
+if [ -d "/usr/local/sbin" ]; then
+    PATH="/usr/local/sbin:$PATH"
 fi
 
 if [ -d "/opt/idea/bin" ] ; then
@@ -30,6 +30,11 @@ if [ -d "/opt/adt/sdk" ] ; then
     export ANDROID_HOME=/opt/adt/sdk
     PATH="$PATH:$ANDROID_HOME/tools"
     PATH="$PATH:$ANDROID_HOME/platform-tools"
+fi
+
+if [ -d "/usr/local/scala/bin" ] ; then
+    export SCALA_HOME=/usr/local/scala
+    PATH="$PATH:$SCALA_HOME/bin"
 fi
 
 if [ -d "/usr/local/groovy/bin" ] ; then
@@ -55,11 +60,24 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+# Ubuntu make installation of Ubuntu Make binary symlink
+if [ -d "$HOME/.local/share/umake" ]; then
+    PATH=$HOME/.local/share/umake/bin:$PATH
+fi
+
+if [ -d "/usr/lib/jvm/jdk8/bin" ] ; then
+    export JAVA_HOME=/usr/lib/jvm/jdk8
+    PATH="$PATH:$JAVA_HOME/bin"
+fi
+
+# Mac OS
+if [ -f "/usr/libexec/java_home" ] ; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    PATH="$PATH:$JAVA_HOME/bin"
+fi
+
 if [ -d "$HOME/.nvm" ]; then
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 fi
-
-# Ubuntu make installation of Ubuntu Make binary symlink
-PATH=$HOME/.local/share/umake/bin:$PATH
 

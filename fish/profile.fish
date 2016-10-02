@@ -1,58 +1,69 @@
 # add to front of path
-function prepand_to_path
+function add_to_front_of_path
   set -x PATH $argv[1] $PATH
 end
 
 # add to end of path
-function append_to_path
+function add_to_end_of_path
   set -x PATH $PATH $argv[1]
 end
 
-if test -d "/usr/local/sbin"
-  prepand_to_path "/usr/local/sbin"
-end
+# Fish shell loaded ~/.profile and since these are configured in .profile
+# comment out the following:
 
-if test -d "$HOME/bin"
-  prepand_to_path "$HOME/bin"
-end
 
-switch (uname -s)
-case Darwin
-  set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
-case Linux
-  set -x JAVA_HOME "/usr/lib/jvm/jdk8"
-end
+# if test -d "/usr/local/sbin"
+#   add_to_front_of_path "/usr/local/sbin"
+# end
 
-prepand_to_path "$JAVA_HOME/bin"
+# if test -d "$HOME/bin"
+#   add_to_front_of_path "$HOME/bin"
+# end
 
-if test -d "/opt/idea/bin"
-  set -x IDEA_JDK "$JAVA_HOME"
-  set -x IDEA_HOME "/opt/idea"
-  append_to_path "$IDEA_HOME/bin"
-end
+# if test -d "/opt/idea/bin"
+#   set -x IDEA_JDK "$JAVA_HOME"
+#   set -x IDEA_HOME "/opt/idea"
+#   add_to_end_of_path "$IDEA_HOME/bin"
+# end
 
-if test -d "/opt/adt/sdk"
-  set -x ANDROID_HOME "/opt/adt/sdk"
-  append_to_path "$ANDROID_HOME/tools"
-  append_to_path "$ANDROID_HOME/platform-tools"
-end
+# if test -d "/opt/adt/sdk"
+#   set -x ANDROID_HOME "/opt/adt/sdk"
+#   add_to_end_of_path "$ANDROID_HOME/tools"
+#   add_to_end_of_path "$ANDROID_HOME/platform-tools"
+# end
 
-if test -d "/usr/local/groovy/bin"
-  set -x GROOVY_HOME "/usr/local/groovy"
-  append_to_path "$GROOVY_HOME/bin"
-end
+# if test -d "/usr/local/scala/bin"
+#   set -x SCALA_HOME "/usr/local/scala"
+#   add_to_front_of_path "$SCALA_HOME/bin"
+# end
 
-if test -d "/usr/local/grails/bin"
-  set -x GRAILS_HOME "/usr/local/grails"
-  append_to_path "$GRAILS_HOME/bin"
-end
+# if test -d "/usr/local/groovy/bin"
+#   set -x GROOVY_HOME "/usr/local/groovy"
+#   add_to_front_of_path "$GROOVY_HOME/bin"
+# end
 
-if test -d "/usr/local/gradle/bin"
-  set -x GRADLE_HOME "/usr/local/gradle"
-  append_to_path "$GRADLE_HOME/bin"
-end
+# if test -d "/usr/local/grails/bin"
+#   set -x GRAILS_HOME "/usr/local/grails"
+#   add_to_front_of_path "$GRAILS_HOME/bin"
+# end
 
-if test -d "$HOME/.local/share/umake"
-  set -x UMAKE_HOME "$HOME/.local/share/umake"
-  prepand_to_path "$UMAKE_HOME/bin"
-end
+# if test -d "/usr/local/gradle/bin"
+#   set -x GRADLE_HOME "/usr/local/gradle"
+#   add_to_front_of_path "$GRADLE_HOME/bin"
+# end
+
+# if test -d "$HOME/.local/share/umake"
+#   set -x UMAKE_HOME "$HOME/.local/share/umake"
+#   add_to_front_of_path "$UMAKE_HOME/bin"
+# end
+
+# switch (uname -s)
+# case Darwin
+#   set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
+#   add_to_front_of_path "$JAVA_HOME/bin"
+# case Linux
+#   set -x JAVA_HOME "/usr/lib/jvm/jdk8"
+#   add_to_front_of_path "$JAVA_HOME/bin"
+# end
+
+# nvm configured in config.fish
