@@ -1,16 +1,17 @@
 #!/bin/sh
 set -e
 
-jdk18x="jdk1.8.0_77"
-jdk8u="jdk-8u77"
-dir="8u77-b03"
+jdk18x="jdk1.8.0_102"
+jdk8u="jdk-8u102"
+dir="8u102-b14"
+# https://www.oracle.com/webfolder/s/digest/8u102checksum.html
+md5checksum="bac58dcec9bb85859810a2a6acba740b"
 
 jdktzfile="$jdk8u-linux-x64.tar.gz"
 url="http://download.oracle.com/otn-pub/java/jdk/$dir/$jdktzfile"
 
 cd /tmp
-# https://www.oracle.com/webfolder/s/digest/8u77checksum.html
-echo "ee501bef73ba7fac255f0593e595d8eb $jdktzfile" > /tmp/jdk8md5
+echo "$md5checksum $jdktzfile" > /tmp/jdk8md5
 
 if [ ! -f $jdktzfile ]; then
     wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" $url
