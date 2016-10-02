@@ -11,6 +11,10 @@ end
 . ~/.config/fish/aliases.fish
 . ~/.config/fish/nvm.fish
 
+if test -d "$HOME/.linuxbrew"
+    set -x XDG_DATA_DIRS "$HOME/.linuxbrew/share:$XDG_DATA_DIRS"
+end
+
 if test -f ~/.config/fish/local.fish
     . ~/.config/fish/local.fish
 end

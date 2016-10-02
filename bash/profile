@@ -85,6 +85,12 @@ if [ -d "/usr/local/var/rbenv" ]; then
     export RBENV_ROOT=/usr/local/var/rbenv
 fi
 
+if [ -d "$HOME/.linuxbrew" ]; then
+    export PATH="$HOME/.linuxbrew/bin:$PATH"
+    export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+    export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+fi
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
