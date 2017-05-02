@@ -1,3 +1,3 @@
 # dotfiles
-Config files and install scripts for Ubuntu and Mac OS X.
+Config files and install scripts for Ubuntu and macOS.
 
