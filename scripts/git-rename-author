@@ -1,0 +1,37 @@
+#!/bin/sh
+set -e
+
+PROGNAME=$(basename $0)
+
+if [[ $# -le 1 ]]; then
+    echo "Usage: ${PROGNAME} \"old name\" \"new name\""
+    echo "       ${PROGNAME} \"old@email.com\" \"new@email.com\""
+    echo "       ${PROGNAME} \"old@email.com\" \"new@email.com\"" HEAD~2..HEAD
+    exit 2
+fi
+
+OLD=$1
+NEW=$2
+shift 2
+
+MYDIR=$(pwd)
+GIT_VAR1="GIT_AUTHOR_NAME"
+GIT_VAR2="GIT_COMMITTER_NAME"
+
+# looks like valid email
+if [[ ${OLD} =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$ ]]; then
+    GIT_VAR1="GIT_AUTHOR_EMAIL"
+    GIT_VAR2="GIT_COMMITTER_EMAIL"
+fi
+
+set -x
+cd ${MYDIR}
+git filter-branch -f --env-filter "
+    if [ \"$`echo $GIT_VAR1`\" = \"$OLD\" ]; then
+        export $GIT_VAR1=\"$NEW\"
+    fi" $@
+
+git filter-branch -f --env-filter "
+    if [ \"$`echo $GIT_VAR2`\" = \"$OLD\" ]; then
+        export $GIT_VAR2=\"$NEW\"
+    fi" $@
