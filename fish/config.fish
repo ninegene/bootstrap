@@ -20,4 +20,6 @@ if test -f ~/.config/fish/local.fish
 end
 
 set -U EDITOR vim
-set -U REACT_EDITOR mvim
+set -U REACT_EDITOR subl
+
+set -g fish_user_paths "/usr/local/sbin" $fish_user_paths

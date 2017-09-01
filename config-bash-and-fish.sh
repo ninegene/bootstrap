@@ -59,6 +59,7 @@ config_fish() {
     symlink "$PROGDIR/fish/nvm.fish" "$HOME/.config/fish/nvm.fish"
 
     symlink "$PROGDIR/fish/functions/source_script.fish" "$HOME/.config/fish/functions/source_script.fish"
+    symlink "$PROGDIR/fish/functions/tab.fish" "$HOME/.config/fish/functions/tab.fish"
 
     if [[ -d $HOME/.config/fish/plugin-foreign-env/.git ]]; then
         cd $HOME/.config/fish/plugin-foreign-env

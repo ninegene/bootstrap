@@ -468,8 +468,7 @@ set shell=/bin/bash
 let g:syntastic_python_checkers = ['flake8']
 " https://github.com/scrooloose/syntastic/issues/482
 " http://flake8.readthedocs.org/en/latest/warnings.html
-let g:syntastic_python_flake8_args = '--ignore=E501,E225 --max-line-length=99'
-let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=99'
+let g:syntastic_python_flake8_args = '--ignore=E501,E225,F401 --max-line-length=99'
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_auto_jump = 1
