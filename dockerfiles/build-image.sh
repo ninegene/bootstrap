@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eo pipefail
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 SCRIPT_NAME=$(basename ${SCRIPT_DIR})

@@ -25,5 +25,5 @@ remote_port=$2
 local_host=$3
 local_port=$4
 
-echo ssh $remote_host -T -L $local_port:$local_host:$remote_port
+set -x
 ssh $remote_host -T -L $local_port:$local_host:$remote_port

@@ -9,5 +9,5 @@ fi
 CONT_NAME=$1
 
 set -x
-sudo docker stop ${CONT_NAME}
-sudo docker rm ${CONT_NAME}
+sudo docker exec -it ${CONT_NAME} bash
+
