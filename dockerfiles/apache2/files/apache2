@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# apache2 auto-start script for /bin/my_init
+#
+# description: Auto-starts apache2
+
+# start apache2 if no argument is specified
+case $1 in
+start)
+        sh /etc/init.d/apache2 start
+        ;;
+stop)
+        sh /etc/init.d/apache2 stop
+        ;;
+status)
+        sh /etc/init.d/apache2 status
+        ;;
+restart)
+        sh /etc/init.d/apache2 restart
+        ;;
+*)
+        sh /etc/init.d/apache2 start
+        ;;
+esac
+exit 0

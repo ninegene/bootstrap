@@ -1,0 +1,15 @@
+# m:   Minute when the process will be started [0-60]
+# h:   Hour when the process will be started [0-23]
+# dom: Day of the month when the process will be started [1-28/29/30/31]
+# mon: Month of the year when the process will be started [1-12]
+# dow: Weekday when the process will be started [0-7] [0 and 7 is Sunday]
+#      or [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+#
+# every x min = */x
+# every 5 min = */5
+#
+# For more information see the manual pages of crontab(5) and cron(8)
+# m h  dom mon dow   command
+
+# Renew SSL cert every Wed and Sun at 2pm
+0 14 * * Wed,Sun /usr/bin/certbot-auto --apache renew --non-interactive --no-self-upgrade --post-hook "/etc/init.d/apache2 reload" >> /var/log/letsencrypt/renew.log
