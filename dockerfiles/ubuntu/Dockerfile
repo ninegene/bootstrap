@@ -24,9 +24,11 @@ CMD ["/sbin/my_init"]
 # init system will auto-generate one during boot.
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
+WORKDIR /root
+
 RUN set -x \
     && apt-get update \
-    && apt-get install -y sudo vim-nox
+    && apt-get install -y vim-nox
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
