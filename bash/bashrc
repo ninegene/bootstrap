@@ -159,4 +159,10 @@ if [ -x /usr/bin/mint-fortune ]; then
     /usr/bin/mint-fortune
 fi
 
-export EDITOR='vim -f'
+if [ -d "$HOME/.nvm" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm for bash shell
+fi
+
+export EDITOR="vim -f"
+export REACT_EDITOR="code"

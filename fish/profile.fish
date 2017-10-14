@@ -1,30 +1,23 @@
-# add to front of path
 function add_to_front_of_path
   set -x PATH $argv[1] $PATH
 end
 
-# add to end of path
 function add_to_end_of_path
   set -x PATH $PATH $argv[1]
 end
 
-# Fish shell loaded ~/.profile and since these are configured in .profile
-# comment out the following:
+# Custom User Scripts
+if test -d "$HOME/bin"
+  add_to_front_of_path "$HOME/bin"
+end
 
-
-# if test -d "/usr/local/sbin"
-#   add_to_front_of_path "/usr/local/sbin"
-# end
-
-# if test -d "$HOME/bin"
-#   add_to_front_of_path "$HOME/bin"
-# end
-
-# if test -d "/opt/idea/bin"
-#   set -x IDEA_JDK "$JAVA_HOME"
-#   set -x IDEA_HOME "/opt/idea"
-#   add_to_end_of_path "$IDEA_HOME/bin"
-# end
+# Homebrew
+if test -d "/usr/local/sbin"
+  add_to_end_of_path "/usr/local/sbin"
+end
+if test -d "/usr/local/bin"
+  add_to_end_of_path "/usr/local/bin"
+end
 
 # if test -d "/opt/adt/sdk"
 #   set -x ANDROID_HOME "/opt/adt/sdk"
@@ -47,23 +40,21 @@ end
 #   add_to_front_of_path "$GRAILS_HOME/bin"
 # end
 
-# if test -d "/usr/local/gradle/bin"
-#   set -x GRADLE_HOME "/usr/local/gradle"
-#   add_to_front_of_path "$GRADLE_HOME/bin"
-# end
+if test -d "/usr/local/gradle/bin"
+   set -x GRADLE_HOME "/usr/local/gradle"
+   add_to_front_of_path "$GRADLE_HOME/bin"
+ end
 
 # if test -d "$HOME/.local/share/umake"
 #   set -x UMAKE_HOME "$HOME/.local/share/umake"
 #   add_to_front_of_path "$UMAKE_HOME/bin"
 # end
 
-# switch (uname -s)
-# case Darwin
-#   set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
-#   add_to_front_of_path "$JAVA_HOME/bin"
-# case Linux
-#   set -x JAVA_HOME "/usr/lib/jvm/jdk8"
-#   add_to_front_of_path "$JAVA_HOME/bin"
-# end
-
-# nvm configured in config.fish
+switch (uname -s)
+case Darwin
+  set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
+  add_to_front_of_path "$JAVA_HOME/bin"
+case Linux
+  set -x JAVA_HOME "/usr/lib/jvm/jdk8"
+  add_to_front_of_path "$JAVA_HOME/bin"
+end
