@@ -35,7 +35,7 @@ symlink() {
     local dst=$2
 
     backup "$dst"
-    (set -x; ln -s "$src" "$dst")
+    (set -x; ln -sf "$src" "$dst")
     echo "Created symlink $dst"
 }
 
