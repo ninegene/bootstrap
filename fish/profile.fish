@@ -52,9 +52,13 @@ if test -d "/usr/local/gradle/bin"
 
 switch (uname -s)
 case Darwin
-  set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
-  add_to_front_of_path "$JAVA_HOME/bin"
+  if test -f "/usr/libexec/java_home"
+    set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
+    add_to_front_of_path "$JAVA_HOME/bin"
+  end
 case Linux
-  set -x JAVA_HOME "/usr/lib/jvm/jdk8"
-  add_to_front_of_path "$JAVA_HOME/bin"
+  if test -f "/usr/lib/jvm/jdk8"
+    set -x JAVA_HOME "/usr/lib/jvm/jdk8"
+    add_to_front_of_path "$JAVA_HOME/bin"
+  end
 end
