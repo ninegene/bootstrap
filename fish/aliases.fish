@@ -96,10 +96,6 @@ function pe
   printenv $x
 end
 
-function idea
-   /opt/idea/bin/idea.sh ~/Projects/$argv[1]
-end
-
 function fport --description "Find process pid listening upon a port. e.g. fport <port>"
     sudo fuser $argv[1]/tcp
     sudo lsof -i :$argv[1]
