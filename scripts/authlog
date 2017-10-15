@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+readonly SCRIPT_PATH=`perl -e 'use Cwd "abs_path";print abs_path(shift)' $0`
+readonly SCRIPT_DIR=$(dirname ${SCRIPT_PATH})
+
+sudo python2 ${SCRIPT_DIR}/logalyzer/logalyzer.py $@
