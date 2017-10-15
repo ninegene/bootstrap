@@ -293,9 +293,9 @@ nmap <F2> :set paste!<CR>:set paste?<CR>
 
 " Use ,d (or ,dd or ,dj or 20,dd) to delete without adding it to the yanked stack
 " Conflict with python jedi
-nmap <silent> <leader>d "_d
+"nmap <silent> <leader>d "_d
 " Also, in visual mode
-map <silent> <leader>d "_d
+"map <silent> <leader>d "_d
 
 " Yank/paste to the OS clipboard with ,y and ,P and ,p
 nnoremap <leader>y "+y
@@ -303,13 +303,13 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 
 " Ctrl-c to copy selected text in virtual mode
-vnoremap <C-c> "+y<CR>
+"vnoremap <C-c> "+y<CR>
 
 " Replace the current word or visually selected text with the clipboard contents
-nnoremap <F6> viw"+p<CR>
+"nnoremap <F6> viw"+p<CR>
 
 " Make p in visual mode replace the selected text with the yank register
-vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+"vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
 " Prompt to enter text to replace current word or the selected text (use register r)
 nnoremap <C-h> "ryiw:%s/<C-r>r//gc<Left><Left><Left>

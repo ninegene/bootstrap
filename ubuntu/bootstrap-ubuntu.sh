@@ -3,13 +3,14 @@ set -e
 
 readonly PROG=`perl -e 'use Cwd "abs_path";print abs_path(shift)' $0`
 readonly PROGDIR=$(dirname ${PROG})
+BASEDIR=${PROGDIR}/..
 
-./ubuntu/install-base-ubuntu-pkgs.sh
-./ubuntu/install-fish.sh
+${BASEDIR}/ubuntu/install-base-ubuntu-pkgs.sh
+${BASEDIR}/ubuntu/fish/install.sh
 
-./config-bash-and-fish.sh
-./config-git.sh
-./config-vim.sh
+${BASEDIR}/config-shell.sh
+${BASEDIR}/git/config-git.sh
+${BASEDIR}/vim/config-vim.sh
 
 echo "Setting fish as default shell ..."
 chsh -s /usr/bin/fish

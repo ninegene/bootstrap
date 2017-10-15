@@ -2,8 +2,8 @@
 set -e
 
 config_global_settings() {
-    username=$(whoami)
-    useremail=$username@$(hostname)
+    local username=$(whoami)
+    local useremail=$username@$(hostname)
 
     if ! cat ~/.gitconfig | egrep -A 4 '\[user\]' | egrep '^\sname ='>/dev/null; then
         (set -x; git config --global user.name "$username")

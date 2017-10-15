@@ -3,7 +3,7 @@ set -e
 
 readonly PROG=`perl -e 'use Cwd "abs_path";print abs_path(shift)' $0`
 readonly PROGDIR=$(dirname ${PROG})
-VIMDIR=${PROGDIR}/vim
+VIMDIR=${PROGDIR}
 
 vim_bundle() {
     local url=${1}
