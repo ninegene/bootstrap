@@ -1,8 +1,6 @@
 #!/bin/bash
 set -euxo pipefail
 
-# Make sure node.js is installed
-
 cd /var/www/
 if [[ ! -e linux-dash ]]; then
     # Original repo
@@ -11,13 +9,12 @@ if [[ ! -e linux-dash ]]; then
 fi
 
 sudo chown -R ${USER}:${USER} linux-dash
-cd linux-dash/app/server
-
+# Use nvm if installed
 if [[ -f ${HOME}/.nvm/nvm.sh ]]; then
     . ${HOME}/.nvm/nvm.sh
 fi
 
+cd linux-dash/app/server
 npm install --production
-npm install -g pm2
-pm2 start index.js --name linux-dash -- --port=5555
-pm2 dump
+npm install -g forever
+LINUX_DASH_SERVER_PORT=5555 forever start --append -l forever.log -o out.log -e err.log -d -v index.js
