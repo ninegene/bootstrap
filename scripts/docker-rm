@@ -8,6 +8,9 @@ fi
 
 CONT_NAME=$1
 
-set -x
-sudo docker stop ${CONT_NAME}
-sudo docker rm ${CONT_NAME}
+read -r -p "Going to stop and remove ${CONT_NAME}? [y/n] " choice
+if [[ ${choice} =~ ^[Yy]$ ]]; then
+    set -x
+    sudo docker stop ${CONT_NAME}
+    sudo docker rm ${CONT_NAME}
+fi
