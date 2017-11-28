@@ -2,10 +2,9 @@
 set -e
 
 readonly PROG=`perl -e 'use Cwd "abs_path";print abs_path(shift)' $0`
-readonly PROGDIR=$(dirname ${PROG})
-BASEDIR=${PROGDIR}/..
+readonly BASEDIR=$(dirname ${PROG})
 
-${BASEDIR}/ubuntu/install-base-ubuntu-pkgs.sh
+${BASEDIR}/ubuntu/base-ubuntu-pkgs/install.sh
 ${BASEDIR}/ubuntu/fish/install.sh
 
 ${BASEDIR}/config-shell.sh
