@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+if [[ -z $1 ]]; then
+    echo "$0 <youbute_url>" >&2
+    exit 0
+fi
+
+URL=$1
+
+# Ubuntu: sudo apt-get install youtube-dl ffmpeg
+# masOS: brew install youtube-dl ffmpeg
+
+set -x
+youtube-dl --ignore-errors --extract-audio --audio-format mp3 "${URL}"
