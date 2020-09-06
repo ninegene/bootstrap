@@ -56,10 +56,19 @@ fi
 
 echo -e "\n---\n"
 
-floating_ip=$(doctl compute floating-ip create --region ${region} --output json | jq -r '.[].ip')
-echo "Created floating ip: ${floating_ip} and assigning to ${droplet_id}"
-# Wait until resource is ready
-sleep 10
+unused_floating_ip=$(doctl compute floating-ip list --output json | jq -r '.[] | select(.droplet == null) | .ip')
+if [[ -z ${unused_floating_ip} ]]; then
+    echo "Creating floating ip"
+    (set -x
+        doctl compute floating-ip create --region ${region}
+    )
+    # Wait until resource is ready
+    sleep 10
+fi
+
+floating_ip=$(doctl compute floating-ip list --output json | jq -r '.[] | select(.droplet == null) | .ip' | head -n1)
+
+echo "Assign floating ip: ${floating_ip} to ${droplet_id}"
 (set -x
 doctl compute floating-ip-action assign ${floating_ip} ${droplet_id}
 )
@@ -67,5 +76,6 @@ doctl compute floating-ip-action assign ${floating_ip} ${droplet_id}
 echo -e "\n---\n"
 
 echo "
+Wait a few seconds and ssh into the droplet with:
     ssh -p4444 ubuntu@${floating_ip}
 "

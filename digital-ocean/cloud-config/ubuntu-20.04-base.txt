@@ -18,5 +18,35 @@ runcmd:
   - apt upgrade -yV
   - apt install -yV tree unzip curl wget screen jq git neovim unattended-upgrades
   - apt install -yV htop nmon netcat net-tools lsof tcpdump mtr bind9-utils openssl
+  - apt install -yV fail2ban
+
+  # Add 1GB Swap
+  - fallocate -l 1G /swap.1
+  - dd if=/dev/zero of=/swap.1 bs=1M count=1024
+  - chmod 600 /swap.1
+  - mkswap /swap.1
+  - swapon /swap.1
+  - echo "/swap.1 swap swap defaults 0 0" >> /etc/fstab
+
+  # Use swap when memory is 90%
+  - echo "vm.swappiness = 10" >> /etc/sysctl.conf
+  - echo "vm.vfs_cache_pressure = 50" >> /etc/sysctl.conf
+
+  # TCP settings
+  - echo "net.core.netdev_max_backlog = 30000" >> /etc/sysctl.conf
+  - echo "net.ipv4.tcp_max_syn_backlog = 8096" >> /etc/sysctlconf
+  - echo "net.core.rmem_max = 134217728" >> /etc/sysctl.conf
+  - echo "net.core.wmem_max = 134217728" >> /etc/sysctl.conf
+  - echo "net.ipv4.tcp_rmem = 4096 87380 67108864" >> /etc/sysctl.conf
+  - echo "net.ipv4.tcp_wmem = 4096 87380 67108864" >> /etc/sysctl.conf
+
+  # Open files limit
+  - echo "root soft nofile 4096" >> /etc/security/limits.conf
+  - echo "root hard nofile 10240" >> /etc/security/limits.conf
+  - echo "ubuntu soft nofile 4096" >> /etc/security/limits.conf
+  - echo "ubuntu hard nofile 10240" >> /etc/security/limits.conf
 
   - timedatectl set-timezone America/Los_Angeles
+
+  # Some changes need reboot to take affect
+  - reboot
