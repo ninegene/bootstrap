@@ -15,10 +15,39 @@ runcmd:
   - sed -i -e '$aAllowUsers ubuntu' /etc/ssh/sshd_config
   - systemctl restart ssh
 
-  - apt upgrade -yV
-  - apt install -yV tree unzip curl wget screen jq git neovim unattended-upgrades
-  - apt install -yV htop nmon netcat net-tools lsof tcpdump mtr bind9-utils openssl
-  - apt install -yV fail2ban
+  - apt upgrade -y
+  - apt install -y tree unzip curl wget screen jq git neovim mlocate unattended-upgrades
+  - apt install -y htop nmon netcat net-tools lsof tcpdump mtr bind9-utils openssl
+  - apt install -y fail2ban
+
+  - apt install -y --no-install-recommends php php-fpm php-cli php-mysql php-json php-opcache php-mbstring php-xml php-gd php-curl
+  # https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/?highlight=pitfalls#passing-uncontrolled-requests-to-php
+  - sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/7.4/fpm/php.ini
+  - systemctl restart php7.4-fpm
+
+  - apt install -y nginx certbot python3-certbot-nginx
+
+  - apt install -y software-properties-common
+  - apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+  - add-apt-repository "deb [arch=amd64,arm64,ppc64el] http://mirror.lstn.net/mariadb/repo/10.5/ubuntu $(lsb_release -cs) main"
+  - apt update
+  - apt install -y mariadb-server
+  # Enter current password for root (enter for none):
+  # Switch to unix_socket authentication [Y/n] n
+  # Change the root password? [Y/n] n
+  # Remove anonymous users? [Y/n]
+  # Disallow root login remotely? [Y/n]
+  # Remove test database and access to it? [Y/n]
+  # Reload privilege tables now? [Y/n]
+  - echo -e "\nn\nn\n\n\n\n\n" | mysql_secure_installation
+  # Login to root as: sudo mysql -u root
+
+  - apt autoremove -y
+
+  # WordPress CLI
+  - curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+  - chmod +x /usr/local/bin/wp
+  - /usr/local/bin/wp --info
 
   # Add 1GB Swap
   - fallocate -l 1G /swap.1

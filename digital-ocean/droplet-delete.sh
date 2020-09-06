@@ -9,9 +9,11 @@ if [[ -n ${droplet_ids} ]]; then
         doctl compute droplet get ${droplet_id}
         doctl compute droplet delete ${droplet_id}
     done
-    echo "Waiting to delete unused floating ip addresses ..."
-    sleep 30
-    ./floating-ip-clean-unused.sh
+    # echo "Waiting to delete unused floating ip addresses ..."
+    # sleep 30
+    # ./floating-ip-clean-unused.sh
+    echo "Make sure to delete unused floating ip addresses!"
+    doctl compute floating-ip list
 else
    echo "Not droplets found to be deleted!"
 fi

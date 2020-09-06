@@ -76,6 +76,6 @@ doctl compute floating-ip-action assign ${floating_ip} ${droplet_id}
 echo -e "\n---\n"
 
 echo "
-Wait a few seconds and ssh into the droplet with:
+Wait two minutes or more and ssh into the droplet with:
     ssh -p4444 ubuntu@${floating_ip}
 "
