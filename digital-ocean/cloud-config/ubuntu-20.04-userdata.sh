@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Turn off history expansion to print !
+set +o histexpand
+
 username="ubuntu"
 ssh_port="4444"
 swap_gb="1"
@@ -36,6 +39,89 @@ install_base_packages() {
 
     # config: /etc/fail2ban/jail.conf
     # log: /var/log/auth.log
+}
+
+install_fuzzy_finder() {
+    runuser -l ${username} -c 'cd ~; git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf'
+    runuser -l ${username} -c '~/.fzf/install --all'
+}
+
+config_bash() {
+    echo 'if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+' | tee -a /root/.bashrc >> /home/${username}/.bashrc
+
+    echo "
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias ll='ls -al'
+alias la='ls -A'
+alias lla='ls -alFA'
+alias l='ls -CF'
+alias ds='ls -latr'
+alias cls='clear'
+alias sudo='sudo '
+alias vi='vim'
+alias v='vim -u NONE -N'
+alias path='echo $PATH'
+" | tee -a /root/.bash_aliases >> /home/${username}/.bash_aliases
+
+    chown ${username}:${username} /home/${username}/.bash_aliases
+}
+
+config_git() {
+    echo "
+[user]
+    name = ${username}
+    email = ${username}@$(hostname)
+[push]
+    default = simple
+[core]
+    autocrlf = input
+    editor = vim
+    excludesfile = /home/${username}/.gitignore_global
+[color]
+    ui = true
+[rerere]
+    enabled = true
+[alias]
+    me = !git config user.name && git config user.email
+    user = config user.name
+    email = config user.email
+    aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+    st = status --short --branch
+    br = branch
+    co = checkout
+    cob = checkout -b
+    unstage = reset HEAD --
+    aa = !git add --all
+    ci = commit -m
+    cia = !git add --all && git commit -m
+    amend = commit --amend
+    d = diff
+    dh = diff HEAD
+    ds = diff --staged
+    dw = diff --word-diff=color
+    dhw = diff --word-diff=color HEAD
+    dsw = diff --word-diff=color --staged
+    last = !git ll -1 HEAD
+    ls = log --abbrev-commit --date=short --pretty=format:'%C(yellow)%h %ad%Creset%Cred%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    ll = !git ls --name-status
+    lg = log --oneline --decorate --all --graph
+    changes = !sh -c 'git ll @{1}..@{0} '
+    pr = !git pull -v --rebase && git changes
+    fc = !git ls --follow
+    fh = !git ls -u
+    locallog = log --date=local
+    grep = grep -i
+    fname = !git ls-files | grep -i
+" | tee /home/${username}/.gitconfig > /root/.gitconfig
+
+    chown ${username}:${username} /home/${username}/.gitconfig
+    chmod 640 /home/${username}/.gitconfig
+    sed -i "s/${username}/root/" /root/.gitconfig
 }
 
 config_vim() {
@@ -225,6 +311,9 @@ date "+%F %H:%M:%S %z"
 
 add_user
 install_base_packages
+install_fuzzy_finder
+config_bash
+config_git
 config_vim
 config_screen
 install_php

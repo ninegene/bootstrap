@@ -8,11 +8,12 @@ set -euo pipefail
 # https://ubuntu.com/tutorials/install-and-configure-wordpress#4-configure-database
 # https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-on-ubuntu-18-04
 
-if [[ $# -ne 7 ]]; then
+if [[ $# -ne 4 ]]; then
     echo "
     Usage:
-    $0 <domain> <dbname> <dbuser> <dbpass> <wpuser> <wppass> <wpemail>
+    $0 <domain> <dbname> <dbuser> <dbpass>
     "
+    #$0 <domain> <dbname> <dbuser> <dbpass> <wpuser> <wppass> <wpemail>
     exit 1
 fi
 
@@ -20,9 +21,9 @@ domain=$1
 dbname=$2
 dbuser=$3
 dbpass=$4
-wpuser=$5
-wppass=$6
-wpemail=$7
+# wpuser=$5
+# wppass=$6
+# wpemail=$7
 wp_dir="/var/www/${domain}/wordpress"
 
 if [[ -d ${wp_dir} ]]; then
@@ -40,7 +41,8 @@ sudo mysql -u root -e "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER \
 set -e
 
 sudo mkdir -p ${wp_dir}
-sudo chown -R $USER:www-data ${wp_dir}/..
+sudo mkdir -p ${wp_dir}/wp-content/uploads
+sudo chown -R $USER:www-data ${wp_dir}
 
 cd ${wp_dir}
 
@@ -61,18 +63,18 @@ wp config create --dbname=${dbname} --dbuser=${dbuser} --dbpass=${dbpass} --path
 
 #echo "define('FS_METHOD', 'direct');" >> ${wp_dir}/wp-config.php
 
-# https://www.nginx.com/blog/installing-wordpress-with-nginx-unit/
+# Secure permission
 ls -lF ${wp_dir}
+sudo find ${wp_dir} -type f -exec chmod 640 {} \;
+sudo find ${wp_dir} -type d -exec chmod 750 {} \;
+# https://www.nginx.com/blog/installing-wordpress-with-nginx-unit/
 sudo chown -R $USER:www-data ${wp_dir}
-sudo find ${wp_dir} -type d -exec chmod g+s {} \;
 sudo chmod g+w ${wp_dir}/wp-content
+sudo find ${wp_dir} -type d -exec chmod g+s {} \;
 sudo chmod -R g+w ${wp_dir}/wp-content/themes
 sudo chmod -R g+w ${wp_dir}/wp-content/plugins
-
-# Remove other access
+sudo chmod -R g+w ${wp_dir}/wp-content/uploads
 sudo chmod 640 ${wp_dir}/wp-config.php
-#sudo find ${wp_dir} -type d -exec chmod 750 {} \;
-#sudo find ${wp_dir} -type f -exec chmod 640 {} \;
 
 if [[ -f /etc/nginx/sites-available/${domain}.conf ]]; then
     echo "File exists: /etc/nginx/sites-available/${domain}.conf"
