@@ -22,7 +22,10 @@ runcmd:
 
   - apt install -y --no-install-recommends php php-fpm php-cli php-mysql php-json php-opcache php-mbstring php-xml php-gd php-curl
   # https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/?highlight=pitfalls#passing-uncontrolled-requests-to-php
-  - sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/7.4/fpm/php.ini
+  - sed -i.cgi.fix_pathinfo.bak 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/7.4/fpm/php.ini
+  - sed -i.upload_max_filesize.bak -e 's/upload_max_filesize = 2M/upload_max_filesize = 20M/' /etc/php/7.4/fpm/php.ini
+  - sed -i.post_max_size.bak -e 's/post_max_size = 8M/post_max_size = 20M/' /etc/php/7.4/fpm/php.ini
+  - sed -i.max_execution_time.bak -e 's/max_execution_time = 30/max_execution_time = 120/' /etc/php/7.4/fpm/php.ini
   - systemctl restart php7.4-fpm
 
   - apt install -y nginx certbot python3-certbot-nginx
