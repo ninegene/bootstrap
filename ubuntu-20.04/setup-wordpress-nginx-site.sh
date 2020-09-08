@@ -61,7 +61,8 @@ wp config create --dbname=${dbname} --dbuser=${dbuser} --dbpass=${dbpass} --path
 #    --admin_password="${wppass}" \
 #    --admin_email="${wpemail}"
 
-#echo "define('FS_METHOD', 'direct');" >> ${wp_dir}/wp-config.php
+# Allow to install theme without FTP
+echo "define('FS_METHOD', 'direct');" >> ${wp_dir}/wp-config.php
 
 # Secure permission
 ls -lF ${wp_dir}
