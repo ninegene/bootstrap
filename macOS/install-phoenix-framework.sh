@@ -7,3 +7,4 @@ curdir=$(cd -- "$(dirname -- "$0")"; pwd -P)
 "$curdir"/install-elixir.sh
 "$curdir"/install-nodejs.sh
 mix local.hex
+mix archive.install hex phx_new
