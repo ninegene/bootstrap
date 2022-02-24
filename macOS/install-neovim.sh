@@ -7,6 +7,8 @@ set -x
 brew install neovim
 brew install ctags
 brew install ripgrep
+brew install fd
+brew install fzf
 brew install lua-language-server
 
 # https://github.com/wbthomason/packer.nvim
