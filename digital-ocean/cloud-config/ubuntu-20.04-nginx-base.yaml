@@ -1,0 +1,78 @@
+#cloud-config
+users:
+  - name: ubuntu
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCuxfLPQemi9kKPcyhJRAyukMThoX1JZ8oYzukHmAjdeSDbZ+p0hahn93q1QSulLuadmkUOY5gLsjHBHndVMrp8oEKSuGONvDytVARLiek+32WxCK5a6WiZ06DXeBtT30xHgJd2FZW1SdP+ysUdXp22rjOGfrNAYeymVKJwZ2ZI+sTenBLE6TyJ7xxmNRng0b3WkwQbBntXxnh9jFT0MPKd+AAXkDDW/I8hqIEJqyINZAdRbFUIAmzObqjG4otJ5G7rNmbKvzSALrFENHNH8aXrvY3s54+2XJwlDQhtSzdnt6Jx8LTCrGK2ANyn0zcsopLkolwpTZWW9Q0sJKoUISL8qZuqPTGue90e202VO8jEIHjBa4euMBqujEmjQ6BenldYnlaW4DFMIZ3HYNsItfx5KKBI6Z5GApJnpnELf0AVwiVGhP3hvVWLuTbFeSuA3NzYE5AlZREY8ZA42FCX1uOU3IjIiZjIpZMpEh8jJsxiGewCMloYGRfa2tfMr4d/3mKFJ80/JmNTvdVzxCD8+1VCvYqx0wvBuC7QBe38Vh3JC0ffKHGRp44e6jg+eE/FE/c/zVPAoSjC9DjOj1Dmwfz/tsTts8smD/naHFReyfJpj/olxGI7ZtI75fXtuIFG9UnV87FTElAwWdKMJncc5/pcpkDub7wGbMCNvx7G1SrAvQ== aung@ninegene.com
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    shell: /bin/bash
+
+packages:
+  - curl
+  - wget
+  - jq
+  - tree
+  - vim-nox
+  - unzip
+  - unattended-upgrades
+  - fail2ban
+  - netcat
+  - net-tools
+  - lsof
+  - openssl
+  - htop
+  - nmon
+  - tcpdump
+  - mtr
+  - bind9-utils
+  - nginx
+
+runcmd:
+  - export MY_USER=ubuntu
+  - apt update && sudo apt upgrade -y
+
+  # https://github.com/neovim/neovim/wiki/Installing-Neovim
+  - snap install nvim --classic
+
+  # Create SSH key
+  #- runuser -l $MY_USER -c "ssh-keygen -t rsa -N '' -b 2048 -C '$MY_USER@ninegene-droplet' -f /home/$MY_USER/.ssh/id_rsa <<<y"
+
+  # https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-debian-10
+  - apt install python3-acme python3-certbot python3-mock python3-openssl python3-pkg-resources python3-pyparsing python3-zope.interface
+  - apt install python3-certbot-nginx -y
+
+  # Change SSH port to 4444
+  - sed -i -e '/^#Port/s/^.*$/Port 4444/' /etc/ssh/sshd_config
+  - sed -i -e '/^Port/s/^.*$/Port 4444/' /etc/ssh/sshd_config
+  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '$aAllowUsers gene' /etc/ssh/sshd_config
+  - systemctl restart ssh
+
+  - timedatectl set-timezone America/Los_Angeles
+
+  #- export PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)
+
+  # get the email for letsencrypt from do api
+  - export DO_API_TOKEN=XXX
+  - export EMAIL=$(curl -s -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $DO_API_TOKEN"  https://api.digitalocean.com/v2/account  | jq -r ".account.email")
+
+  # add domain name to nginx config, restart it
+  - export DOMAIN=ninegene.com
+  - export DROPLET_NAME=$(curl -s http://169.254.169.254/metadata/v1/hostname)
+  - sed -i 's/server_name _;/server_name '$DROPLET_NAME"."$DOMAIN';/' /etc/nginx/sites-available/default
+  - systemctl restart nginx
+
+  # create a floating ip
+  - export DROPLET_ID=$(curl -s http://169.254.169.254/metadata/v1/id)
+  - 'export FLOATING_IP=$(curl -X POST -H ''Content-Type: application/json'' -d ''{"droplet_id":"''"$DROPLET_ID"''"}'' -H "Authorization: Bearer $DO_API_TOKEN"  https://api.digitalocean.com/v2/floating_ips  | jq -r ".floating_ip.ip")'
+  # create a subdomain a-record for this droplet
+  - 'curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $DO_API_TOKEN" -d "{\"type\":\"A\", \"name\":\"$DROPLET_NAME\", \"data\":\"$FLOATING_IP\"}" https://api.digitalocean.com/v2/domains/$DOMAIN/records'
+  - sleep 30s
+  - certbot --nginx -n -d $DROPLET_NAME"."$DOMAIN --email $EMAIL --agree-tos --redirect --hsts
+  - systemctl reboot
+
+# add renewal cron -- not needed as certbot create certbot.timer systemd service to renew
+#write_files:
+#  - owner: root:root
+#    path: /etc/cron.d/letsencrypt_renew
+#    content: "15 3 * * * /usr/bin/certbot renew --quiet"
