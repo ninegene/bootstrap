@@ -1,0 +1,6 @@
+altscreen on
+termcapinfo xterm * ti @: te @
+defbce on
+term xterm-256color
+defscrollback 30000
+hardstatus alwayslastline "%{= kc}%S | %H (load: %l) %-21<%=%D %Y-%m-%d %02c:%s"
