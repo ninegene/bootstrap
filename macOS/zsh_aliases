@@ -1,0 +1,13 @@
+# shellcheck disable=SC2148
+eg() {
+    local command=$1
+    (
+        cheat "$command"
+        tldr "$command"
+        curl -sL -m 5 "https://cheat.sh/$command"
+    ) | less --use-color
+}
+
+alias ls='gls --color=auto'
+alias ll='ls -lF'
+alias la='ls -A'

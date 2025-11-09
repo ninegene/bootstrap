@@ -1,0 +1,72 @@
+# GNU Screen configuration file
+# https://www.gnu.org/software/screen/
+
+# Disable startup message
+startup_message off
+
+# Enable 256 color support
+term screen-256color
+
+# Enable mouse scrolling
+termcapinfo xterm* ti@:te@
+
+# Set scrollback buffer
+defscrollback 10000
+
+# Enable visual bell (disable audio bell)
+vbell on
+vbell_msg "Bell!"
+
+# Set default encoding to UTF-8
+defutf8 on
+
+# Enable alternate screen
+altscreen on
+
+# Auto-detach on hangup
+autodetach on
+
+# Status line configuration
+hardstatus alwayslastline
+#hardstatus alwayslastline "%{= kc}%S | %H (load: %l) %-21<%=%D %Y-%m-%d %02c:%s"
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W}%c %{g}]'
+
+# Caption line (window list)
+caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
+
+# Enable window titles
+shelltitle "$ |bash"
+
+# Prevent accidental lock
+bind ^x
+bind x
+
+# Use Ctrl-A as escape key (default)
+escape ^Aa
+
+# Enable activity monitoring
+activity "Activity in window %n"
+
+# Window numbering starts at 1 (not 0)
+bind c screen 1
+bind 0 select 10
+
+# Navigation shortcuts
+bind j focus down
+bind k focus up
+bind t focus top
+bind b focus bottom
+
+# Split screen bindings
+bind s split
+bind v split -v
+bind r remove
+bind o only
+
+# Reload configuration
+bind R source ~/.screenrc
+
+# Create initial windows
+screen -t shell 1
+screen -t editor 2
+select 1

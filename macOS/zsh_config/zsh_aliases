@@ -1,7 +1,0 @@
-cmd-example() {
-    local command=$1
-    (
-        cheat "$command"
-        tldr "$command"
-    ) | less
-}

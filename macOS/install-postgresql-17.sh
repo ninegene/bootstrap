@@ -16,6 +16,7 @@ popd >/dev/null
 sudo mkdir -p /etc/paths.d
 echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp >/dev/null
 
+# shellcheck disable=SC2016
 if ! grep -q '^PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"' ~/.zshrc; then
     echo 'PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"' >>~/.zshrc
 fi
