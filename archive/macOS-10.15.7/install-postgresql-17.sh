@@ -4,16 +4,17 @@ set -eo pipefail
 # See: https://postgresapp.com/documentation/install.html
 
 # Postgres.app version
-app_version="2.5.6"
+app_version="2.8.5"
+major_version=17
 
 (
-    set -x
-    # https://postgresapp.com/downloads.html
-    cd /tmp
-    curl -L "https://github.com/PostgresApp/PostgresApp/releases/download/v$app_version/Postgres-${app_version}-13.dmg" \
-        -o Postgres.app.dmg
+	set -x
+	# https://postgresapp.com/downloads.html
+	cd /tmp
+	curl -L "https://github.com/PostgresApp/PostgresApp/releases/download/v$app_version/Postgres-${app_version}-${major_version}.dmg" \
+		-o Postgres.app.dmg
 
-    open Postgres.app.dmg
+	open Postgres.app.dmg
 )
 
 echo "
