@@ -40,6 +40,14 @@ git_config_global_settings() {
     git config --global rerere.enabled true
 
     git config --global core.editor vim
+
+    # Set delta as Git pager
+    git config --global core.pager delta
+
+    # Configure delta options
+    git config --global delta.navigate true
+    git config --global delta.line-numbers true
+    git config --global delta.side-by-side true # Optional: side-by-side view
 }
 
 git_config_aliases() {
@@ -94,6 +102,7 @@ git_config_aliases() {
     git config --global alias.ff "!git ls-files | grep -i"
 }
 
+brew install git-delta || true
 git_config_global_settings
 git_config_aliases
 echo "Git configuration completed."
