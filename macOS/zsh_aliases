@@ -1,13 +1,24 @@
 # shellcheck disable=SC2148
 eg() {
-    local command=$1
-    (
-        cheat "$command"
-        tldr "$command"
-        curl -sL -m 5 "https://cheat.sh/$command"
-    ) | less --use-color
+	local command=$1
+	(
+		cheat "$command"
+		tldr "$command"
+		curl -sL -m 5 "https://cheat.sh/$command"
+	) | less --use-color
 }
 
-alias ls='gls --color=auto'
+alias ls='gls -F --color=auto'
 alias ll='ls -lF'
 alias la='ls -A'
+
+alias tree1='tree --dirsfirst -FL 1'
+alias tree2='tree --dirsfirst -FL 2'
+alias tree3='tree --dirsfirst -FL 3'
+
+# echo one line per path
+alias path='echo -e ${PATH//:/\\n}'
+
+# Show/hide hidden files in Finder
+alias show-hidden-files="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide-hidden-files="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"

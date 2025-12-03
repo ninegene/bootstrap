@@ -97,17 +97,21 @@ cd ~
 git clone git@github.com:ninegene/bootstrap.git
 cd bootstrap/macOS
 
-./install-brew.sh
+./install-homebrew.sh
+./install-xcode-command-line-tools.sh
 ./install-aws-cli.sh
 ./install-cheat-and-tldr.sh
 ./install-fzf-and-dependencies.sh
+./install-github-cli.sh
 ./install-gnu-packages.sh
 ./install-nodejs-24.sh
 ./install-nvm.sh
 ./install-postgresql-17.sh
 ./install-shellcheck-and-shfmt.sh
-./install-xcode-command-line-tools.sh
 ./install-zsh-git-prompt.sh
+./configure-git.sh
+./configure-vim.sh
+./configure-zsh.sh
 
 brew doctor
 brew cleanup -s
