@@ -104,7 +104,6 @@ cd bootstrap/macOS
 ./install-homebrew.sh
 ./install-xcode-command-line-tools.sh
 ./install-aws-cli.sh
-./install-cheat-and-tldr.sh
 ./install-fzf-and-dependencies.sh
 ./install-github-cli.sh
 ./install-gnu-packages.sh
