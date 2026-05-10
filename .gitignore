@@ -6,3 +6,4 @@
 tmp/
 *.log
 *.swp
+*.code-workspace
