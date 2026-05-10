@@ -110,6 +110,7 @@ cd bootstrap/macOS
 ./install-go.sh
 ./install-ruby.sh
 ./install-nodejs-24.sh
+./install-uv.sh
 ./install-openai-codex-cli.sh
 ./install-claude-code.sh
 ./install-nvm.sh
