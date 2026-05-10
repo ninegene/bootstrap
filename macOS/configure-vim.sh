@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eo pipefail
 
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
 # https://github.com/vim/vim
 brew install vim || true
 
@@ -30,6 +32,6 @@ git clone https://github.com/github/copilot.vim.git \
 
 echo "Setup symlink .vimrc"
 [[ -L "$HOME/.vimrc" ]] && rm "$HOME/.vimrc"
-ln -vs "$HOME/bootstrap/vim/vimrc" "$HOME/.vimrc" || true
+ln -vs "$REPO_ROOT/vim/vimrc" "$HOME/.vimrc" || true
 
 echo "Vim configuration completed."

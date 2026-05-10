@@ -1,16 +1,17 @@
 #!/bin/bash
 set -eo pipefail
 
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
 echo "Configuring Zsh..."
-# shellcheck disable=SC2016
-if ! grep -q '^source $HOME/bootstrap/macOS/zsh_aliases' ~/.zshrc; then
+if ! grep -q "^source $REPO_ROOT/macOS/zsh_aliases" ~/.zshrc; then
     echo "Updating ~/.zshrc to load zsh_aliases..."
-    echo 'source $HOME/bootstrap/macOS/zsh_aliases' >>~/.zshrc
+    echo "source $REPO_ROOT/macOS/zsh_aliases" >>~/.zshrc
 fi
 
 echo "Configuring .screenrc file..."
 if [ ! -f ~/.screenrc ]; then
-    ln -vs "$HOME/bootstrap/macOS/screenrc" ~/.screenrc
+    ln -vs "$REPO_ROOT/macOS/screenrc" ~/.screenrc
 fi
 
 echo "Zsh configuration completed."
