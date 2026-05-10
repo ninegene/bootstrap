@@ -7,7 +7,8 @@ pre-commit:
 
     shfmt:
       glob: "**/*.sh"
-      run: shfmt -d -i 4 -ci {staged_files}
+      run: shfmt -w -i 4 -ci {staged_files}
+      stage_fixed: true
 
     markdownlint:
       glob: "**/*.md"

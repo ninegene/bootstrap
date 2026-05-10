@@ -2,6 +2,7 @@
 set -eo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -23,8 +24,15 @@ run_step() {
     printf "Run this step? [Y/n/q] "
     read -r answer </dev/tty
     case "$answer" in
-        [nN]) echo -e "${YELLOW}— Skipped${RESET}"; skipped+=("[$step] $label"); return ;;
-        [qQ]) echo "Aborted."; exit 0 ;;
+        [nN])
+            echo -e "${YELLOW}— Skipped${RESET}"
+            skipped+=("[$step] $label")
+            return
+            ;;
+        [qQ])
+            echo "Aborted."
+            exit 0
+            ;;
     esac
     if bash "$SCRIPT_DIR/$script"; then
         echo -e "${GREEN}✓ Done${RESET}"
@@ -38,33 +46,33 @@ echo -e "${BOLD}macOS Bootstrap${RESET}"
 echo "Starting at $(date)"
 
 # ── Prerequisites ────────────────────────────────────────────────────────────
-run_step "Xcode Command Line Tools"  install-xcode-command-line-tools.sh
-run_step "Homebrew"                  install-homebrew.sh
-run_step "GitHub SSH key"            setup-github-ssh-key.sh
+run_step "Xcode Command Line Tools" install-xcode-command-line-tools.sh
+run_step "Homebrew" install-homebrew.sh
+run_step "GitHub SSH key" setup-github-ssh-key.sh
 
 # ── CLI tools ────────────────────────────────────────────────────────────────
-run_step "AWS CLI"                   install-aws-cli.sh
-run_step "GitHub CLI"                install-github-cli.sh
-run_step "fzf + fd, ripgrep, bat"   install-fzf-and-dependencies.sh
-run_step "ShellCheck + shfmt"        install-shellcheck-and-shfmt.sh
-run_step "Lefthook (git hooks)"     install-lefthook.sh
-run_step "GNU packages"              install-gnu-packages.sh
-run_step "cheat + tldr"             install-cheat-and-tldr.sh
+run_step "AWS CLI" install-aws-cli.sh
+run_step "GitHub CLI" install-github-cli.sh
+run_step "fzf + fd, ripgrep, bat" install-fzf-and-dependencies.sh
+run_step "ShellCheck + shfmt" install-shellcheck-and-shfmt.sh
+run_step "Lefthook (git hooks)" install-lefthook.sh
+run_step "GNU packages" install-gnu-packages.sh
+run_step "cheat + tldr" install-cheat-and-tldr.sh
 
 # ── Version managers ─────────────────────────────────────────────────────────
-run_step "NVM (Node version manager)"    install-nvm.sh
+run_step "NVM (Node version manager)" install-nvm.sh
 run_step "pyenv (Python version manager)" install-pyenv.sh
 
 # ── Runtimes ─────────────────────────────────────────────────────────────────
-run_step "Node.js 24"       install-nodejs-24.sh
-run_step "Python 3.13"      install-python-3.13.sh
-run_step "PostgreSQL 18"    install-postgresql-18.sh
+run_step "Node.js 24" install-nodejs-24.sh
+run_step "Python 3.13" install-python-3.13.sh
+run_step "PostgreSQL 18" install-postgresql-18.sh
 
 # ── Shell & editor ───────────────────────────────────────────────────────────
-run_step "zsh-git-prompt"   install-zsh-git-prompt.sh
-run_step "Git config"       configure-git.sh
-run_step "Vim config"       configure-vim.sh
-run_step "Zsh config"       configure-zsh.sh
+run_step "zsh-git-prompt" install-zsh-git-prompt.sh
+run_step "Git config" configure-git.sh
+run_step "Vim config" configure-vim.sh
+run_step "Zsh config" configure-zsh.sh
 
 # ── Summary ──────────────────────────────────────────────────────────────────
 echo ""
@@ -86,3 +94,13 @@ fi
 echo "Finished at $(date)"
 echo ""
 echo -e "${YELLOW}Note: Open a new terminal session for all PATH changes to take effect.${RESET}"
+
+# ── Git hooks ────────────────────────────────────────────────────────────────
+echo ""
+if command -v lefthook >/dev/null 2>&1; then
+    echo -e "${BOLD}Installing Lefthook git hooks...${RESET}"
+    (cd "$REPO_ROOT" && lefthook install)
+    echo -e "${GREEN}✓ Git hooks installed${RESET}"
+else
+    echo -e "${YELLOW}lefthook not found — skipping hook installation${RESET}"
+fi
