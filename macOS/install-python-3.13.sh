@@ -2,8 +2,8 @@
 set -eo pipefail
 
 pushd /tmp
-wget 'https://www.python.org/ftp/python/3.9.13/python-3.9.13-macos11.pkg'
-open 'python-3.9.13-macos11.pkg'
+wget 'https://www.python.org/ftp/python/3.13.13/python-3.13.13-macos11.pkg'
+open 'python-3.13.13-macos11.pkg'
 popd >/dev/null
 
 echo "Continue on the installer GUI to complete the installation..."

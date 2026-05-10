@@ -4,3 +4,5 @@
 *.gz
 .DS_Store
 tmp/
+*.log
+*.swp

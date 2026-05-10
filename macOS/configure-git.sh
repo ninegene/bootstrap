@@ -3,23 +3,46 @@ set -eo pipefail
 
 git_config_global_settings() {
     echo "Configuring Git global settings..."
-    local username
-    local useremail
-    username=$(whoami)
-    useremail="$username@$(hostname)"
 
-    if ! cat ~/.gitconfig | grep -EA 4 '\[user\]' | egrep '^\sname =' >/dev/null; then
-        (
-            set -x
-            git config --global user.name "$username"
-        )
+    local current_name current_email
+    current_name=$(git config --global user.name 2>/dev/null || true)
+    current_email=$(git config --global user.email 2>/dev/null || true)
+
+    if [[ -n "$current_name" ]]; then
+        echo "Git user.name already set to: $current_name"
+        printf "Change it? [y/N] "
+        read -r answer </dev/tty
+        [[ "$answer" =~ ^[yY]$ ]] && current_name=""
     fi
 
-    if ! cat ~/.gitconfig | grep -EA 4 '\[user\]' | egrep '^\semail =' >/dev/null; then
-        (
-            set -x
-            git config --global user.email "$useremail"
-        )
+    if [[ -z "$current_name" ]]; then
+        printf "Enter your Git name (e.g. Jane Smith): "
+        read -r current_name </dev/tty
+        git config --global user.name "$current_name"
+        echo "  Set user.name = $current_name"
+    fi
+
+    if [[ -n "$current_email" ]]; then
+        echo "Git user.email already set to: $current_email"
+        printf "Change it? [y/N] "
+        read -r answer </dev/tty
+        [[ "$answer" =~ ^[yY]$ ]] && current_email=""
+    fi
+
+    if [[ -z "$current_email" ]]; then
+        printf "Enter your GitHub username: "
+        read -r github_username </dev/tty
+
+        echo "  Looking up GitHub user ID for '$github_username'..."
+        if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+            github_id=$(gh api "/users/$github_username" --jq '.id')
+        else
+            github_id=$(curl -fsSL "https://api.github.com/users/$github_username" | grep '"id":' | head -1 | grep -o '[0-9]*')
+        fi
+
+        current_email="${github_id}+${github_username}@users.noreply.github.com"
+        git config --global user.email "$current_email"
+        echo "  Set user.email = $current_email"
     fi
 
     # With `core.autocrlf` set to `input`:

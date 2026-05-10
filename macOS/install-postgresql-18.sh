@@ -4,8 +4,8 @@ set -eo pipefail
 # See: https://postgresapp.com/documentation/install.html
 
 # Postgres.app version
-app_version="2.8.5"
-major_version=17
+app_version="2.9.4"
+major_version=18
 
 # https://postgresapp.com/downloads.html
 pushd /tmp
