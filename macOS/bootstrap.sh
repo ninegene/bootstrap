@@ -61,6 +61,7 @@ run_step "GNU packages" install-gnu-packages.sh
 # ── Version managers ─────────────────────────────────────────────────────────
 run_step "NVM (Node version manager)" install-nvm.sh
 run_step "pyenv (Python version manager)" install-pyenv.sh
+run_step "rbenv (Ruby version manager)" install-ruby.sh
 
 # ── Runtimes ─────────────────────────────────────────────────────────────────
 run_step "Go" install-go.sh
