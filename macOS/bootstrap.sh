@@ -63,6 +63,7 @@ run_step "NVM (Node version manager)" install-nvm.sh
 run_step "pyenv (Python version manager)" install-pyenv.sh
 
 # ── Runtimes ─────────────────────────────────────────────────────────────────
+run_step "Go" install-go.sh
 run_step "Node.js 24" install-nodejs-24.sh
 run_step "OpenAI Codex CLI" install-openai-codex-cli.sh
 run_step "Claude Code" install-claude-code.sh

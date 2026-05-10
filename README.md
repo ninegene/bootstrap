@@ -107,6 +107,7 @@ cd bootstrap/macOS
 ./install-fzf-and-dependencies.sh
 ./install-github-cli.sh
 ./install-gnu-packages.sh
+./install-go.sh
 ./install-nodejs-24.sh
 ./install-openai-codex-cli.sh
 ./install-claude-code.sh
