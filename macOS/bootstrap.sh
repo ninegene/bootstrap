@@ -47,6 +47,7 @@ run_step "AWS CLI"                   install-aws-cli.sh
 run_step "GitHub CLI"                install-github-cli.sh
 run_step "fzf + fd, ripgrep, bat"   install-fzf-and-dependencies.sh
 run_step "ShellCheck + shfmt"        install-shellcheck-and-shfmt.sh
+run_step "Lefthook (git hooks)"     install-lefthook.sh
 run_step "GNU packages"              install-gnu-packages.sh
 run_step "cheat + tldr"             install-cheat-and-tldr.sh
 
