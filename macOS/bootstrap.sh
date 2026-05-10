@@ -65,11 +65,14 @@ run_step "pyenv (Python version manager)" install-pyenv.sh
 
 # ── Runtimes ─────────────────────────────────────────────────────────────────
 run_step "Node.js 24" install-nodejs-24.sh
+run_step "OpenAI Codex CLI" install-openai-codex-cli.sh
+run_step "Claude Code" install-claude-code.sh
 run_step "Python 3.13" install-python-3.13.sh
 run_step "PostgreSQL 18" install-postgresql-18.sh
 
 # ── Shell & editor ───────────────────────────────────────────────────────────
 run_step "zsh-git-prompt" install-zsh-git-prompt.sh
+run_step "iTerm2" configure-iterm.sh
 run_step "Git config" configure-git.sh
 run_step "Vim config" configure-vim.sh
 run_step "Zsh config" configure-zsh.sh

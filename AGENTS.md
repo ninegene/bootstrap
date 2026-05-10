@@ -34,16 +34,16 @@ shfmt -w macOS/some-script.sh
 
 ## macOS Script Execution Order
 
-The recommended order for a fresh macOS setup (from [macOS/README.md](macOS/README.md)):
+The recommended order for a fresh macOS setup (from [README.md](README.md)):
 
 1. `install-homebrew.sh` — required first, everything else uses `brew`
 2. `install-xcode-command-line-tools.sh`
 3. `install-aws-cli.sh`, `install-github-cli.sh`
 4. `install-fzf-and-dependencies.sh`, `install-shellcheck-and-shfmt.sh`
 5. `install-nvm.sh`, `install-pyenv.sh`
-6. `install-nodejs-24.sh`, `install-postgresql-18.sh`, `install-python-3.13.sh`
+6. `install-nodejs-24.sh`, `install-openai-codex-cli.sh`, `install-claude-code.sh`, `install-postgresql-18.sh`, `install-python-3.13.sh`
 7. `install-cheat-and-tldr.sh`, `install-zsh-git-prompt.sh`, `install-gnu-packages.sh`
-8. `configure-git.sh`, `configure-vim.sh`, `configure-zsh.sh`
+8. `configure-iterm.sh`, `configure-git.sh`, `configure-vim.sh`, `configure-zsh.sh`
 
 ## Code Architecture
 
@@ -63,6 +63,7 @@ All scripts follow these patterns:
 ## EditorConfig
 
 The [.editorconfig](.editorconfig) defines:
+
 - Shell scripts: 4-space indent
 - JS/TS: 2-space indent
 - Python: 4-space indent, 88-char max line
