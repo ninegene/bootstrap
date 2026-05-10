@@ -69,6 +69,7 @@ run_step "Node.js 24" install-nodejs-24.sh
 run_step "uv (Python package manager)" install-uv.sh
 run_step "OpenAI Codex CLI" install-openai-codex-cli.sh
 run_step "Claude Code" install-claude-code.sh
+run_step "Shared AI instructions" install-ai-instructions.sh
 run_step "Python 3.13" install-python-3.13.sh
 run_step "PostgreSQL 18" install-postgresql-18.sh
 
