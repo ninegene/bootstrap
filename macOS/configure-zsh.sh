@@ -15,7 +15,7 @@ if ! grep -Fxq "$ZSH_ALIASES_SOURCE" ~/.zshrc; then
 fi
 
 echo "Configuring .screenrc file..."
-if [ ! -f ~/.screenrc ]; then
+if [ ! -e ~/.screenrc ] && [ ! -L ~/.screenrc ]; then
     ln -vs "$REPO_ROOT/macOS/screenrc" ~/.screenrc
 fi
 

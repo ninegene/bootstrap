@@ -17,10 +17,8 @@ if ! grep -q '^source ~/.zsh/zsh-git-prompt/zshrc.sh' ~/.zshrc; then
 
 # https://github.com/ninegene/zsh-git-prompt
 # https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
-export ZSH_THEME_GIT_PROMPT_SHOW_CLEAN=1
 source ~/.zsh/zsh-git-prompt/zshrc.sh
-precmd() { print "" }
-export PROMPT='%(?.%F{green}√.%F{red}?%?)%f %F{#99E343}%n@%m%f: %F{#83B0D8}%~%f $(git_super_status)'$'\n''%F{blue}$%f '
+export PROMPT='%(?.%F{green}√.%F{red}?%?)%f %F{#83B0D8}%~%f $(git_super_status) %F{blue}$%f '
 
 DELIMITER
 fi
