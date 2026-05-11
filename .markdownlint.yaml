@@ -1,0 +1,32 @@
+# Long URLs and shell snippets are common in this repo's docs.
+MD013: false
+
+# Repeated headings are acceptable in separate setup and archive docs.
+MD024: false
+
+# Multiple top-level titles are not useful for this repo's docs.
+MD025: false
+
+# Heading punctuation is style noise here.
+MD026: false
+
+# Inline HTML appears in practical markdown more often than it causes issues.
+MD033: false
+
+# Bare URLs are common in setup notes and reference docs.
+MD034: false
+
+# Emphasis used as a heading is not worth blocking on in this repo.
+MD036: false
+
+# A first-line heading is not required for every file in this repo.
+MD041: false
+
+# Fenced code block style is not important enough to enforce here.
+MD048: false
+
+# Ordered list numbering style is not useful to police in these docs.
+MD049: false
+
+# Ordered list prefix style is not useful to police in these docs.
+MD050: false
