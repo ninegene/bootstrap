@@ -16,6 +16,9 @@ MD033: false
 # Bare URLs are common in setup notes and reference docs.
 MD034: false
 
+# Tabs appear intentionally in shell and SSH config examples.
+MD010: false
+
 # Emphasis used as a heading is not worth blocking on in this repo.
 MD036: false
 

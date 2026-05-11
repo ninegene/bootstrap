@@ -111,7 +111,7 @@ cd bootstrap/macOS
 ./install-ruby.sh
 ./install-nodejs-24.sh
 ./install-uv.sh
-./install-openai-codex-cli.sh
+./install-opencode-cli.sh
 ./install-claude-code.sh
 ./install-ai-instructions.sh
 ./install-nvm.sh
@@ -127,7 +127,7 @@ brew doctor
 brew cleanup -s
 ```
 
-The shared AI instruction template lives in [`macOS/ai-instructions.md`](macOS/ai-instructions.md). The installer symlinks it to the supported global locations for Copilot (`~/.config/github-copilot/global-copilot-instructions.md` and `~/.copilot/instructions/global.instructions.md`), Codex (`~/.codex/AGENTS.md`), and Claude (`~/.claude/CLAUDE.md`).
+The shared AI instruction template lives in [`macOS/ai-instructions.md`](macOS/ai-instructions.md). The installer symlinks it to the supported global locations for Copilot (`~/.config/github-copilot/global-copilot-instructions.md` and `~/.copilot/instructions/global.instructions.md`), OpenCode (`~/.opencode/AGENTS.md`), Codex (`~/.codex/AGENTS.md`), and Claude (`~/.claude/CLAUDE.md`).
 
 ## Git hooks (Lefthook)
 

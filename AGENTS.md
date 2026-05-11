@@ -41,7 +41,7 @@ The recommended order for a fresh macOS setup (from [README.md](README.md) and `
 1. `install-xcode-command-line-tools.sh`, `install-homebrew.sh`, `setup-github-ssh-key.sh`
 2. `install-aws-cli.sh`, `install-github-cli.sh`, `install-fzf-and-dependencies.sh`, `install-shellcheck-and-shfmt.sh`, `install-lefthook.sh`, `install-gnu-packages.sh`
 3. `install-nvm.sh`, `install-pyenv.sh`, `install-ruby.sh`
-4. `install-go.sh`, `install-nodejs-24.sh`, `install-uv.sh`, `install-openai-codex-cli.sh`, `install-claude-code.sh`, `install-ai-instructions.sh`, `install-python-3.13.sh`, `install-postgresql-18.sh`
+4. `install-go.sh`, `install-nodejs-24.sh`, `install-uv.sh`, `install-opencode-cli.sh`, `install-openai-codex-cli.sh`, `install-claude-code.sh`, `install-ai-instructions.sh`, `install-python-3.13.sh`, `install-postgresql-18.sh`
 5. `install-zsh-git-prompt.sh`, `configure-iterm.sh`, `configure-git.sh`, `configure-vim.sh`, `configure-zsh.sh`
 
 ## Code Architecture
@@ -49,7 +49,7 @@ The recommended order for a fresh macOS setup (from [README.md](README.md) and `
 - **[macOS/](macOS/)** — Active macOS scripts (primary focus)
 - **[ubuntu-24.04/](ubuntu-24.04/)** — Active Ubuntu scripts (secondary)
 - **[archive/](archive/)** — Legacy scripts for older OS versions; reference only, not actively maintained
-- **[macOS/ai-instructions.md](macOS/ai-instructions.md)** / **[macOS/install-ai-instructions.sh](macOS/install-ai-instructions.sh)** — shared AI instruction template plus installer that symlinks it to Copilot, Codex, and Claude locations
+- **[macOS/ai-instructions.md](macOS/ai-instructions.md)** / **[macOS/install-ai-instructions.sh](macOS/install-ai-instructions.sh)** — shared AI instruction template plus installer that symlinks it to Copilot, OpenCode, Codex, and Claude locations
 - **[lefthook.yml](lefthook.yml)** — pre-commit hook config for `shellcheck`, `shfmt`, and `markdownlint`; installed by `bootstrap.sh` when Lefthook is available
 
 ## Shell Script Conventions

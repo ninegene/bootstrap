@@ -22,5 +22,6 @@ link_if_missing() {
 
 link_if_missing "$HOME/.config/github-copilot/global-copilot-instructions.md"
 link_if_missing "$HOME/.copilot/instructions/global.instructions.md"
+link_if_missing "$HOME/.config/opencode/AGENTS.md"
 link_if_missing "$HOME/.codex/AGENTS.md"
 link_if_missing "$HOME/.claude/CLAUDE.md"
