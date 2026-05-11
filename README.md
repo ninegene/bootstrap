@@ -37,7 +37,7 @@ softwareupdate --install --all
 - Uncheck "Show Spotlight in the menu bar"
 - Uncheck unneeded Spotlight search categories
 - Disable Spotlight keyboard shortcuts
-- Disable Spotlight indexing with command: `sudo mdutil -i off`
+- In System Settings, go to Spotlight, click Search Privacy in the lower right, then add the disk you want to exclude from Spotlight indexing
 - Adjust "Lock Screen" Settings
 - Turn off Siri
 
@@ -103,6 +103,7 @@ cd bootstrap/macOS
 
 ./install-homebrew.sh
 ./install-xcode-command-line-tools.sh
+./disable-spotlight-indexing.sh
 ./install-aws-cli.sh
 ./install-fzf-and-dependencies.sh
 ./install-github-cli.sh

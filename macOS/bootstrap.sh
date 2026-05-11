@@ -49,6 +49,7 @@ echo "Starting at $(date)"
 run_step "Xcode Command Line Tools" install-xcode-command-line-tools.sh
 run_step "Homebrew" install-homebrew.sh
 run_step "GitHub SSH key" setup-github-ssh-key.sh
+run_step "Disable Spotlight indexing" disable-spotlight-indexing.sh
 
 # ── CLI tools ────────────────────────────────────────────────────────────────
 run_step "AWS CLI" install-aws-cli.sh
