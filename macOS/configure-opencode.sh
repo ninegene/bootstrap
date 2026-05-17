@@ -36,7 +36,7 @@ config.setdefault("provider", {})[provider_key] = {
         "qwen3.6-27b-mtp": {
             "name": "Qwen3.6 27B MTP",
             "limit": {
-                "context": 8192,
+                "context": 4096,
                 "output": 4096
             }
         }
