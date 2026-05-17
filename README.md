@@ -131,7 +131,7 @@ cd bootstrap/macOS
 ./install-xcode-command-line-tools.sh
 ./disable-spotlight-indexing.sh
 ./install-aws-cli.sh
-./install-fzf-and-dependencies.sh
+./install-search-and-navigation-tools.sh
 ./install-github-cli.sh
 ./install-gnu-packages.sh
 ./install-go.sh

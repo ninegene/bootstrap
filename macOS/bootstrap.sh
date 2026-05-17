@@ -54,7 +54,7 @@ run_step "Disable Spotlight indexing" disable-spotlight-indexing.sh
 # ── CLI tools ────────────────────────────────────────────────────────────────
 run_step "AWS CLI" install-aws-cli.sh
 run_step "GitHub CLI" install-github-cli.sh
-run_step "fzf + fd, ripgrep, bat" install-fzf-and-dependencies.sh
+run_step "fzf + fd, ripgrep, bat" install-search-and-navigation-tools.sh
 run_step "ShellCheck + shfmt" install-shellcheck-and-shfmt.sh
 run_step "Lefthook (git hooks)" install-lefthook.sh
 run_step "GNU packages" install-gnu-packages.sh
