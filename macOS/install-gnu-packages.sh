@@ -30,8 +30,8 @@ brew_install_pkgs() {
     brew_install coreutils # GNU ls, readlink etc.
     brew_install findutils # GNU find, locate, updatedb, xargs
 
-    # brew_install diffutils # GNU diff, cmp, diff3, sdif
-    # brew_install wdiff --with-gettext
+    brew_install diffutils # GNU diff, cmp, diff3, sdiff
+    brew_install wdiff
     brew_install gawk
     brew_install gnu-indent
     brew_install gnu-sed
@@ -44,6 +44,11 @@ brew_install_pkgs() {
     brew_install gzip
     brew_install watch
     brew_install tree
+    brew_install make       # GNU make (gmake → make via gnubin)
+    brew_install gnu-getopt # GNU getopt with long-option support (keg-only)
+    brew_install gnu-time   # GNU time with memory/CPU stats
+    brew_install parallel   # GNU parallel
+    brew_install bc         # GNU bc arbitrary-precision calculator
 }
 
 main() {

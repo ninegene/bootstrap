@@ -1,11 +1,47 @@
 
-alias ls='gls -F --color=auto'
+# GNU tools take precedence over macOS BSD versions
+for _pkg in coreutils findutils gnu-sed gnu-tar grep gawk gnu-indent gnu-which make gnu-time; do
+    _gnubin="$(brew --prefix)/opt/${_pkg}/libexec/gnubin"
+    [ -d "$_gnubin" ] && PATH="${_gnubin}:${PATH}"
+done
+_gnu_getopt="$(brew --prefix)/opt/gnu-getopt/bin"
+[ -d "$_gnu_getopt" ] && PATH="${_gnu_getopt}:${PATH}"
+export PATH
+unset _pkg _gnubin _gnu_getopt
+
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias -- -='cd -'
+
+# ls
+alias ls='ls -F --color=auto'
 alias ll='ls -lF'
 alias la='ls -A'
+alias lh='ls -lFh'
+alias lt='ls -lFt'
+alias lld='ls -lFd */'
 
+# tree
 alias tree1='tree --dirsfirst -FL 1'
 alias tree2='tree --dirsfirst -FL 2'
 alias tree3='tree --dirsfirst -FL 3'
+
+# bat as cat
+alias cat='bat --paging=never'
+
+# macOS utilities
+alias o='open'
+alias pbc='pbcopy'
+alias pbp='pbpaste'
+alias myip='curl -s ifconfig.me'
+alias localip='ipconfig getifaddr en0'
+alias flush-dns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
+
+# dev utilities
+mkcd() { mkdir -p "$1" && cd "$1" || return; }
+alias serve='python3 -m http.server 8000'
 
 # echo one line per path
 alias path='echo -e ${PATH//:/\\n}'
