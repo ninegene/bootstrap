@@ -33,12 +33,12 @@ deflogin off
 # Prevent one frozen window from blocking others
 nonblock on
 
-# Status line configuration
+# Hardstatus: hostname | session name | date time
 hardstatus alwayslastline
-hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W}%c %{g}]'
+hardstatus string '%{= kw}[ %{= kG}%H%{= kw} ][ %{= kg}%S%{= kw} ]%=%{= kB} %Y-%m-%d %{= kW}%0c '
 
-# Caption line (window list)
-caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
+# Caption: window list per region (active window highlighted)
+caption always '%{= kw}%?%-Lw%?%{= BW} %n %t %{-}%?%+Lw%?'
 
 # Enable activity monitoring
 activity "Activity in window %n"
