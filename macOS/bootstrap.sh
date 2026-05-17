@@ -66,6 +66,7 @@ run_step "rbenv (Ruby version manager)" install-ruby.sh
 
 # ── Runtimes ─────────────────────────────────────────────────────────────────
 run_step "Go" install-go.sh
+run_step "llama.cpp" install-llama-cpp.sh
 run_step "Node.js 24" install-nodejs-24.sh
 run_step "uv (Python package manager)" install-uv.sh
 run_step "OpenCode" install-opencode-cli.sh

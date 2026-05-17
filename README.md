@@ -42,6 +42,7 @@ softwareupdate --install --all
 - Turn off Siri
 
 ### mdutil
+
 ```
  $ mdutil
 Usage: mdutil -pEsa -i (on|off) -d volume ...
@@ -134,6 +135,7 @@ cd bootstrap/macOS
 ./install-github-cli.sh
 ./install-gnu-packages.sh
 ./install-go.sh
+./install-llama-cpp.sh
 ./install-ruby.sh
 ./install-nodejs-24.sh
 ./install-uv.sh
