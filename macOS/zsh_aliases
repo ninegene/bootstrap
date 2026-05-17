@@ -87,7 +87,7 @@ qwen27b-opencode() {
 
 # Run Qwen3.6-27B as OpenAI-compatible API server for IDE integrations
 # Usage: qwen27b-llama-server
-#        Then connect OpenCode/Claude Code to http://localhost:8000/v1
+#        Then connect OpenCode/Claude Code to http://localhost:8080/v1
 qwen27b-llama-server() {
     local model_file
     model_file=$(find "$_QWEN27B_MODEL_DIR" -name "*UD-IQ3_XXS*.gguf" | sort | head -1)
@@ -112,7 +112,7 @@ qwen27b-llama-server() {
 # Use Claude Code with local qwen27b-llama-server without editing ~/.claude/settings.json
 # Usage: qwen27b-claude [args]
 qwen27b-claude() {
-    ANTHROPIC_BASE_URL="http://localhost:8000/v1" \
+    ANTHROPIC_BASE_URL="http://localhost:8080/v1" \
     ANTHROPIC_API_KEY="sk-local" \
     CLAUDE_CODE_ATTRIBUTION_HEADER="0" \
     CLAUDE_CODE_ENABLE_TELEMETRY="0" \
