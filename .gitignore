@@ -8,3 +8,4 @@ tmp/
 *.swp
 *.code-workspace
 .idea/
+models/

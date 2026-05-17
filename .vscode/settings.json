@@ -1,0 +1,22 @@
+{
+  "[shellscript]": {
+    "editor.defaultFormatter": "mkhl.shfmt",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.formatOnSave": true
+  },
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.formatOnSave": true,
+  "shellcheck.enable": true,
+  "markdownlint.run": "onSave",
+  "search.exclude": {
+    "**/.git": true,
+    "**/models": true
+  },
+  "files.exclude": {
+    "**/.DS_Store": true
+  }
+}

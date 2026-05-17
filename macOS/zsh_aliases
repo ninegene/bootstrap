@@ -49,3 +49,74 @@ alias path='echo -e ${PATH//:/\\n}'
 # Show/hide hidden files in Finder
 alias show-hidden-files="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide-hidden-files="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Qwen3.6-27B-MTP — local LLM via llama.cpp (Apple Silicon, 16GB RAM)
+# Quant: UD-IQ3_XXS (~12.2 GB), MTP speculative decoding (~140 tok/s), Metal GPU
+# --spec-type draft-mtp requires llama.cpp >= b9180 (May 2026+)
+_QWEN27B_MODEL_DIR="${0:A:h:h}/models/unsloth/Qwen3.6-27B-MTP-GGUF"
+_QWEN27B_ALIAS="unsloth/Qwen3.6-27B-MTP-GGUF"
+
+# Interactive chat with Qwen3.6-27B model in terminal (loads model directly, no server needed)
+# Usage: qwen27b-llama-chat "what is the capital of france?"
+qwen27b-llama-chat() {
+    local model_file
+    model_file=$(find "$_QWEN27B_MODEL_DIR" -name "*UD-IQ3_XXS*.gguf" | sort | head -1)
+    if [ -z "$model_file" ]; then
+        echo "Model not found in $_QWEN27B_MODEL_DIR — run: bash macOS/download-qwen27b.sh"
+        return 1
+    fi
+    local -a prompt_args=()
+    [[ $# -gt 0 ]] && prompt_args=(-p "$*")
+    llama-cli \
+        --model "$model_file" \
+        -ngl 50 \
+        -b 128 \
+        -c 4096 \
+        -fa on \
+        --spec-type draft-mtp \
+        --spec-draft-n-max 1 \
+        --temp 0.6 --top-k 20 --top-p 0.95 \
+        -cnv "${prompt_args[@]}"
+}
+
+# Chat via OpenCode using the local llama-server (qwen27b-llama-server must be running)
+# Usage: qwen27b-opencode
+qwen27b-opencode() {
+    command opencode --model "llama-local/qwen3.6-27b-mtp" "$@"
+}
+
+# Run Qwen3.6-27B as OpenAI-compatible API server for IDE integrations
+# Usage: qwen27b-llama-server
+#        Then connect OpenCode/Claude Code to http://localhost:8000/v1
+qwen27b-llama-server() {
+    local model_file
+    model_file=$(find "$_QWEN27B_MODEL_DIR" -name "*UD-IQ3_XXS*.gguf" | sort | head -1)
+    if [ -z "$model_file" ]; then
+        echo "Model not found in $_QWEN27B_MODEL_DIR — run: bash macOS/download-qwen27b.sh"
+        return 1
+    fi
+    echo "Loading: $model_file"
+    # --jinja required for tool calling (opencode and Claude Code)
+    llama-server \
+        --model "$model_file" \
+        --alias "$_QWEN27B_ALIAS" \
+        -ngl 99 \
+        -fa on \
+        -c 8192 \
+        --jinja \
+        --spec-type draft-mtp \
+        --spec-draft-n-max 2 \
+        -np 1 "$@"
+}
+
+# Use Claude Code with local qwen27b-llama-server without editing ~/.claude/settings.json
+# Usage: qwen27b-claude [args]
+qwen27b-claude() {
+    ANTHROPIC_BASE_URL="http://localhost:8000/v1" \
+    ANTHROPIC_API_KEY="sk-local" \
+    CLAUDE_CODE_ATTRIBUTION_HEADER="0" \
+    CLAUDE_CODE_ENABLE_TELEMETRY="0" \
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC="1" \
+    command claude --model "$_QWEN27B_ALIAS" "$@"
+}
+
