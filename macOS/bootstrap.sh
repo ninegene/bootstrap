@@ -77,7 +77,6 @@ run_step "Python 3.13" install-python-3.13.sh
 run_step "PostgreSQL 18" install-postgresql-18.sh
 
 # ── Shell & editor ───────────────────────────────────────────────────────────
-run_step "zsh-git-prompt" install-zsh-git-prompt.sh
 run_step "iTerm2" configure-iterm.sh
 run_step "Git config" configure-git.sh
 run_step "Vim config" configure-vim.sh
