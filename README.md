@@ -137,11 +137,9 @@ cd bootstrap/macOS
 ./install-go.sh
 ./install-llama-cpp.sh
 ./install-ruby.sh
-./install-nodejs-24.sh
-./install-uv.sh
 ./install-opencode-cli.sh
 ./install-crush.sh
-./install-gemini-cli.sh
+./install-antigravity-cli.sh
 ./install-claude-code.sh
 ./install-user-ai-instructions.sh
 ./install-nvm.sh
