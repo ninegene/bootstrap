@@ -141,6 +141,7 @@ cd bootstrap/macOS
 ./install-uv.sh
 ./install-opencode-cli.sh
 ./install-crush.sh
+./install-gemini-cli.sh
 ./install-claude-code.sh
 ./install-user-ai-instructions.sh
 ./install-nvm.sh
