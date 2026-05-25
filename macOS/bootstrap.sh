@@ -79,6 +79,7 @@ run_step "AI agent instructions" install-ai-agent-instructions.sh
 run_step "AI agent skills" install-ai-agent-skills.sh
 run_step "Python 3.13" install-python-3.13.sh
 run_step "PostgreSQL 18" install-postgresql-18.sh
+run_step "Elixir" install-elixir.sh
 
 # ── Shell & editor ───────────────────────────────────────────────────────────
 run_step "iTerm2" configure-iterm.sh

@@ -144,6 +144,7 @@ cd bootstrap/macOS
 ./install-ai-agent-instructions.sh
 ./install-nvm.sh
 ./install-postgresql-18.sh
+./install-elixir.sh
 ./install-shellcheck-and-shfmt.sh
 ./install-zsh-git-prompt.sh
 ./configure-iterm.sh

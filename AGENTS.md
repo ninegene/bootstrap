@@ -41,7 +41,7 @@ The recommended order for a fresh macOS setup (from [README.md](README.md) and `
 1. `install-xcode-command-line-tools.sh`, `install-homebrew.sh`, `setup-github-ssh-key.sh`
 2. `install-aws-cli.sh`, `install-github-cli.sh`, `install-search-and-navigation-tools.sh`, `install-shellcheck-and-shfmt.sh`, `install-lefthook.sh`, `install-gnu-packages.sh`
 3. `install-nvm.sh`, `install-pyenv.sh`, `install-ruby.sh`
-4. `install-go.sh`, `install-llama-cpp.sh`, `install-nodejs-24.sh`, `install-uv.sh`, `install-opencode-cli.sh`, `install-crush.sh`, `install-antigravity-cli.sh`, `install-openai-codex-cli.sh`, `install-claude-code.sh`, `install-ai-agent-instructions.sh`, `install-ai-agent-skills.sh`, `install-python-3.13.sh`, `install-postgresql-18.sh`
+4. `install-go.sh`, `install-llama-cpp.sh`, `install-nodejs-24.sh`, `install-uv.sh`, `install-opencode-cli.sh`, `install-crush.sh`, `install-antigravity-cli.sh`, `install-openai-codex-cli.sh`, `install-claude-code.sh`, `install-ai-agent-instructions.sh`, `install-ai-agent-skills.sh`, `install-python-3.13.sh`, `install-postgresql-18.sh`, `install-elixir.sh`
 5. `install-zsh-git-prompt.sh`, `configure-iterm.sh`, `configure-git.sh`, `configure-vim.sh`, `configure-zsh.sh`
 
 ## Code Architecture
@@ -74,6 +74,14 @@ Run `macOS/install-ai-agent-skills.sh` after adding a new skill. This creates sy
 | Claude Code                   | `~/.claude/skills/<name>/` (per-skill; dir-level symlinks not followed) |
 
 Claude Code is the exception: it does not follow directory-level symlinks, so the installer loops over every skill dir in `skills/` and creates individual symlinks under `~/.claude/skills/`. Re-run the installer each time a new skill is added.
+
+## Adding a New Install Script
+
+When adding a new `install-*.sh` script, update **all three** of the following:
+
+1. **`macOS/bootstrap.sh`** — add a `run_step` call in the appropriate section (Prerequisites, CLI tools, Version managers, Runtimes, or Shell & editor)
+2. **`README.md`** — add the script to the ordered list under "Run bootstrap scripts to install necessary packages and tools"
+3. **`AGENTS.md`** — add the script to the relevant step in "macOS Script Execution Order"
 
 ## Shell Script Conventions
 
