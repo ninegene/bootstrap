@@ -19,7 +19,7 @@ Skills are modular, self-contained directories that extend an agent's capabiliti
 
 ### Anatomy of a Skill
 
-```
+```text
 skill-name/
 ├── SKILL.md          # Required: frontmatter + instructions
 ├── agents/           # Optional: product-specific metadata
@@ -56,6 +56,7 @@ Keep SKILL.md under 500 lines. Move detailed reference material to `references/`
 Skip only if the usage patterns are already clearly understood.
 
 Ask the user:
+
 - What should this skill enable the agent to do?
 - When should it trigger? What would the user actually type?
 - What's the expected output format?
@@ -66,10 +67,12 @@ Avoid asking too many questions at once. Start with the most important and follo
 ### Step 2: Plan reusable skill contents
 
 For each concrete example, analyze:
+
 1. How would you execute this from scratch?
 2. What scripts, references, or assets would make this repeatable?
 
 Common signals:
+
 - Agent rewrites the same helper code each run → bundle it in `scripts/`
 - Same schema or API docs needed every time → put in `references/`
 - Same boilerplate output or template → put in `assets/`
@@ -154,7 +157,8 @@ Put results in `<skill-name>-workspace/` as a sibling to the skill directory, or
 For each test case, spawn two subagents simultaneously — one with the skill, one without (or old version when improving an existing skill). Always launch both at once.
 
 **With-skill run:**
-```
+
+```text
 Execute this task:
 - Skill path: <path-to-skill>
 - Task: <eval prompt>
@@ -163,7 +167,8 @@ Execute this task:
 ```
 
 **Baseline run** (same prompt, no skill or old skill snapshot):
-```
+
+```text
 Save outputs to: <workspace>/iteration-N/eval-<ID>/without_skill/outputs/
 ```
 
@@ -179,9 +184,11 @@ Capture `total_tokens` and `duration_ms` from each subagent notification into `t
 
 1. **Grade each run** — spawn a grader subagent using `agents/grader.md`; save `grading.json` per run
 2. **Aggregate:**
+
    ```bash
    python -m scripts.aggregate_benchmark <workspace>/iteration-N --skill-name <name>
    ```
+
 3. **Analyze patterns** — read `agents/analyzer.md` for what to look for
 4. **Share results with the user** — present the benchmark summary and ask for feedback on specific test cases.
 
@@ -209,6 +216,7 @@ After the skill is in good shape, optimize its `description` field for triggerin
 **Step 2: Review with user** — share the generated queries and ask the user to confirm or adjust which should/shouldn't trigger before running.
 
 **Step 3: Run the optimization loop:**
+
 ```bash
 python -m scripts.run_loop \
   --eval-set <path-to-trigger-eval.json> \
@@ -221,7 +229,6 @@ Use the current session's model ID so triggering tests match what the user actua
 
 **Step 4: Apply** — take `best_description` from JSON output, update SKILL.md frontmatter, show before/after.
 
-
 ## Packaging
 
 ```bash
@@ -231,13 +238,14 @@ python -m scripts.package_skill <path/to/skill-folder>
 Produces a `.skill` file. Present to user with `present_files` tool if available.
 
 When updating an existing skill:
+
 - Preserve the original `name` field and directory name — do not append `-v2`
 - If the installed path is read-only, copy to `/tmp/<skill-name>/`, edit there, package from the copy
 
 ## Reference Files
 
 | File | When to read |
-|---|---|
+| --- | --- |
 | `references/schemas.md` | When generating `evals.json`, `grading.json`, `benchmark.json`, or `timing.json` |
 | `references/openai_yaml.md` | When creating or regenerating `agents/openai.yaml` |
 | `agents/grader.md` | When spawning a grader subagent |

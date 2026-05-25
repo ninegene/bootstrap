@@ -16,11 +16,13 @@ Evaluate the code for complexity using these signals:
 **Size** — functions or files that do too much. A function that needs a paragraph to describe what it does is a candidate to split.
 
 For each issue found:
+
 - Name the specific metric or signal
 - Show the problematic code span
 - Give a concrete refactor suggestion (early return, extracted function, interface boundary, deletion)
 
 Severity guide:
+
 - **Must fix**: cyclomatic complexity > 15, coupling that makes testing impossible, widespread dead code
 - **Should fix**: nesting > 3 levels, functions > ~40 lines, high Halstead vocabulary
 - **Consider**: moderate coupling, mid-size functions that could be cleaner

@@ -25,6 +25,7 @@ You receive these parameters in your prompt:
 ### Step 2: Analyze Per-Assertion Patterns
 
 For each expectation across all runs:
+
 - Does it **always pass** in both configurations? (may not differentiate skill value)
 - Does it **always fail** in both configurations? (may be broken or beyond capability)
 - Does it **always pass with skill but fail without**? (skill clearly adds value here)
@@ -34,6 +35,7 @@ For each expectation across all runs:
 ### Step 3: Analyze Cross-Eval Patterns
 
 Look for patterns across evals:
+
 - Are certain eval types consistently harder/easier?
 - Do some evals show high variance while others are stable?
 - Are there surprising results that contradict expectations?
@@ -41,6 +43,7 @@ Look for patterns across evals:
 ### Step 4: Analyze Metrics Patterns
 
 Look at time_seconds, tokens, tool_calls:
+
 - Does the skill significantly increase execution time?
 - Is there high variance in resource usage?
 - Are there outlier runs that skew the aggregates?
@@ -48,11 +51,13 @@ Look at time_seconds, tokens, tool_calls:
 ### Step 5: Generate Notes
 
 Write freeform observations as a list of strings. Each note should:
+
 - State a specific observation
 - Be grounded in the data (not speculation)
 - Help the user understand something the aggregate metrics don't show
 
 Examples:
+
 - "Assertion 'Output is a PDF file' passes 100% in both configurations - may not differentiate skill value"
 - "Eval 3 shows high variance (50% ± 40%) - run 2 had an unusual failure that may be flaky"
 - "Without-skill runs consistently fail on table extraction expectations (0% pass rate)"
@@ -76,12 +81,14 @@ Save notes to `{output_path}` as a JSON array of strings:
 ## Guidelines
 
 **DO:**
+
 - Report what you observe in the data
 - Be specific about which evals, expectations, or runs you're referring to
 - Note patterns that aggregate metrics would hide
 - Provide context that helps interpret the numbers
 
 **DO NOT:**
+
 - Suggest improvements to the skill (that's for the improvement step, not benchmarking)
 - Make subjective quality judgments ("the output was good/bad")
 - Speculate about causes without evidence
