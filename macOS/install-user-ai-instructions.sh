@@ -2,7 +2,7 @@
 set -eo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEMPLATE_FILE="$SCRIPT_DIR/ai-instructions.md"
+TEMPLATE_FILE="$SCRIPT_DIR/user-ai-instructions.md"
 
 link_if_missing() {
     local target_file="$1"
@@ -25,3 +25,4 @@ link_if_missing "$HOME/.copilot/instructions/global.instructions.md"
 link_if_missing "$HOME/.config/opencode/AGENTS.md"
 link_if_missing "$HOME/.codex/AGENTS.md"
 link_if_missing "$HOME/.claude/CLAUDE.md"
+link_if_missing "$HOME/.gemini/GEMINI.md"

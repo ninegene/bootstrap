@@ -73,7 +73,7 @@ run_step "Hugging Face Hub CLI" install-huggingface-hub.sh
 run_step "OpenCode" install-opencode-cli.sh
 run_step "OpenAI Codex CLI" install-openai-codex-cli.sh
 run_step "Claude Code" install-claude-code.sh
-run_step "Shared AI instructions" install-ai-instructions.sh
+run_step "User AI instructions" install-user-ai-instructions.sh
 run_step "Python 3.13" install-python-3.13.sh
 run_step "PostgreSQL 18" install-postgresql-18.sh
 
