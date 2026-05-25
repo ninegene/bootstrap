@@ -244,9 +244,9 @@ When updating an existing skill:
 
 ## Reference Files
 
-| File | When to read |
-| --- | --- |
-| `references/schemas.md` | When generating `evals.json`, `grading.json`, `benchmark.json`, or `timing.json` |
-| `references/openai_yaml.md` | When creating or regenerating `agents/openai.yaml` |
-| `agents/grader.md` | When spawning a grader subagent |
-| `agents/analyzer.md` | When analyzing benchmark results |
+| File                        | When to read                                                                     |
+| --------------------------- | -------------------------------------------------------------------------------- |
+| `references/schemas.md`     | When generating `evals.json`, `grading.json`, `benchmark.json`, or `timing.json` |
+| `references/openai_yaml.md` | When creating or regenerating `agents/openai.yaml`                               |
+| `agents/grader.md`          | When spawning a grader subagent                                                  |
+| `agents/analyzer.md`        | When analyzing benchmark results                                                 |
