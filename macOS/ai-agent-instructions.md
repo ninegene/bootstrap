@@ -17,3 +17,10 @@
   This ensures continuity across multiple conversation sessions.
 - **Require both `AGENTS.md` and `CLAUDE.md` as symlink for a repository**: When generating `AGENTS.md` for a repository, also create a missing symlink `CLAUDE.md` that points to `AGENTS.md`. When asked to generate `CLAUDE.md` for a repository, write the content into `AGENTS.md` instead, then create a symlink `CLAUDE.md` → `AGENTS.md` (never write content directly into `CLAUDE.md` in a repo).
 - **Check current date and time for date-sensitive work** (e.g. web searches, package upgrades, version checks), check the current date and time before taking action so that the correct information is retrieved.
+- **Keep repo-level `AGENTS.md` up-to-date**: After any of the following changes, update the repo's `AGENTS.md` to reflect the new state:
+  - Adding, removing, or renaming install scripts
+  - Upgrading package, SDK, language, or library versions
+  - Changing directory structure or code architecture
+  - Adding or removing a runtime, tool, or dependency
+  - Changing script execution order or bootstrap steps
+  - Any other change that affects how the repo should be understood or used
