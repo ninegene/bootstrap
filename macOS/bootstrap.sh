@@ -71,6 +71,7 @@ run_step "Node.js 24" install-nodejs-24.sh
 run_step "uv (Python package manager)" install-uv.sh
 run_step "Hugging Face Hub CLI" install-huggingface-hub.sh
 run_step "OpenCode" install-opencode-cli.sh
+run_step "Crush" install-crush.sh
 run_step "OpenAI Codex CLI" install-openai-codex-cli.sh
 run_step "Claude Code" install-claude-code.sh
 run_step "User AI instructions" install-user-ai-instructions.sh
