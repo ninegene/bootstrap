@@ -21,11 +21,11 @@ if ! grep -q '^PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/b
     echo 'PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"' >>~/.zshrc
 fi
 
-open Postgres.app.dmg
+open /tmp/Postgres.app.dmg
 echo "
     1.  Move to Applications folder   ➜   Double Click
 
-    2. Open "Postgres.app" and click "Initialize" to create a new server
+    2. Open \"Postgres.app\" and click \"Initialize\" to create a new server
 
 More info: https://postgresapp.com/
 "
