@@ -2,7 +2,7 @@
 set -eo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEMPLATE_FILE="$SCRIPT_DIR/user-ai-instructions.md"
+TEMPLATE_FILE="$SCRIPT_DIR/ai-agent-instructions.md"
 
 link_if_missing() {
     local target_file="$1"

@@ -141,7 +141,7 @@ cd bootstrap/macOS
 ./install-crush.sh
 ./install-antigravity-cli.sh
 ./install-claude-code.sh
-./install-user-ai-instructions.sh
+./install-ai-agent-instructions.sh
 ./install-nvm.sh
 ./install-postgresql-18.sh
 ./install-shellcheck-and-shfmt.sh
@@ -155,7 +155,7 @@ brew doctor
 brew cleanup -s
 ```
 
-The user-level AI instruction template lives in [`macOS/user-ai-instructions.md`](macOS/user-ai-instructions.md). The installer symlinks it to the supported global locations for each AI tool:
+The user-level AI instruction template lives in [`macOS/ai-agent-instructions.md`](macOS/ai-agent-instructions.md). The installer symlinks it to the supported global locations for each AI tool:
 
 | Tool                 | Global instruction path                                   |
 | -------------------- | --------------------------------------------------------- |
@@ -165,6 +165,39 @@ The user-level AI instruction template lives in [`macOS/user-ai-instructions.md`
 | Codex                | `~/.codex/AGENTS.md`                                      |
 | Claude Code          | `~/.claude/CLAUDE.md`                                     |
 | Gemini CLI           | `~/.gemini/GEMINI.md`                                     |
+
+### User agent skills
+
+Reusable agent skills live in [`skills/`](skills/). Each skill is a directory containing a `SKILL.md` file with YAML frontmatter:
+
+```
+skills/
+└── my-skill/
+    └── SKILL.md
+```
+
+Minimal `SKILL.md` format (compatible across all tools):
+
+```markdown
+---
+name: my-skill
+description: What it does and when the agent should invoke it.
+---
+
+Instructions for the agent...
+```
+
+Run `./install-ai-agent-skills.sh` to symlink the skills folder to all supported tools:
+
+| Tool            | Skills path                                             | Notes                                             |
+| --------------- | ------------------------------------------------------- | ------------------------------------------------- |
+| Claude Code     | `~/.claude/skills/<skill>/`                             | per-skill dir symlinks (dir-level not followed)   |
+| GitHub Copilot  | `~/.copilot/skills/`                                    | also reads `~/.claude/skills/`                    |
+| OpenAI Codex    | `~/.codex/skills/`                                      | whole dir symlink                                 |
+| OpenCode        | `~/.config/opencode/skill/`                             | whole dir symlink (singular `skill/`)             |
+| Antigravity CLI | `~/.gemini/antigravity-cli/plugins/user-skills/skills/` | plugin-based; `plugin.json` created automatically |
+
+Adding a new skill to `skills/` automatically makes it available to all tools that support whole-dir symlinks. For Claude Code, re-run the installer to pick up new skill dirs.
 
 ## Git hooks (Lefthook)
 

@@ -7,7 +7,8 @@
   - Don't overwrite user changes or unrelated files.
   - Read the nearest instructions file first and obey the most specific one in scope.
   - Always give recommentations and ask users questions to guide the user through the process.
-- **No destructive changes without user confirmation**: Don't make any destructive changes to repositories, files, configurations, cloud resources etc. without explicit user confirmation.
+- **No destructive changes without user confirmation**: Don't make any destructive changes to repositories, files, configurations, cloud resources etc. without explicit user confirmation
+- **Never update production systems without explicit approval**: Always seek explicit approval before making changes to production systems.
 - **Keep track of token usage and compact context if exceeds 50%**: Compacting provides:
   - A comprehensive summary of all completed work
   - Key technical decisions and architectural context

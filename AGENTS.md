@@ -41,7 +41,7 @@ The recommended order for a fresh macOS setup (from [README.md](README.md) and `
 1. `install-xcode-command-line-tools.sh`, `install-homebrew.sh`, `setup-github-ssh-key.sh`
 2. `install-aws-cli.sh`, `install-github-cli.sh`, `install-search-and-navigation-tools.sh`, `install-shellcheck-and-shfmt.sh`, `install-lefthook.sh`, `install-gnu-packages.sh`
 3. `install-nvm.sh`, `install-pyenv.sh`, `install-ruby.sh`
-4. `install-go.sh`, `install-llama-cpp.sh`, `install-nodejs-24.sh`, `install-uv.sh`, `install-opencode-cli.sh`, `install-openai-codex-cli.sh`, `install-claude-code.sh`, `install-ai-instructions.sh`, `install-python-3.13.sh`, `install-postgresql-18.sh`
+4. `install-go.sh`, `install-llama-cpp.sh`, `install-nodejs-24.sh`, `install-uv.sh`, `install-opencode-cli.sh`, `install-crush.sh`, `install-antigravity-cli.sh`, `install-openai-codex-cli.sh`, `install-claude-code.sh`, `install-ai-agent-instructions.sh`, `install-ai-agent-skills.sh`, `install-python-3.13.sh`, `install-postgresql-18.sh`
 5. `install-zsh-git-prompt.sh`, `configure-iterm.sh`, `configure-git.sh`, `configure-vim.sh`, `configure-zsh.sh`
 
 ## Code Architecture
@@ -49,8 +49,31 @@ The recommended order for a fresh macOS setup (from [README.md](README.md) and `
 - **[macOS/](macOS/)** — Active macOS scripts (primary focus)
 - **[ubuntu-24.04/](ubuntu-24.04/)** — Active Ubuntu scripts (secondary)
 - **[archive/](archive/)** — Legacy scripts for older OS versions; reference only, not actively maintained
-- **[macOS/ai-instructions.md](macOS/ai-instructions.md)** / **[macOS/install-ai-instructions.sh](macOS/install-ai-instructions.sh)** — shared AI instruction template plus installer that symlinks it to Copilot, OpenCode, Codex, and Claude locations
+- **[macOS/ai-agent-instructions.md](macOS/ai-agent-instructions.md)** / **[macOS/install-ai-agent-instructions.sh](macOS/install-ai-agent-instructions.sh)** — user-level AI instruction template; installer symlinks it to global locations for Copilot, OpenCode, Codex, Claude, and Gemini
+- **[skills/](skills/)** / **[macOS/install-ai-agent-skills.sh](macOS/install-ai-agent-skills.sh)** — user-level agent skills; installer symlinks the folder to all supported tools (see below)
 - **[lefthook.yml](lefthook.yml)** — pre-commit hook config for `shellcheck`, `shfmt`, and `markdownlint`; installed by `bootstrap.sh` when Lefthook is available
+
+## Agent Skills
+
+Skills live in `skills/<name>/SKILL.md`. The minimum required frontmatter is:
+
+```yaml
+---
+name: skill-name
+description: What the skill does and when the agent should invoke it.
+---
+```
+
+Run `macOS/install-ai-agent-skills.sh` after adding a new skill. This creates symlinks in each tool's skills directory:
+
+| Coverage                      | Path                                                                    |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| Copilot, Codex, Crush, Gemini | `~/.agents/skills/` (one symlink covers all)                            |
+| OpenCode                      | `~/.config/opencode/skill/`                                             |
+| Antigravity CLI               | `~/.gemini/antigravity-cli/plugins/user-skills/skills/`                 |
+| Claude Code                   | `~/.claude/skills/<name>/` (per-skill; dir-level symlinks not followed) |
+
+Claude Code is the exception: it does not follow directory-level symlinks, so the installer loops over every skill dir in `skills/` and creates individual symlinks under `~/.claude/skills/`. Re-run the installer each time a new skill is added.
 
 ## Shell Script Conventions
 

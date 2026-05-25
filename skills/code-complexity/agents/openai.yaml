@@ -1,0 +1,3 @@
+interface:
+  display_name: "Code Complexity Analyser"
+  short_description: "Analyse and reduce code complexity"

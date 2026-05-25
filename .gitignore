@@ -9,3 +9,6 @@ tmp/
 *.code-workspace
 .idea/
 models/
+
+# Codex system skills
+skills/.system/

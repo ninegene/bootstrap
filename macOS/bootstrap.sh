@@ -75,7 +75,8 @@ run_step "Crush" install-crush.sh
 run_step "Antigravity CLI" install-antigravity-cli.sh
 run_step "OpenAI Codex CLI" install-openai-codex-cli.sh
 run_step "Claude Code" install-claude-code.sh
-run_step "User AI instructions" install-user-ai-instructions.sh
+run_step "AI agent instructions" install-ai-agent-instructions.sh
+run_step "AI agent skills" install-ai-agent-skills.sh
 run_step "Python 3.13" install-python-3.13.sh
 run_step "PostgreSQL 18" install-postgresql-18.sh
 
