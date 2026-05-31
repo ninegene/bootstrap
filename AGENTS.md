@@ -38,11 +38,11 @@ Use `lefthook run pre-commit` to run the staged repo checks (`shellcheck`, `shfm
 
 The recommended order for a fresh macOS setup (from [README.md](README.md) and `macOS/bootstrap.sh`):
 
-1. `install-xcode-command-line-tools.sh`, `install-homebrew.sh`, `setup-github-ssh-key.sh`
+1. `install-xcode-command-line-tools.sh`, `install-homebrew.sh`, `setup-github-ssh-key.sh`, `disable-spotlight-indexing.sh`
 2. `install-aws-cli.sh`, `install-github-cli.sh`, `install-search-and-navigation-tools.sh`, `install-shellcheck-and-shfmt.sh`, `install-lefthook.sh`, `install-gnu-packages.sh`
 3. `install-nvm.sh`, `install-pyenv.sh`, `install-ruby.sh`
-4. `install-go.sh`, `install-llama-cpp.sh`, `install-nodejs-24.sh`, `install-uv.sh`, `install-opencode-cli.sh`, `install-crush.sh`, `install-antigravity-cli.sh`, `install-openai-codex-cli.sh`, `install-claude-code.sh`, `install-ai-agent-instructions.sh`, `install-ai-agent-skills.sh`, `install-python-3.13.sh`, `install-postgresql-18.sh`, `install-elixir.sh`
-5. `install-zsh-git-prompt.sh`, `configure-iterm.sh`, `configure-git.sh`, `configure-vim.sh`, `configure-zsh.sh`
+4. `install-go.sh`, `install-llama-cpp.sh`, `install-nodejs-24.sh`, `install-uv.sh`, `install-huggingface-hub.sh`, `install-opencode-cli.sh`, `install-crush.sh`, `install-antigravity-cli.sh`, `install-openai-codex-cli.sh`, `install-claude-code.sh`, `install-ai-agent-instructions.sh`, `install-ai-agent-skills.sh`, `install-python-3.13.sh`, `install-postgresql-18.sh`, `install-elixir.sh`
+5. `configure-iterm.sh`, `configure-git.sh`, `configure-vim.sh`, `configure-zsh.sh`, `configure-opencode.sh`, `configure-claude-code.sh`
 
 ## Code Architecture
 
@@ -51,6 +51,9 @@ The recommended order for a fresh macOS setup (from [README.md](README.md) and `
 - **[archive/](archive/)** — Legacy scripts for older OS versions; reference only, not actively maintained
 - **[macOS/ai-agent-instructions.md](macOS/ai-agent-instructions.md)** / **[macOS/install-ai-agent-instructions.sh](macOS/install-ai-agent-instructions.sh)** — user-level AI instruction template; installer symlinks it to global locations for Copilot, OpenCode, Codex, Claude, and Gemini
 - **[skills/](skills/)** / **[macOS/install-ai-agent-skills.sh](macOS/install-ai-agent-skills.sh)** — user-level agent skills; installer symlinks the folder to all supported tools (see below)
+- **[models/](models/)** — local LLM model storage for llama.cpp; `download-qwen27b.sh` downloads Qwen3.6-27B-MTP-GGUF here from HuggingFace
+- **[macOS/configure-opencode.sh](macOS/configure-opencode.sh)** — configures OpenCode with a local llama.cpp provider pointed at the Qwen model
+- **[macOS/configure-claude-code.sh](macOS/configure-claude-code.sh)** — prints Claude Code local usage notes (no file changes)
 - **[lefthook.yml](lefthook.yml)** — pre-commit hook config for `shellcheck`, `shfmt`, and `markdownlint`; installed by `bootstrap.sh` when Lefthook is available
 
 ## Agent Skills
